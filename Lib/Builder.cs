@@ -8,4 +8,9 @@ public class Builder
     {
         return [];
     }
+
+    public static Point Build(int x, int y)
+    {
+        return new Point(x, y);
+    }
 }

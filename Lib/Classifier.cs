@@ -6,6 +6,11 @@ public class Classifier
 {
     public static IShape Classify(Point[] points)
     {
-        return new EmptyShape();
+        if(0 == points.Length)
+        {
+            return new EmptyShape();
+        }
+
+        return points[0];
     }
 }
