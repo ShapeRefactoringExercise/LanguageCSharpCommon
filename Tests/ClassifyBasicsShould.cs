@@ -1,6 +1,6 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 // using System.Collections.Generic;
-// using Shape.Lib;
+using Shape.Lib;
 // using Shape.Lib.Types;
 
 namespace Shape.Tests
@@ -8,15 +8,15 @@ namespace Shape.Tests
     [TestClass]
     public class ClassifyBasicsShould
     {
-        // [TestMethod]
-        // public void ClassifyAnEmptyArrayAsEmpty()
-        // {
-        //     var points = Builder.Build();
-        //     var result = Classifier.Classify(points);
-        //
-        //     Assert.AreEqual("Empty", result.Type);
-        // }
-        //
+        [TestMethod]
+        public void ClassifyAnEmptyArrayAsEmpty()
+        {
+            var points = Builder.Build();
+            var result = Classifier.Classify(points);
+
+            Assert.AreEqual("Empty", result.Type);
+        }
+
         // [TestMethod]
         // public void ClassifyASinglePointAsPoint()
         // {
