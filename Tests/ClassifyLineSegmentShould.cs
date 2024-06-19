@@ -14,50 +14,62 @@ namespace Shape.Tests
             var p2 = Builder.Build(50, 0);
 
             var result = Classifier.Classify(new[] { p1, p2 });
+            
             Assert.AreEqual(result.Type, "Line Segment");
+            
+            var segment = (LineSegment)result;
+            Assert.AreEqual(p1, segment.P1);
+            Assert.AreEqual(p2, segment.P2);
+            Assert.IsNull(segment.Slope);
+        }
+
+        [TestMethod]
+        public void ContainDifferentPointsThatCreatedIt()
+        {
+            var p1 = Builder.Build(25, -3);
+            var p2 = Builder.Build(-20, 11);
+        
+            var result = Classifier.Classify(new[] { p1, p2 });
+            
+            Assert.AreEqual(result.Type, "Line Segment");
+            
             var segment = (LineSegment)result;
             Assert.AreEqual(p1, segment.P1);
             Assert.AreEqual(p2, segment.P2);
         }
-
-        // [TestMethod]
-        // public void ContainDifferentPointsThatCreatedIt()
-        // {
-        //     var p1 = Builder.Build(25, -3);
-        //     var p2 = Builder.Build(-20, 11);
-        //
-        //     var result = Classifier.Classify(new[] { p1, p2 });
-        //     
-        //     Assert.AreEqual(p1, result.P1);
-        //     Assert.AreEqual(p2, result.P2);
-        // }
-        //
-        // [TestMethod]
-        // public void ContainLengthOfFiveFor0_0And0_5()
-        // {
-        //     var points = Builder.Build(
-        //         (0, 0),
-        //         (0, 5)
-        //     );
-        //
-        //     var result = Classifier.Classify(points);
-        //     
-        //     Assert.AreEqual(5, result.Length, 0.001);
-        // }
-        //
-        // [TestMethod]
-        // public void ContainLengthOf50For0_0And50_0()
-        // {
-        //     var points = Builder.Build(
-        //         (0, 0),
-        //         (50, 0)
-        //     );
-        //
-        //     var result = Classifier.Classify(points);
-        //     
-        //     Assert.AreEqual(50, result.Length, 0.001);
-        // }
-        //
+        
+        [TestMethod]
+        public void ContainLengthOfFiveFor0_0And0_5()
+        {
+            var points = Builder.Build(
+                (0, 0),
+                (0, 5)
+            );
+        
+            var result = Classifier.Classify(points);
+            
+            Assert.AreEqual(result.Type, "Line Segment");
+            
+            var segment = (LineSegment)result;
+            Assert.AreEqual(5, segment.Length, 0.001);
+        }
+        
+        [TestMethod]
+        public void ContainLengthOf50For0_0And50_0()
+        {
+            var points = Builder.Build(
+                (0, 0),
+                (50, 0)
+            );
+        
+            var result = Classifier.Classify(points);
+            
+            Assert.AreEqual(result.Type, "Line Segment");
+            
+            var segment = (LineSegment)result;
+            Assert.AreEqual(50, segment.Length, 0.001);
+        }
+        
         // [TestMethod]
         // public void ContainLengthOf5For1_4And5_7()
         // {
