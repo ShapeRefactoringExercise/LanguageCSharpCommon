@@ -38,7 +38,7 @@ public class EmptyShape: IShape
 public class LineSegment(Point a, Point b) : IShape
 {
     public string Type => "Line Segment";
-    public Point A { get; } = a;
-    public Point B { get; } = b;
-    public int? Slope { get; } = null;
+    public Point P1 { get; } = a;
+    public Point P2 { get; } = b;
+    public decimal? Slope { get; } = null;
 }
