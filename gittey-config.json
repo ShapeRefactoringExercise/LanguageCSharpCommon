@@ -17,6 +17,11 @@
             "description": "runs tests and commits if the tests succeed"
         },
         {
+            "name": "push",
+            "command": "gittey test && git push",
+            "description": "runs tests commits and pushes if tests succeed"
+        },
+        {
             "name": "check",
             "command": "npx rimrafx **/TestResults && npx rimrafx **/coveragereport && cls && dotnet test --collect:\"XPlat Code Coverage\" && reportgenerator -reports:.\\Tests\\TestResults\\**\\coverage.cobertura.xml -targetdir:\"coveragereport\" -reporttypes:Html && start ./coveragereport/index.htm",
             "description": "runs tests but does not commit -- Try to avoid this one unless debugging"

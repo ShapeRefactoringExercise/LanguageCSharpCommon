@@ -11,6 +11,11 @@ public class Classifier
             return new EmptyShape();
         }
 
+        if (2 == points.Length)
+        {
+            return new LineSegment(points[0], points[1]);
+        }
+
         return points[0];
     }
 }
