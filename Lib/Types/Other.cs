@@ -20,6 +20,7 @@ public class Other: IShape
 
         Length = segments.Sum(s => s.Length);
     }
+
     public string Type => "Other";
 
     public Point[] Points { get; }

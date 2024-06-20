@@ -7,21 +7,21 @@ namespace Shape.Tests
     [TestClass]
     public class ClassifyRectangleShould
     {
-        // [TestMethod]
-        // public void ClassifyFivePointsWhereFirstFourAreDistinctAndLastOneMatchesFirstAndAllAnglesAreRightAsRectangle()
-        // {
-        //     var points = Builder.Build(
-        //         (0, 0),
-        //         (0, 4),
-        //         (3, 4),
-        //         (3, 0),
-        //         (0, 0)
-        //     );
-        //
-        //     var result = Classifier.Classify(points);
-        //     Assert.AreEqual("Rectangle", result.Type);
-        // }
-        //
+        [TestMethod]
+        public void ClassifyFivePointsWhereFirstFourAreDistinctAndLastOneMatchesFirstAndAllAnglesAreRightAsRectangle()
+        {
+            var points = Builder.Build(
+                (0, 0),
+                (0, 4),
+                (3, 4),
+                (3, 0),
+                (0, 0)
+            );
+
+            var result = Classifier.Classify(points);
+            Assert.AreEqual("Rectangle", result.Type);
+        }
+
         // [TestMethod]
         // public void ClassifyFiveDistinctPointsAsOther()
         // {

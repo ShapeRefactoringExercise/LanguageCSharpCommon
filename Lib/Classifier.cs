@@ -30,8 +30,6 @@ public class Classifier
 
     public static IShape Classify(Point[] points)
     {
-        var distinct = GetDistinct(points);
-
         if(0 == points.Length)
         {
             return new EmptyShape();
@@ -42,12 +40,19 @@ public class Classifier
             return points[0];
         }
 
-        if (2 == points.Length && distinct.Length == points.Length)
+        var segments = GetSegments(points);
+        var distinctSegments = GetSegments(GetDistinct(points));
+
+        if (1 == segments.Length && distinctSegments.Length == segments.Length)
         {
-            return new LineSegment(points[0], points[1]);
+            return segments[0];
         }
 
-        var segments = GetSegments(points);
+        if (4 == segments.Length)
+        {
+            return new Rectangle(segments[0], segments[1], segments[2], segments[3]);
+        }
+
         return new Other(segments);
     }
 }
