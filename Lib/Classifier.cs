@@ -2,7 +2,7 @@
 
 namespace Shape.Lib;
 
-public class Classifier
+public static class Classifier
 {
     private static Point[] GetDistinct(Point[] points)
     {
@@ -11,6 +11,7 @@ public class Classifier
 
     private static LineSegment[] GetSegments(Point[] points)
     {
+        Point start = points.First();
         Point pLast = null;
         var segments = new List<LineSegment>();
         foreach (var point in points)
@@ -48,7 +49,7 @@ public class Classifier
             return segments[0];
         }
 
-        if (4 == segments.Length)
+        if (4 == segments.Length && 3 == distinctSegments.Length)
         {
             return new Rectangle(segments[0], segments[1], segments[2], segments[3]);
         }

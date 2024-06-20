@@ -23,4 +23,9 @@ public class Point(double x, double y): IShape
     public double X { get; } = x;
     public double Y { get; } = y;
     public string Type => "Point";
+
+    public override string ToString()
+    {
+        return $"({X}, {Y})";
+    }
 }

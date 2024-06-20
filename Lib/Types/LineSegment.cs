@@ -27,4 +27,9 @@ public class LineSegment : IShape
 
     public Maybe<double> Slope { get; }
     public double Length { get; }
+
+    public override string ToString()
+    {
+        return $"{P1} -> {P2}";
+    }
 }
