@@ -8,6 +8,26 @@ public class Classifier
     {
         return points.Distinct().ToArray();
     }
+
+    private static LineSegment[] GetSegments(Point[] points)
+    {
+        Point pLast = null;
+        var segments = new List<LineSegment>();
+        foreach (var point in points)
+        {
+            if (pLast == null)
+            {
+                pLast = point;
+                continue;
+            }
+
+            segments.Add(new LineSegment(pLast, point));
+            pLast = point;
+        }
+
+        return segments.ToArray();
+    }
+
     public static IShape Classify(Point[] points)
     {
         var distinct = GetDistinct(points);
@@ -27,6 +47,7 @@ public class Classifier
             return new LineSegment(points[0], points[1]);
         }
 
-        return new Other(points);
+        var segments = GetSegments(points);
+        return new Other(segments);
     }
 }

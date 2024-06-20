@@ -87,33 +87,33 @@ namespace Shape.Tests
             Assert.IsTrue(result.IsOpen, "Open");
             Assert.IsFalse(result.IsClosed, "Closed");
         }
-        
-        // [TestMethod]
-        // public void CalculateTheLengthOfAShapeWIthThreePoints()
-        // {
-        //     var (_, result) = GetOther(
-        //         (0, 0),
-        //         (0, 3),
-        //         (3, 3)
-        //     );
-        //
-        //     Assert.AreEqual(6, result.Length, 0.001);
-        // }
-        //
-        // [TestMethod]
-        // public void CalculateTheLengthOfAShape()
-        // {
-        //     var (_, result) = GetOther(
-        //         (0, 0),
-        //         (0, 3),
-        //         (3, 3),
-        //         (3, 0),
-        //         (0, 0),
-        //         (-3, 0),
-        //         (-3, -3)
-        //     );
-        //
-        //     Assert.AreEqual(18, result.Length, 0.001);
-        // }
+
+        [TestMethod]
+        public void CalculateTheLengthOfAShapeWIthThreePoints()
+        {
+            var (_, result) = GetOther(
+                (0, 0),
+                (0, 3),
+                (3, 3)
+            );
+
+            Assert.AreEqual(6, result.Length, 0.001);
+        }
+
+        [TestMethod]
+        public void CalculateTheLengthOfAShape()
+        {
+            var (_, result) = GetOther(
+                (0, 0),
+                (0, 3),
+                (3, 3),
+                (3, 0),
+                (0, 0),
+                (-3, 0),
+                (-3, -3)
+            );
+
+            Assert.AreEqual(18, result.Length, 0.001);
+        }
     }
 }
