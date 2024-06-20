@@ -31,5 +31,12 @@ namespace Shape.Tests
             Assert.AreEqual(point.X, rPoint.X);
             Assert.AreEqual(point.Y, rPoint.Y);
         }
+
+        [TestMethod]
+        public void PointShouldHaveToString()
+        {
+            var point = Builder.Build(45.5, 30);
+            Assert.AreEqual(point.ToString(), "(45.5, 30)");
+        }
     }
 }
