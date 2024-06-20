@@ -153,5 +153,14 @@ namespace Shape.Tests
             Assert.IsFalse(segment.Slope.IsSome);
             Assert.IsTrue(segment.Slope.IsNone);
         }
+
+        [TestMethod]
+        public void HaveToString()
+        {
+            var points = Builder.Build((45, -52), (-20, -20));
+            var segment = Classifier.Classify(points);
+
+            Assert.AreEqual(segment.ToString(), "(45, -52) -> (-20, -20)");
+        }
     }
 }
