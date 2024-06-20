@@ -82,67 +82,76 @@ namespace Shape.Tests
             Assert.AreEqual(result.Type, "Line Segment");
 
             var segment = (LineSegment)result;
-
             Assert.AreEqual(5, segment.Length, 0.001);
         }
 
-        // [TestMethod]
-        // public void HaveASlopeOfZeroWhenBothPointsHaveSameY()
-        // {
-        //     const int y = 4;
-        //     var points = Builder.Build(
-        //         (1, y),
-        //         (5, y)
-        //     );
-        //
-        //     var result = Classifier.Classify(points);
-        //
-        //     Assert.AreEqual(result.Type, "Line Segment");
-        //
-        //     var segment = (LineSegment)result;
-        //     Assert.IsTrue(segment.Slope.IsSome);
-        //     Assert.AreEqual(0, segment.Slope.Value, 0.001);
-        // }
+        [TestMethod]
+        public void HaveASlopeOfZeroWhenBothPointsHaveSameY()
+        {
+            const int y = 4;
+            var points = Builder.Build(
+                (1, y),
+                (5, y)
+            );
 
-        // [TestMethod]
-        // public void HaveSlopeOfOneWhenXAndYChangeBySameAmount()
-        // {
-        //     const int change = 4;
-        //     var p1 = Builder.Build(1, 4);
-        //     var p2 = Builder.Build(p1.X + change, p1.Y + change);
-        //
-        //     var result = Classifier.Classify(new[] { p1, p2 });
-        //
-        //     Assert.IsTrue(result.Slope.IsSome);
-        //     Assert.AreEqual(1, result.Slope.Value, 0.001);
-        // }
-        //
-        // [TestMethod]
-        // public void HaveSlopeNegFour()
-        // {
-        //     var points = Builder.Build(
-        //         (0, 0),
-        //         (-1, 4)
-        //     );
-        //
-        //     var result = Classifier.Classify(points);
-        //
-        //     Assert.IsTrue(result.Slope.IsSome);
-        //     Assert.AreEqual(-4, result.Slope.Value, 0.001);
-        // }
-        //
-        // [TestMethod]
-        // public void NotHaveSlopeIfBothPointsHaveSameX()
-        // {
-        //     const int x = 3;
-        //     var points = Builder.Build(
-        //         (x, 0),
-        //         (x, 4)
-        //     );
-        //
-        //     var result = Classifier.Classify(points);
-        //
-        //     Assert.IsFalse(result.Slope.IsSome);
-        // }
+            var result = Classifier.Classify(points);
+
+            Assert.AreEqual(result.Type, "Line Segment");
+
+            var segment = (LineSegment)result;
+            Assert.IsTrue(segment.Slope.IsSome);
+            Assert.AreEqual(0, segment.Slope.Value, 0.001);
+        }
+
+        [TestMethod]
+        public void HaveSlopeOfOneWhenXAndYChangeBySameAmount()
+        {
+            const int change = 4;
+            var p1 = Builder.Build(1, 4);
+            var p2 = Builder.Build(p1.X + change, p1.Y + change);
+
+            var result = Classifier.Classify(new[] { p1, p2 });
+
+            Assert.AreEqual(result.Type, "Line Segment");
+
+            var segment = (LineSegment)result;
+            Assert.IsTrue(segment.Slope.IsSome);
+            Assert.AreEqual(1, segment.Slope.Value, 0.001);
+        }
+
+        [TestMethod]
+        public void HaveSlopeNegFour()
+        {
+            var points = Builder.Build(
+                (0, 0),
+                (-1, 4)
+            );
+
+            var result = Classifier.Classify(points);
+
+            Assert.AreEqual(result.Type, "Line Segment");
+
+            var segment = (LineSegment)result;
+            Assert.IsTrue(segment.Slope.IsSome);
+            Assert.AreEqual(-4, segment.Slope.Value, 0.001);
+        }
+
+        [TestMethod]
+        public void NotHaveSlopeIfBothPointsHaveSameX()
+        {
+            const int x = 3;
+            var points = Builder.Build(
+                (x, 0),
+                (x, 4)
+            );
+
+            var result = Classifier.Classify(points);
+
+            Assert.AreEqual(result.Type, "Line Segment");
+
+            var segment = (LineSegment)result;
+            Assert.IsFalse(segment.Slope.IsSome);
+            Assert.IsTrue(segment.Slope.IsNone);
+        }
     }
 }
