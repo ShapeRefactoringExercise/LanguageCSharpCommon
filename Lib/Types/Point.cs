@@ -1,6 +1,6 @@
 ﻿namespace Shape.Lib.Types;
 
-public class Point(int x, int y): IShape
+public class Point(double x, double y): IShape
 {
     private bool Equals(Point other)
     {
@@ -20,7 +20,7 @@ public class Point(int x, int y): IShape
         return HashCode.Combine(X, Y);
     }
 
-    public int X { get; } = x;
-    public int Y { get; } = y;
+    public double X { get; } = x;
+    public double Y { get; } = y;
     public string Type => "Point";
 }

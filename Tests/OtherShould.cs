@@ -1,31 +1,34 @@
-﻿// using System.Collections;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-// using Shape.Lib;
-// using Shape.Lib.Types;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Shape.Lib;
+using Shape.Lib.Types;
 
 namespace Shape.Tests
 {
     [TestClass]
     public class OtherShould
     {
-        // private static (dynamic[], dynamic) GetOther(params (double, double)[] coords)
-        // {
-        //     var points = Builder.Build(coords);
-        //
-        //     return (points, Classifier.Classify(points));
-        // }
-        //
-        // [TestMethod]
-        // public void ContainThePointsThatConstructedIt()
-        // {
-        //     var (points, result) = GetOther(
-        //         (0, 0),
-        //         (0, 0)
-        //     );
-        //
-        //     CollectionAssert.AreEquivalent(points, (ICollection)result.Points);
-        // }
-        //
+        private static (Point[], Other) GetOther(params (double, double)[] coords)
+        {
+            var points = Builder.Build(coords);
+
+            var shape = Classifier.Classify(points);
+
+            Assert.AreEqual(shape.Type, "Other");
+
+            return (points, (Other)shape);
+        }
+
+        [TestMethod]
+        public void ContainThePointsThatConstructedIt()
+        {
+            var (points, result) = GetOther(
+                (0, 0),
+                (0, 0)
+            );
+
+            CollectionAssert.AreEquivalent(points, result.Points);
+        }
+
         // [TestMethod]
         // public void ContainsPointsWhenThereAreFourDistinctPoints()
         // {
