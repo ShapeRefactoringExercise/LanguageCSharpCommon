@@ -1,6 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-// using Shape.Lib;
-// using Shape.Lib.Types;
+using Shape.Lib;
+using Shape.Lib.Types;
 
 namespace Shape.Tests
 {
