@@ -29,49 +29,49 @@ namespace Shape.Tests
             CollectionAssert.AreEquivalent(points, result.Points);
         }
 
-        // [TestMethod]
-        // public void ContainsPointsWhenThereAreFourDistinctPoints()
-        // {
-        //     var (points, result) = GetOther(
-        //         (0, 0),
-        //         (0, 5),
-        //         (3, 5),
-        //         (0, 1)
-        //     );
-        //
-        //     CollectionAssert.AreEquivalent(points, (ICollection)result.Points);
-        // }
-        //
-        // [TestMethod]
-        // public void ContainsPointsForOpenShapeWithDuplicatePoints()
-        // {
-        //     var (points, result) = GetOther(
-        //         (0, 0),
-        //         (0, 5),
-        //         (0, 0),
-        //         (0, 1)
-        //     );
-        //
-        //     CollectionAssert.AreEquivalent(points, (ICollection)result.Points, $"{result.Type}");
-        // }
-        //
-        // [TestMethod]
-        // public void KnowClosedShapeIsClosedAndNotOpen()
-        // {
-        //     var (_, result) = GetOther(
-        //         (0, 0),
-        //         (0, 3),
-        //         (3, 3),
-        //         (0, 0),
-        //         (-3, 0),
-        //         (-3, -3),
-        //         (0, 0)
-        //     );
-        //
-        //     Assert.IsTrue(result.IsClosed, "Closed");
-        //     Assert.IsFalse(result.IsOpen, "Open");
-        // }
-        //
+        [TestMethod]
+        public void ContainsPointsWhenThereAreFourDistinctPoints()
+        {
+            var (points, result) = GetOther(
+                (0, 0),
+                (0, 5),
+                (3, 5),
+                (0, 1)
+            );
+
+            CollectionAssert.AreEquivalent(points, result.Points);
+        }
+
+        [TestMethod]
+        public void ContainsPointsForOpenShapeWithDuplicatePoints()
+        {
+            var (points, result) = GetOther(
+                (0, 0),
+                (0, 5),
+                (0, 0),
+                (0, 1)
+            );
+
+            CollectionAssert.AreEquivalent(points, result.Points, $"{result.Type}");
+        }
+
+        [TestMethod]
+        public void KnowClosedShapeIsClosedAndNotOpen()
+        {
+            var (_, result) = GetOther(
+                (0, 0),
+                (0, 3),
+                (3, 3),
+                (0, 0),
+                (-3, 0),
+                (-3, -3),
+                (0, 0)
+            );
+
+            Assert.IsTrue(result.IsClosed, "Closed");
+            Assert.IsFalse(result.IsOpen, "Open");
+        }
+        
         // [TestMethod]
         // public void KnowOpenShapeIsOpenAndNotClosed()
         // {
