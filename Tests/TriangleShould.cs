@@ -7,7 +7,16 @@ namespace Shape.Tests
     [TestClass]
     public class TriangleShould
     {
-        private Triangle GetTriangle(Point p1, Point p2, Point p3)
+        private static Triangle GetTriangle(params (double, double)[] coords)
+        {
+            var points = Builder.Build(coords);
+            var shape = Classifier.Classify(points);
+
+            Assert.AreEqual(shape.Type, "Triangle");
+            return (Triangle)shape;
+        }
+
+        private static Triangle GetTriangle(Point p1, Point p2, Point p3)
         {
             var shape = Classifier.Classify(new[] { p1, p2, p3, p1 });
 
@@ -43,82 +52,78 @@ namespace Shape.Tests
             Assert.AreEqual(p3, result.P3);
         }
 
-        // [TestMethod]
-        // public void HaveLegLengthsOfThreeFourFive()
-        // {
-        //     var points = Builder.Build(
-        //         (0, 0),
-        //         (0, 3),
-        //         (4, 3),
-        //         (0, 0)
-        //     );
-        //
-        //     var result = Classifier.Classify(points);
-        //
-        //     Assert.AreEqual("Line Segment", result.SideA.Type);
-        //     Assert.AreEqual("Line Segment", result.SideB.Type);
-        //     Assert.AreEqual("Line Segment", result.SideC.Type);
-        //
-        //     Assert.AreEqual(result.P1, result.SideA.P1);
-        //     Assert.AreEqual(result.P2, result.SideA.P2);
-        //
-        //     Assert.AreEqual(result.P2, result.SideB.P1);
-        //     Assert.AreEqual(result.P3, result.SideB.P2);
-        //
-        //     Assert.AreEqual(result.P3, result.SideC.P1);
-        //     Assert.AreEqual(result.P1, result.SideC.P2);
-        //
-        //     Assert.AreEqual(3, result.SideA.Length, 0.001);
-        //     Assert.AreEqual(4, result.SideB.Length, 0.001);
-        //     Assert.AreEqual(5, result.SideC.Length, 0.001);
-        //
-        //     Assert.IsFalse(result.SideA.Slope.IsSome, "SideA.Slope.IsSome");
-        //
-        //     Assert.IsTrue(result.SideB.Slope.IsSome, "SideB.Slope.IsSome");
-        //     Assert.AreEqual(0, result.SideB.Slope.Value, 0.001);
-        //
-        //     Assert.IsTrue(result.SideC.Slope.IsSome, "SideC.Slope.IsSome");
-        //     Assert.AreEqual(0.75, result.SideC.Slope.Value, 0.001);
-        // }
-        //
-        // [TestMethod]
-        // public void HaveLegLengthsOfTwelveSixteenTwenty()
-        // {
-        //     var points = Builder.Build(
-        //         (0, 0),
-        //         (0, 12),
-        //         (16, 12),
-        //         (0, 0)
-        //     );
-        //
-        //     var result = Classifier.Classify(points);
-        //
-        //     Assert.AreEqual("Line Segment", result.SideA.Type);
-        //     Assert.AreEqual("Line Segment", result.SideB.Type);
-        //     Assert.AreEqual("Line Segment", result.SideC.Type);
-        //
-        //     Assert.AreEqual(result.P1, result.SideA.P1);
-        //     Assert.AreEqual(result.P2, result.SideA.P2);
-        //
-        //     Assert.AreEqual(result.P2, result.SideB.P1);
-        //     Assert.AreEqual(result.P3, result.SideB.P2);
-        //
-        //     Assert.AreEqual(result.P3, result.SideC.P1);
-        //     Assert.AreEqual(result.P1, result.SideC.P2);
-        //
-        //     Assert.AreEqual(12, result.SideA.Length, 0.001);
-        //     Assert.AreEqual(16, result.SideB.Length, 0.001);
-        //     Assert.AreEqual(20, result.SideC.Length, 0.001);
-        //
-        //     Assert.IsFalse(result.SideA.Slope.IsSome, "SideA.Slope.IsSome");
-        //
-        //     Assert.IsTrue(result.SideB.Slope.IsSome, "SideA.Slope.IsSome");
-        //     Assert.AreEqual(0, result.SideB.Slope.Value, 0.001);
-        //
-        //     Assert.IsTrue(result.SideC.Slope.IsSome, "SideC.Slope.IsSome");
-        //     Assert.AreEqual(0.75, result.SideC.Slope.Value, 0.001);
-        // }
-        //
+        [TestMethod]
+        public void HaveLegLengthsOfThreeFourFive()
+        {
+            var result = GetTriangle(
+                (0, 0),
+                (0, 3),
+                (4, 3),
+                (0, 0)
+            );
+
+            Assert.AreEqual("Line Segment", result.SideA.Type);
+            Assert.AreEqual("Line Segment", result.SideB.Type);
+            Assert.AreEqual("Line Segment", result.SideC.Type);
+
+            Assert.AreEqual(result.P1, result.SideA.P1);
+            Assert.AreEqual(result.P2, result.SideA.P2);
+
+            Assert.AreEqual(result.P2, result.SideB.P1);
+            Assert.AreEqual(result.P3, result.SideB.P2);
+
+            Assert.AreEqual(result.P3, result.SideC.P1);
+            Assert.AreEqual(result.P1, result.SideC.P2);
+
+            Assert.AreEqual(3, result.SideA.Length, 0.001);
+            Assert.AreEqual(4, result.SideB.Length, 0.001);
+            Assert.AreEqual(5, result.SideC.Length, 0.001);
+
+            Assert.IsFalse(result.SideA.Slope.IsSome, "SideA.Slope.IsSome");
+
+            Assert.IsTrue(result.SideB.Slope.IsSome, "SideB.Slope.IsSome");
+            Assert.AreEqual(0, result.SideB.Slope.Value, 0.001);
+
+            Assert.IsTrue(result.SideC.Slope.IsSome, "SideC.Slope.IsSome");
+            Assert.AreEqual(0.75, result.SideC.Slope.Value, 0.001);
+        }
+
+        [TestMethod]
+        public void HaveLegLengthsOfTwelveSixteenTwenty()
+        {
+            var result = GetTriangle(
+                (0, 0),
+                (0, 12),
+                (16, 12),
+                (0, 0)
+            );
+
+            Assert.AreEqual("Line Segment", result.SideA.Type);
+            Assert.AreEqual("Line Segment", result.SideB.Type);
+            Assert.AreEqual("Line Segment", result.SideC.Type);
+
+            Assert.AreEqual(result.P1, result.SideA.P1);
+            Assert.AreEqual(result.P2, result.SideA.P2);
+
+            Assert.AreEqual(result.P2, result.SideB.P1);
+            Assert.AreEqual(result.P3, result.SideB.P2);
+
+            Assert.AreEqual(result.P3, result.SideC.P1);
+            Assert.AreEqual(result.P1, result.SideC.P2);
+
+            Assert.AreEqual(12, result.SideA.Length, 0.001);
+            Assert.AreEqual(16, result.SideB.Length, 0.001);
+            Assert.AreEqual(20, result.SideC.Length, 0.001);
+
+            Assert.IsFalse(result.SideA.Slope.IsSome, "SideA.Slope.IsSome");
+
+            Assert.IsTrue(result.SideB.Slope.IsSome, "SideA.Slope.IsSome");
+            Assert.AreEqual(0, result.SideB.Slope.Value, 0.001);
+
+            Assert.IsTrue(result.SideC.Slope.IsSome, "SideC.Slope.IsSome");
+            Assert.AreEqual(0.75, result.SideC.Slope.Value, 0.001);
+        }
+
         // [TestMethod]
         // public void HaveAnglesRightTriangleOfThreeFourFive()
         // {

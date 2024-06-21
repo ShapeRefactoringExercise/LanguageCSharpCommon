@@ -2,16 +2,24 @@
 
 public class Triangle: IShape
 {
-    public Triangle(LineSegment side1, LineSegment side2, LineSegment side3)
+    public Triangle(LineSegment sideA, LineSegment sideB, LineSegment sideC)
     {
-        P1 = side1.P1;
-        P2 = side2.P1;
-        P3 = side3.P1;
+        SideA = sideA;
+        SideB = sideB;
+        SideC = sideC;
+
+        P1 = SideA.P1;
+        P2 = SideB.P1;
+        P3 = SideC.P1;
     }
 
     public Point P1 { get; }
     public Point P2 { get; }
     public Point P3 { get; }
+
+    public LineSegment SideA { get; }
+    public LineSegment SideB { get; }
+    public LineSegment SideC { get; }
 
     public string Type => "Triangle";
 }
