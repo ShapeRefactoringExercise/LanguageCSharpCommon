@@ -43,13 +43,15 @@ public static class Classifier
 
         var segments = GetSegments(points);
         var distinctSegments = GetSegments(GetDistinct(points));
+        var pStart = points.First();
+        var pEnd = points.Last();
 
         if (1 == segments.Length && distinctSegments.Length == segments.Length)
         {
             return segments[0];
         }
 
-        if (4 == segments.Length && 3 == distinctSegments.Length && segments[0].Length.IsEquivalent(segments[2].Length) && segments[1].Length.IsEquivalent(segments[3].Length))
+        if (4 == segments.Length && 3 == distinctSegments.Length && segments[0].Length.IsEquivalentTo(segments[2].Length) && segments[1].Length.IsEquivalentTo(segments[3].Length))
         {
             return new Rectangle(segments[0], segments[1], segments[2], segments[3]);
         }

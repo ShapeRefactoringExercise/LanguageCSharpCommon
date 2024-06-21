@@ -82,5 +82,20 @@ namespace Shape.Tests
             var result = Classifier.Classify(points);
             Assert.AreEqual("Other", result.Type);
         }
+
+        [TestMethod]
+        public void ClassifyFivePointsThatDoNotClose()
+        {
+            var points = Builder.Build(
+                (0, 0),
+                (0, 4),
+                (3, 4),
+                (6, 4),
+                (6, 0)
+            );
+
+            var result = Classifier.Classify(points);
+            Assert.AreEqual("Other", result.Type);
+        }
     }
 }

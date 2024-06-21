@@ -4,7 +4,7 @@ public class Point(double x, double y): IShape
 {
     private bool Equals(Point other)
     {
-        return X == other.X && Y == other.Y;
+        return X.IsEquivalentTo(other.X) && Y.IsEquivalentTo(other.Y);
     }
 
     public override bool Equals(object? obj)

@@ -7,7 +7,7 @@ public static class MathHelper
         return Math.Abs(a - b) <= 0.001;
     }
 
-    public static bool IsEquivalent(this double a, double b)
+    public static bool IsEquivalentTo(this double a, double b)
     {
         return AreEquivalent(a, b);
     }
