@@ -14,6 +14,7 @@ public class Rectangle : IShape
         P3 = SideC.P1;
         P4 = SideD.P1;
 
+        Perimeter = (2 * SideA.Length) + (2 * SideB.Length);
         Area = SideA.Length * SideB.Length;
     }
 
@@ -27,6 +28,7 @@ public class Rectangle : IShape
     public LineSegment SideC { get; }
     public LineSegment SideD { get; }
 
+    public double Perimeter { get; }
     public double Area { get; }
 
     public string Type => "Rectangle";

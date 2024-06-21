@@ -95,20 +95,20 @@ namespace Shape.Tests
             }
         }
 
-        // [TestMethod]
-        // public void CalculatePerimeter()
-        // {
-        //     var random = new Random();
-        //
-        //     void Check(dynamic result, double x, double y, double height, double length, IReadOnlyList<dynamic> points)
-        //     {
-        //         Assert.AreEqual(2 * (height + length), result.Perimeter, 0.001, $"l: {length}, h: {height}, x:{x}, y: {y}");
-        //     }
-        //
-        //     for (var i = 0; i < 100; i++)
-        //     {
-        //         CheckRectangle(random, Check);
-        //     }
-        // }
+        [TestMethod]
+        public void CalculatePerimeter()
+        {
+            var random = new Random();
+
+            void Check(Rectangle result, double x, double y, double height, double length, IReadOnlyList<Point> points)
+            {
+                Assert.AreEqual(2 * (height + length), result.Perimeter, 0.001, $"l: {length}, h: {height}, x:{x}, y: {y}");
+            }
+
+            for (var i = 0; i < 100; i++)
+            {
+                CheckRectangle(random, Check);
+            }
+        }
     }
 }
