@@ -69,7 +69,7 @@ namespace Shape.Tests
         }
 
         [TestMethod]
-        public void ClassifyFivePointsThatDoNotFormRightAnglesAsOther()
+        public void ClassifyFivePointsThatDoNotHaveOpositeSidesSameLength()
         {
             var points = Builder.Build(
                 (0, 0),
