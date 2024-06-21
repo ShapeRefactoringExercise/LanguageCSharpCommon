@@ -68,8 +68,7 @@ namespace Shape.Tests
             Assert.AreEqual("Other", result.Type);
         }
 
-        [Ignore("to have angles")]
-        // [TestMethod]
+        [TestMethod]
         public void ClassifyFivePointsThatDoNotFormRightAnglesAsOther()
         {
             var points = Builder.Build(

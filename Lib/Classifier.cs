@@ -49,7 +49,7 @@ public static class Classifier
             return segments[0];
         }
 
-        if (4 == segments.Length && 3 == distinctSegments.Length)
+        if (4 == segments.Length && 3 == distinctSegments.Length && segments[0].Length.IsEquivalent(segments[2].Length) && segments[1].Length.IsEquivalent(segments[3].Length))
         {
             return new Rectangle(segments[0], segments[1], segments[2], segments[3]);
         }
