@@ -79,22 +79,22 @@ namespace Shape.Tests
             }
         }
 
-        // [TestMethod]
-        // public void CalculatesArea()
-        // {
-        //     var random = new Random();
-        //
-        //     void Check(dynamic result, double x, double y, double height, double length, IReadOnlyList<dynamic> points)
-        //     {
-        //         Assert.AreEqual(height * length, result.Area, 0.001, $"l: {length}, h: {height}, x:{x}, y: {y}");
-        //     }
-        //
-        //     for (var i = 0; i < 100; i++)
-        //     {
-        //         CheckRectangle(random, Check);
-        //     }
-        // }
-        //
+        [TestMethod]
+        public void CalculatesArea()
+        {
+            var random = new Random();
+
+            void Check(Rectangle result, double x, double y, double height, double length, IReadOnlyList<Point> points)
+            {
+                Assert.AreEqual(height * length, result.Area, 0.001, $"l: {length}, h: {height}, x:{x}, y: {y}");
+            }
+
+            for (var i = 0; i < 100; i++)
+            {
+                CheckRectangle(random, Check);
+            }
+        }
+
         // [TestMethod]
         // public void CalculatePerimeter()
         // {
