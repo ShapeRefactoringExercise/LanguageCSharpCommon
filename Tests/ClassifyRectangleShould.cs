@@ -1,6 +1,5 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Shape.Lib;
-using Shape.Lib.Types;
 
 namespace Shape.Tests
 {
@@ -93,6 +92,9 @@ namespace Shape.Tests
                 (5, 4),
                 (2, 1)
             );
+
+            var result = Classifier.Classify(points);
+            Assert.AreEqual(result.Type, "Rectangle");
         }
     }
 }
