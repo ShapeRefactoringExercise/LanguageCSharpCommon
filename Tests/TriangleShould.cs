@@ -1,40 +1,48 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-// using Shape.Lib;
-// using Shape.Lib.Types;
+using Shape.Lib;
+using Shape.Lib.Types;
 
 namespace Shape.Tests
 {
     [TestClass]
     public class TriangleShould
     {
-        // [TestMethod]
-        // public void ContainTheDistinctPointsThatConstructedIt()
-        // {
-        //     var p1 = Builder.Build(0, 0);
-        //     var p2 = Builder.Build(0, 5);
-        //     var p3 = Builder.Build(3, 5);
-        //
-        //     var result = Classifier.Classify(new[] { p1, p2, p3, p1 });
-        //
-        //     Assert.AreEqual(p1, result.P1);
-        //     Assert.AreEqual(p2, result.P2);
-        //     Assert.AreEqual(p3, result.P3);
-        // }
-        //
-        // [TestMethod]
-        // public void ContainDifferentPointsItsConstructedWith()
-        // {
-        //     var p1 = Builder.Build(60, 90);
-        //     var p2 = Builder.Build(-1, 5);
-        //     var p3 = Builder.Build(-50, -5);
-        //
-        //     var result = Classifier.Classify(new[] { p1, p2, p3, p1 });
-        //
-        //     Assert.AreEqual(p1, result.P1);
-        //     Assert.AreEqual(p2, result.P2);
-        //     Assert.AreEqual(p3, result.P3);
-        // }
-        //
+        private Triangle GetTriangle(Point p1, Point p2, Point p3)
+        {
+            var shape = Classifier.Classify(new[] { p1, p2, p3, p1 });
+
+            Assert.AreEqual(shape.Type, "Triangle");
+            return (Triangle)shape;
+        }
+
+        [TestMethod]
+        public void ContainTheDistinctPointsThatConstructedIt()
+        {
+            var p1 = Builder.Build(0, 0);
+            var p2 = Builder.Build(0, 5);
+            var p3 = Builder.Build(3, 5);
+
+            var result = GetTriangle(p1, p2, p3);
+
+            Assert.AreEqual(p1, result.P1);
+            Assert.AreEqual(p2, result.P2);
+            Assert.AreEqual(p3, result.P3);
+        }
+
+        [TestMethod]
+        public void ContainDifferentPointsItsConstructedWith()
+        {
+            var p1 = Builder.Build(60, 90);
+            var p2 = Builder.Build(-1, 5);
+            var p3 = Builder.Build(-50, -5);
+
+            var result = GetTriangle(p1, p2, p3);
+
+            Assert.AreEqual(p1, result.P1);
+            Assert.AreEqual(p2, result.P2);
+            Assert.AreEqual(p3, result.P3);
+        }
+
         // [TestMethod]
         // public void HaveLegLengthsOfThreeFourFive()
         // {
