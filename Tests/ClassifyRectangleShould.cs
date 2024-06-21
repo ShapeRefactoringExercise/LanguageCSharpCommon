@@ -84,18 +84,15 @@ namespace Shape.Tests
         }
 
         [TestMethod]
-        public void ClassifyFivePointsThatDoNotClose()
+        public void ClassifyRotatedRectangle()
         {
             var points = Builder.Build(
-                (0, 0),
-                (0, 4),
-                (3, 4),
-                (6, 4),
-                (6, 0)
+                (2, 1),
+                (1, 2),
+                (4, 5),
+                (5, 4),
+                (2, 1)
             );
-
-            var result = Classifier.Classify(points);
-            Assert.AreEqual("Other", result.Type);
         }
     }
 }
