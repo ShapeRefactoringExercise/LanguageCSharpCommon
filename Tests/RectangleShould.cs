@@ -1,50 +1,54 @@
-﻿// using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-// using Shape.Lib;
-// using Shape.Lib.Types;
+using Shape.Lib;
+using Shape.Lib.Types;
 
 namespace Shape.Tests
 {
     [TestClass]
     public class RectangleShould
     {
-        // private static (dynamic[] points, dynamic result) GetRectangle(double x, double y, double height, double length)
-        // {
-        //     var points = Builder.Build(
-        //         (x, y),
-        //         (x + height, y),
-        //         (x + height, y + length),
-        //         (x, y + length),
-        //         (x, y)
-        //     );
-        //
-        //     var result = Classifier.Classify(points);
-        //     return (points, result);
-        // }
-        //
-        // private static void CheckRectangle(Random random, Action<dynamic, double, double, double, double, IReadOnlyList<dynamic>> check)
-        // {
-        //     var length = random.NextDouble() * 100;
-        //     var height = random.NextDouble() * 100;
-        //     var x = random.NextDouble() * 10;
-        //     var y = random.NextDouble() * 10;
-        //
-        //     var (points, result) = GetRectangle(x, y, height, length);
-        //
-        //     check(result, x, y, height, length, points);
-        // }
-        //
-        // [TestMethod]
-        // public void ContainTheDistinctPointsThatCreatedIt()
-        // {
-        //     var (points, result) = GetRectangle(0, 0, 3, 4);
-        //
-        //     Assert.AreEqual(points[0], result.P1);
-        //     Assert.AreEqual(points[1], result.P2);
-        //     Assert.AreEqual(points[2], result.P3);
-        //     Assert.AreEqual(points[3], result.P4);
-        // }
-        //
+        private static (Point[] points, Rectangle result) GetRectangle(double x, double y, double height, double length)
+        {
+            var points = Builder.Build(
+                (x, y),
+                (x + height, y),
+                (x + height, y + length),
+                (x, y + length),
+                (x, y)
+            );
+
+            var shape = Classifier.Classify(points);
+            Assert.AreEqual(shape.Type, "Rectangle");
+
+            var result = (Rectangle)shape;
+            return (points, result);
+        }
+
+        private static void CheckRectangle(Random random, Action<Rectangle, double, double, double, double, IReadOnlyList<Point>> check)
+        {
+            var length = random.NextDouble() * 100;
+            var height = random.NextDouble() * 100;
+            var x = random.NextDouble() * 10;
+            var y = random.NextDouble() * 10;
+
+            var (points, result) = GetRectangle(x, y, height, length);
+
+            check(result, x, y, height, length, points);
+        }
+
+        [TestMethod]
+        public void ContainTheDistinctPointsThatCreatedIt()
+        {
+            var (points, result) = GetRectangle(0, 0, 3, 4);
+
+            Assert.AreEqual(points[0], result.P1);
+            Assert.AreEqual(points[1], result.P2);
+            Assert.AreEqual(points[2], result.P3);
+            Assert.AreEqual(points[3], result.P4);
+        }
+
         // [TestMethod]
         // public void ContainLineSegments()
         // {
