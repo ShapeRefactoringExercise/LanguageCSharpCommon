@@ -96,5 +96,21 @@ namespace Shape.Tests
             var result = Classifier.Classify(points);
             Assert.AreEqual(result.Type, "Rectangle");
         }
+
+        [TestMethod]
+        [Ignore("Requires Angles")]
+        public void ClassifyEqualateralFourSideObectWithoutRightAnglesAsOther()
+        {
+            var points = Builder.Build(
+                (0, 0),
+                (0, 4),
+                (1, 5),
+                (1, 1),
+                (0, 0)
+            );
+
+            var result = Classifier.Classify(points);
+            Assert.AreEqual(result.Type, "Other");
+        }
     }
 }
