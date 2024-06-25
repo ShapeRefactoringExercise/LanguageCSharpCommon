@@ -16,6 +16,8 @@ public class Triangle: IShape
         AngleB = new Angle(P3, P1, P2);
         AngleC = new Angle(P1, P2, P3);
 
+        Perimeter = sideA.Length + sideB.Length + sideC.Length;
+
         Area = 0.25 * Math.Sqrt(
             (sideA.Length + sideB.Length + sideC.Length)
             * (-(sideA.Length) + sideB.Length + sideC.Length)
@@ -35,6 +37,8 @@ public class Triangle: IShape
     public Angle AngleA { get; }
     public Angle AngleB { get; }
     public Angle AngleC { get; }
+
+    public double Perimeter { get; }
 
     public double Area { get; }
 

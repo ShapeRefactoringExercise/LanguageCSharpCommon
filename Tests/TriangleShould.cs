@@ -275,35 +275,29 @@ namespace Shape.Tests
             Assert.AreEqual(6, result.Area, 0.001);
         }
 
-        // [TestMethod]
-        // public void CalculateThePerimeterOfAnEquilateralTriangle()
-        // {
-        //     const double a = 16;
-        //     var points = Builder.Build(
-        //         (0, 0),
-        //         (a, 0),
-        //         (a / 2.0, (Math.Sqrt(3) * a) / 2.0),
-        //         (0, 0)
-        //     );
-        //
-        //     var result = Classifier.Classify(points);
-        //
-        //     Assert.AreEqual(a * 3, result.Perimeter, 0.001);
-        // }
-        //
-        // [TestMethod]
-        // public void CalculateThePerimeterOfThreeFourFiveTriangle()
-        // {
-        //     var points = Builder.Build(
-        //         (0, 0),
-        //         (3, 0),
-        //         (3, 4),
-        //         (0, 0)
-        //     );
-        //
-        //     var result = Classifier.Classify(points);
-        //
-        //     Assert.AreEqual(12, result.Perimeter, 0.001);
-        // }
+        [TestMethod]
+        public void CalculateThePerimeterOfAnEquilateralTriangle()
+        {
+            const double a = 16;
+            var result = GetTriangle(
+                (0, 0),
+                (a, 0),
+                (a / 2.0, (Math.Sqrt(3) * a) / 2.0)
+            );
+
+            Assert.AreEqual(a * 3, result.Perimeter, 0.001);
+        }
+
+        [TestMethod]
+        public void CalculateThePerimeterOfThreeFourFiveTriangle()
+        {
+            var result = GetTriangle(
+                (0, 0),
+                (3, 0),
+                (3, 4)
+            );
+
+            Assert.AreEqual(12, result.Perimeter, 0.001);
+        }
     }
 }
