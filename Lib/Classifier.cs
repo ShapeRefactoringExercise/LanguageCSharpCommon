@@ -75,7 +75,7 @@ public static class Classifier
     {
         if(0 == points.Length)
         {
-            return new EmptyShape();
+            return new AllShape { Type = "Empty" };
         }
 
         if (1 == points.Length)
