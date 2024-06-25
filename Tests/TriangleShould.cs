@@ -34,9 +34,9 @@ namespace Shape.Tests
 
             var result = GetTriangle(p1, p2, p3);
 
-            Assert.AreEqual(p1, result.PB);
-            Assert.AreEqual(p2, result.PC);
-            Assert.AreEqual(p3, result.PA);
+            Assert.AreEqual(p1, result.P1);
+            Assert.AreEqual(p2, result.P2);
+            Assert.AreEqual(p3, result.P3);
         }
 
         [TestMethod]
@@ -48,9 +48,9 @@ namespace Shape.Tests
 
             var result = GetTriangle(p1, p2, p3);
 
-            Assert.AreEqual(p1, result.PB);
-            Assert.AreEqual(p2, result.PC);
-            Assert.AreEqual(p3, result.PA);
+            Assert.AreEqual(p1, result.P1);
+            Assert.AreEqual(p2, result.P2);
+            Assert.AreEqual(p3, result.P3);
         }
 
         [TestMethod]
@@ -67,14 +67,14 @@ namespace Shape.Tests
             Assert.AreEqual("Line Segment", result.SideB.Type);
             Assert.AreEqual("Line Segment", result.SideC.Type);
 
-            Assert.AreEqual(result.PB, result.SideA.P1);
-            Assert.AreEqual(result.PC, result.SideA.P2);
+            Assert.AreEqual(result.P1, result.SideA.P1);
+            Assert.AreEqual(result.P2, result.SideA.P2);
 
-            Assert.AreEqual(result.PC, result.SideB.P1);
-            Assert.AreEqual(result.PA, result.SideB.P2);
+            Assert.AreEqual(result.P2, result.SideB.P1);
+            Assert.AreEqual(result.P3, result.SideB.P2);
 
-            Assert.AreEqual(result.PA, result.SideC.P1);
-            Assert.AreEqual(result.PB, result.SideC.P2);
+            Assert.AreEqual(result.P3, result.SideC.P1);
+            Assert.AreEqual(result.P1, result.SideC.P2);
 
             Assert.AreEqual(3, result.SideA.Length, 0.001);
             Assert.AreEqual(4, result.SideB.Length, 0.001);
@@ -103,14 +103,14 @@ namespace Shape.Tests
             Assert.AreEqual("Line Segment", result.SideB.Type);
             Assert.AreEqual("Line Segment", result.SideC.Type);
 
-            Assert.AreEqual(result.PB, result.SideA.P1);
-            Assert.AreEqual(result.PC, result.SideA.P2);
+            Assert.AreEqual(result.P1, result.SideA.P1);
+            Assert.AreEqual(result.P2, result.SideA.P2);
 
-            Assert.AreEqual(result.PC, result.SideB.P1);
-            Assert.AreEqual(result.PA, result.SideB.P2);
+            Assert.AreEqual(result.P2, result.SideB.P1);
+            Assert.AreEqual(result.P3, result.SideB.P2);
 
-            Assert.AreEqual(result.PA, result.SideC.P1);
-            Assert.AreEqual(result.PB, result.SideC.P2);
+            Assert.AreEqual(result.P3, result.SideC.P1);
+            Assert.AreEqual(result.P1, result.SideC.P2);
 
             Assert.AreEqual(12, result.SideA.Length, 0.001);
             Assert.AreEqual(16, result.SideB.Length, 0.001);
@@ -135,9 +135,9 @@ namespace Shape.Tests
                 (0, 0)
             );
 
-            Assert.AreEqual(result.PC, result.AngleA.P1, "AngleA P1");
-            Assert.AreEqual(result.PA, result.AngleA.Vertex, "AngleA Vertex");
-            Assert.AreEqual(result.PB, result.AngleA.P2, "AngleA P2");
+            Assert.AreEqual(result.P2, result.AngleA.P1, "AngleA P1");
+            Assert.AreEqual(result.P3, result.AngleA.Vertex, "AngleA Vertex");
+            Assert.AreEqual(result.P1, result.AngleA.P2, "AngleA P2");
             Assert.AreEqual(36.87, result.AngleA.Degrees, 0.001);
 
             Assert.AreEqual(result.SideB.P1, result.AngleA.SideA.P1, "AngleA SideA P1");
@@ -148,9 +148,9 @@ namespace Shape.Tests
             Assert.AreEqual(result.SideC.P1, result.AngleA.SideB.P2, "AngleA SideB P2");
             Assert.AreEqual(result.SideC.Length, result.AngleA.SideB.Length, "AngleA SideB Length");
 
-            Assert.AreEqual(result.PA, result.AngleB.P1, "AngleB P1"); //
-            Assert.AreEqual(result.PB, result.AngleB.Vertex, "AngeleB Vertex");
-            Assert.AreEqual(result.PC, result.AngleB.P2, "AngleB P2"); //
+            Assert.AreEqual(result.P3, result.AngleB.P1, "AngleB P1"); //
+            Assert.AreEqual(result.P1, result.AngleB.Vertex, "AngeleB Vertex");
+            Assert.AreEqual(result.P2, result.AngleB.P2, "AngleB P2"); //
             Assert.AreEqual(53.13, result.AngleB.Degrees, 0.001);
 
             Assert.AreEqual(result.SideC.P1, result.AngleB.SideA.P1, "AngleB SideA P1");
@@ -161,9 +161,9 @@ namespace Shape.Tests
             Assert.AreEqual(result.SideA.P1, result.AngleB.SideB.P2, "AngleB SideA P2");
             Assert.AreEqual(result.SideA.Length, result.AngleB.SideB.Length, "AngleA SideA Length");
 
-            Assert.AreEqual(result.PB, result.AngleC.P1, "AngleC P1");
-            Assert.AreEqual(result.PC, result.AngleC.Vertex, "AngleC Vertex");
-            Assert.AreEqual(result.PA, result.AngleC.P2, "AngleC P2");
+            Assert.AreEqual(result.P1, result.AngleC.P1, "AngleC P1");
+            Assert.AreEqual(result.P2, result.AngleC.Vertex, "AngleC Vertex");
+            Assert.AreEqual(result.P3, result.AngleC.P2, "AngleC P2");
             Assert.AreEqual(90, result.AngleC.Degrees, 0.001);
 
             Assert.AreEqual(result.SideA.P1, result.AngleC.SideA.P1, "AngleC SideA P1");
@@ -175,119 +175,113 @@ namespace Shape.Tests
             Assert.AreEqual(result.SideB.Length, result.AngleC.SideB.Length, "AngleA SideA Length");
         }
 
-        // [TestMethod]
-        // public void CorrectlyHandleThirtySixtyNinetyTriangle()
-        // {
-        //     const double a = 3.0;
-        //     var b = a * Math.Sqrt(3);
-        //
-        //
-        //     var result = GetTriangle(
-        //         (a, 0),
-        //         (0, 0),
-        //         (0, b)
-        //     );
-        //
-        //     Assert.AreEqual(a, result.SideA.Length, 0.001);
-        //     Assert.AreEqual(b, result.SideB.Length, 0.001);
-        //     Assert.AreEqual(2 * a, result.SideC.Length, 0.001);
-        //
-        //     Assert.IsTrue(result.SideA.Slope.IsSome, "SideA.Slope.IsSome");
-        //     Assert.AreEqual(0, result.SideA.Slope.Value, 0.001);
-        //
-        //     Assert.IsFalse(result.SideB.Slope.IsSome, "SideB.Slope.IsSome");
-        //
-        //     Assert.IsTrue(result.SideC.Slope.IsSome, "SideC.Slope.IsSome");
-        //     Assert.AreEqual(-1.732, result.SideC.Slope.Value, 0.001);
-        //
-        //     Assert.AreEqual(30, result.AngleA.Degrees, 0.001);
-        //     Assert.AreEqual(60, result.AngleB.Degrees, 0.001);
-        //     Assert.AreEqual(90, result.AngleC.Degrees, 0.001);
-        //
-        //     Assert.AreEqual(7.794, result.Area, 0.001);
-        // }
+        [TestMethod]
+        public void CorrectlyHandleThirtySixtyNinetyTriangle()
+        {
+            const double a = 3.0;
+            var b = a * Math.Sqrt(3);
 
-        // [TestMethod]
-        // public void CorrectlyHandleFirstAndLastPointOnSameX()
-        // {
-        //
-        //     var points = Builder.Build(
-        //         (1, 0),
-        //         (0, 0),
-        //         (1, 2),
-        //         (1, 0)
-        //     );
-        //
-        //     var result = Classifier.Classify(points);
-        //
-        //     Assert.AreEqual(1, result.SideA.Length, 0.001);
-        //     Assert.AreEqual(2.236, result.SideB.Length, 0.001);
-        //     Assert.AreEqual(2, result.SideC.Length, 0.001);
-        //
-        //     Assert.IsTrue(result.SideA.Slope.IsSome, "SideA.Slope.IsSome");
-        //     Assert.AreEqual(0, result.SideA.Slope.Value, 0.001);
-        //
-        //     Assert.IsTrue(result.SideB.Slope.IsSome, "SideB.Slope.IsSome");
-        //     Assert.AreEqual(2, result.SideB.Slope.Value, 0.001);
-        //
-        //     Assert.IsFalse(result.SideC.Slope.IsSome, "SideC.Slope.IsSome");
-        //
-        //     Assert.AreEqual(26.565, result.AngleA.Degrees, 0.001);
-        //     Assert.AreEqual(90, result.AngleB.Degrees, 0.001);
-        //     Assert.AreEqual(63.434, result.AngleC.Degrees, 0.001);
-        //
-        //     Assert.AreEqual(1, result.Area, 0.001);
-        // }
-        //
-        // [TestMethod]
-        // public void CorrectlyHandleFortyFiveFortyFiveNinetyTriangle()
-        // {
-        //     const double change = 3;
-        //     const double x = 0;
-        //     const double y = 0;
-        //     var points = Builder.Build(
-        //         (x, y),
-        //         (x + change, y),
-        //         (x + change, change + y),
-        //         (x, y)
-        //     );
-        //
-        //     var result = Classifier.Classify(points);
-        //
-        //     Assert.AreEqual(45, result.AngleA.Degrees, 0.001);
-        //     Assert.AreEqual(45, result.AngleB.Degrees, 0.001);
-        //     Assert.AreEqual(90, result.AngleC.Degrees, 0.001);
-        //     Assert.AreEqual(4.5, result.Area, 0.001);
-        // }
-        //
-        // [TestMethod]
-        // public void CalculateTheAreaOfEquilateralTriangle()
-        // {
-        //     const double a = 16;
-        //     var p1 = Builder.Build(0, 0);
-        //     var p2 = Builder.Build(a, 0);
-        //     var p3 = Builder.Build(a / 2.0, (Math.Sqrt(3) * a) / 2.0);
-        //
-        //     var result = Classifier.Classify(new[] { p1, p2, p3, p1 });
-        //
-        //     Assert.AreEqual(110.851, result.Area, 0.001);
-        // }
-        //
-        // [TestMethod]
-        // public void CalculateAreaOfThreeFourFiveTriangle()
-        // {
-        //     var points = Builder.Build(
-        //         (0, 0),
-        //         (0, 3),
-        //         (4, 3),
-        //         (0, 0)
-        //     );
-        //
-        //     var result = Classifier.Classify(points);
-        //
-        //     Assert.AreEqual(6, result.Area, 0.001);
-        // }
-        //
+
+            var result = GetTriangle(
+                (a, 0),
+                (0, 0),
+                (0, b),
+                (a, 0)
+            );
+
+            Assert.AreEqual(a, result.SideA.Length, 0.001);
+            Assert.AreEqual(b, result.SideB.Length, 0.001);
+            Assert.AreEqual(2 * a, result.SideC.Length, 0.001);
+
+            Assert.IsTrue(result.SideA.Slope.IsSome, "SideA.Slope.IsSome");
+            Assert.AreEqual(0, result.SideA.Slope.Value, 0.001);
+
+            Assert.IsFalse(result.SideB.Slope.IsSome, "SideB.Slope.IsSome");
+
+            Assert.IsTrue(result.SideC.Slope.IsSome, "SideC.Slope.IsSome");
+            Assert.AreEqual(-1.732, result.SideC.Slope.Value, 0.001);
+
+            Assert.AreEqual(30, result.AngleA.Degrees, 0.001);
+            Assert.AreEqual(60, result.AngleB.Degrees, 0.001);
+            Assert.AreEqual(90, result.AngleC.Degrees, 0.001);
+
+            Assert.AreEqual(7.794, result.Area, 0.001);
+        }
+
+        [TestMethod]
+        public void CorrectlyHandleFirstAndLastPointOnSameX()
+        {
+            var result = GetTriangle(
+                (1, 0),
+                (0, 0),
+                (1, 2),
+                (1, 0)
+            );
+
+            Assert.AreEqual(1, result.SideA.Length, 0.001);
+            Assert.AreEqual(2.236, result.SideB.Length, 0.001);
+            Assert.AreEqual(2, result.SideC.Length, 0.001);
+
+            Assert.IsTrue(result.SideA.Slope.IsSome, "SideA.Slope.IsSome");
+            Assert.AreEqual(0, result.SideA.Slope.Value, 0.001);
+
+            Assert.IsTrue(result.SideB.Slope.IsSome, "SideB.Slope.IsSome");
+            Assert.AreEqual(2, result.SideB.Slope.Value, 0.001);
+
+            Assert.IsFalse(result.SideC.Slope.IsSome, "SideC.Slope.IsSome");
+
+            Assert.AreEqual(26.565, result.AngleA.Degrees, 0.001);
+            Assert.AreEqual(90, result.AngleB.Degrees, 0.001);
+            Assert.AreEqual(63.434, result.AngleC.Degrees, 0.001);
+
+            Assert.AreEqual(1, result.Area, 0.001);
+        }
+
+        [TestMethod]
+        public void CorrectlyHandleFortyFiveFortyFiveNinetyTriangle()
+        {
+            const double change = 3;
+            const double x = 0;
+            const double y = 0;
+            var result = GetTriangle(
+                (x, y),
+                (x + change, y),
+                (x + change, change + y),
+                (x, y)
+            );
+
+            Assert.AreEqual(45, result.AngleA.Degrees, 0.001);
+            Assert.AreEqual(45, result.AngleB.Degrees, 0.001);
+            Assert.AreEqual(90, result.AngleC.Degrees, 0.001);
+            Assert.AreEqual(4.5, result.Area, 0.001);
+        }
+
+        [TestMethod]
+        public void CalculateTheAreaOfEquilateralTriangle()
+        {
+            const double a = 16;
+            var p1 = Builder.Build(0, 0);
+            var p2 = Builder.Build(a, 0);
+            var p3 = Builder.Build(a / 2.0, (Math.Sqrt(3) * a) / 2.0);
+
+            var result = GetTriangle(p1, p2, p3);
+
+            Assert.AreEqual(110.851, result.Area, 0.001);
+        }
+
+        [TestMethod]
+        public void CalculateAreaOfThreeFourFiveTriangle()
+        {
+            var result = GetTriangle(
+                (0, 0),
+                (0, 3),
+                (4, 3),
+                (0, 0)
+            );
+
+            Assert.AreEqual(6, result.Area, 0.001);
+        }
+
         // [TestMethod]
         // public void CalculateThePerimeterOfAnEquilateralTriangle()
         // {

@@ -8,18 +8,25 @@ public class Triangle: IShape
         SideB = sideB;
         SideC = sideC;
 
-        PB = SideA.P1;
-        PC = SideB.P1;
-        PA = SideC.P1;
+        P1 = SideA.P1; // PB
+        P2 = SideB.P1; // PC
+        P3 = SideC.P1; // PA
 
-        AngleA = new Angle(PC, PA, PB);
-        AngleB = new Angle(PA, PB, PC);
-        AngleC = new Angle(PB, PC, PA);
+        AngleA = new Angle(P2, P3, P1);
+        AngleB = new Angle(P3, P1, P2);
+        AngleC = new Angle(P1, P2, P3);
+
+        Area = 0.25 * Math.Sqrt(
+            (sideA.Length + sideB.Length + sideC.Length)
+            * (-(sideA.Length) + sideB.Length + sideC.Length)
+            * (sideA.Length - sideB.Length + sideC.Length)
+            * (sideA.Length + sideB.Length - sideC.Length)
+        );
     }
 
-    public Point PB { get; }
-    public Point PC { get; }
-    public Point PA { get; }
+    public Point P1 { get; }
+    public Point P2 { get; }
+    public Point P3 { get; }
 
     public LineSegment SideA { get; }
     public LineSegment SideB { get; }
@@ -28,5 +35,8 @@ public class Triangle: IShape
     public Angle AngleA { get; }
     public Angle AngleB { get; }
     public Angle AngleC { get; }
+
+    public double Area { get; }
+
     public string Type => "Triangle";
 }
