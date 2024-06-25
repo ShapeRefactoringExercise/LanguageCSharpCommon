@@ -8,9 +8,9 @@ namespace Shape.Tests
     [TestClass]
     public class TriangleShould
     {
-        private static Triangle GetTriangle(params (double, double)[] coords)
+        private static Triangle GetTriangle ((double, double) c1, (double, double) c2, (double, double) c3)
         {
-            var points = Builder.Build(coords);
+            var points = Builder.Build(new[] { c1, c2, c3, c1 });
             var shape = Classifier.Classify(points);
 
             Assert.AreEqual(shape.Type, "Triangle");
@@ -59,8 +59,7 @@ namespace Shape.Tests
             var result = GetTriangle(
                 (0, 0),
                 (0, 3),
-                (4, 3),
-                (0, 0)
+                (4, 3)
             );
 
             Assert.AreEqual("Line Segment", result.SideA.Type);
@@ -95,8 +94,7 @@ namespace Shape.Tests
             var result = GetTriangle(
                 (0, 0),
                 (0, 12),
-                (16, 12),
-                (0, 0)
+                (16, 12)
             );
 
             Assert.AreEqual("Line Segment", result.SideA.Type);
@@ -131,8 +129,7 @@ namespace Shape.Tests
             var result = GetTriangle(
                 (0, 0),
                 (0, 3),
-                (4, 3),
-                (0, 0)
+                (4, 3)
             );
 
             Assert.AreEqual(result.P2, result.AngleA.P1, "AngleA P1");
@@ -185,8 +182,7 @@ namespace Shape.Tests
             var result = GetTriangle(
                 (a, 0),
                 (0, 0),
-                (0, b),
-                (a, 0)
+                (0, b)
             );
 
             Assert.AreEqual(a, result.SideA.Length, 0.001);
@@ -214,8 +210,7 @@ namespace Shape.Tests
             var result = GetTriangle(
                 (1, 0),
                 (0, 0),
-                (1, 2),
-                (1, 0)
+                (1, 2)
             );
 
             Assert.AreEqual(1, result.SideA.Length, 0.001);
@@ -246,8 +241,7 @@ namespace Shape.Tests
             var result = GetTriangle(
                 (x, y),
                 (x + change, y),
-                (x + change, change + y),
-                (x, y)
+                (x + change, change + y)
             );
 
             Assert.AreEqual(45, result.AngleA.Degrees, 0.001);
@@ -275,8 +269,7 @@ namespace Shape.Tests
             var result = GetTriangle(
                 (0, 0),
                 (0, 3),
-                (4, 3),
-                (0, 0)
+                (4, 3)
             );
 
             Assert.AreEqual(6, result.Area, 0.001);
