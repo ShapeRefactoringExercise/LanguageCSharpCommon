@@ -56,7 +56,19 @@ public static class Classifier
 
     private static bool AllAreRight(Angle[] angles)
     {
-        return angles.All(a => a.Degrees.IsEquivalentTo(90));
+        var lastAngle = 90.0;
+        foreach (var angle in angles)
+        {
+            if (lastAngle.IsEquivalentTo(90))
+            {
+                lastAngle = angle.Degrees;
+                continue;
+            }
+
+            return lastAngle.IsEquivalentTo(90);
+        }
+
+        return lastAngle.IsEquivalentTo(90);
     }
 
     public static IShape Classify(Point[] points)
