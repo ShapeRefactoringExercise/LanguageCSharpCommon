@@ -84,8 +84,8 @@ public static class Classifier
         }
 
         var distinctPoints = GetDistinct(points);
-        var pStart = points.First();
-        var pEnd = points.Last();
+        var pStart = points[0];
+        var pEnd = points[^1];
         var path = GetPath(points);
 
         if (2 == points.Length && 2 == distinctPoints.Length)
