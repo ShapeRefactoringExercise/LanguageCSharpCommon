@@ -6,7 +6,18 @@ public static class Classifier
 {
     private static Point[] GetDistinct(Point[] points)
     {
-        return points.Distinct().ToArray();
+        var ret = new List<Point>();
+        foreach (var point in points)
+        {
+            if (ret.Contains(point))
+            {
+                continue;
+            }
+
+            ret.Add(point);
+        }
+
+        return ret.ToArray();
     }
 
     private static LineSegment[] GetPath(Point[] points)
