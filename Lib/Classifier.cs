@@ -11,7 +11,6 @@ public static class Classifier
 
     private static LineSegment[] GetPath(Point[] points)
     {
-        Point start = points.First();
         Point pLast = null;
         var segments = new List<LineSegment>();
         foreach (var point in points)
@@ -27,6 +26,26 @@ public static class Classifier
         }
 
         return segments.ToArray();
+    }
+
+    private static Angle[] GetAngles(Point[] points)
+    {
+        var angles = new List<Angle>();
+        for (int i = 2; i < points.Length; i++)
+        {
+            var p1 = points[i - 2];
+            var vertex = points[i - 1];
+            var p2 = points[i];
+
+            angles.Add(new Angle(p1, vertex, p2));
+        }
+
+        return angles.ToArray();
+    }
+
+    private static bool AllAreRight(Angle[] angles)
+    {
+        return angles.All(a => a.Degrees.IsEquivalentTo(90));
     }
 
     public static IShape Classify(Point[] points)
@@ -56,7 +75,8 @@ public static class Classifier
             return new Triangle(path[0], path[1], path[2]);
         }
 
-        if (5 == points.Length && 4 == distinctPoints.Length && Equals(pStart, pEnd) && path[0].Length.IsEquivalentTo(path[2].Length) && path[1].Length.IsEquivalentTo(path[3].Length))
+        var angles = GetAngles(points);
+        if (5 == points.Length && 4 == distinctPoints.Length && Equals(pStart, pEnd) && path[0].Length.IsEquivalentTo(path[2].Length) && path[1].Length.IsEquivalentTo(path[3].Length) && AllAreRight(angles))
         {
             return new Rectangle(path[0], path[1], path[2], path[3]);
         }

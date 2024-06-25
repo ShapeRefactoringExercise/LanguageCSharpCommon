@@ -98,7 +98,6 @@ namespace Shape.Tests
         }
 
         [TestMethod]
-        [Ignore("Requires Angles")]
         public void ClassifyEqualateralFourSideObectWithoutRightAnglesAsOther()
         {
             var points = Builder.Build(
