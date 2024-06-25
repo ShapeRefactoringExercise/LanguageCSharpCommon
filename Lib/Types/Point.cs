@@ -4,15 +4,12 @@ public class Point(double x, double y): IShape
 {
     private bool Equals(Point other)
     {
-        return X.IsEquivalentTo(other.X) && Y.IsEquivalentTo(other.Y);
+        return Classifier.PointsAreEqual(this, other);
     }
 
     public override bool Equals(object? obj)
     {
-        if (ReferenceEquals(null, obj)) return false;
-        if (ReferenceEquals(this, obj)) return true;
-        if (obj.GetType() != this.GetType()) return false;
-        return Equals((Point)obj);
+        return Classifier.EqualsPoint(this, obj);
     }
 
     public override int GetHashCode()

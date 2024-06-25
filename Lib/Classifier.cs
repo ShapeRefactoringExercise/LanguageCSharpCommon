@@ -4,13 +4,37 @@ namespace Shape.Lib;
 
 public static class Classifier
 {
+    public static bool PointsAreEqual(Point a, Point b)
+    {
+        return a.X.IsEquivalentTo(b.X) && a.Y.IsEquivalentTo(b.Y);
+    }
+
+    public static bool EqualsPoint(Point a, object? obj)
+    {
+        if (ReferenceEquals(null, obj)) return false;
+        if (ReferenceEquals(a, obj)) return true;
+        if (obj.GetType() != a.GetType()) return false;
+        return PointsAreEqual(a, (Point)obj);
+    }
+
     private static Point[] GetDistinct(Point[] points)
     {
         var ret = new List<Point>();
+        var found = false;
         foreach (var point in points)
         {
-            if (ret.Contains(point))
+            foreach (var value in ret)
             {
+                if (PointsAreEqual(value, point))
+                {
+                    found = true;
+                    break;
+                }
+            }
+
+            if (found)
+            {
+                found = false;
                 continue;
             }
 
