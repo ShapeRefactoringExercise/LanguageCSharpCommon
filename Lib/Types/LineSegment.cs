@@ -8,7 +8,7 @@ public class LineSegment : IShape
         P2 = b;
         Length = Math.Sqrt(Math.Pow(P1.X - P2.X, 2) + Math.Pow(P1.Y - P2.Y, 2));
 
-        if (a.X == b.X)
+        if (a.X.IsEquivalentTo(b.X))
         {
             Slope = Maybe<double>.None;
         }

@@ -25,7 +25,7 @@ public class Other: IShape
 
     public Point[] Points { get; }
 
-    public bool IsClosed => Equals(Points.First(), Points.Last());
+    public bool IsClosed => Classifier.EqualsPoint(Points.First(), Points.Last());
 
     public bool IsOpen => !IsClosed;
 
