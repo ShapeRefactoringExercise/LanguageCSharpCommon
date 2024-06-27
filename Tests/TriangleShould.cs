@@ -66,20 +66,20 @@ namespace Shape.Tests
             Assert.AreEqual("Line Segment", result.SideB.Type);
             Assert.AreEqual("Line Segment", result.SideC.Type);
 
-            Assert.AreEqual(result.P1.X, result.SideA.P1.X, 0.001, "SideA.P1.X");
-            Assert.AreEqual(result.P1.Y, result.SideA.P1.Y, 0.001, "SideA.P1.Y");
-            Assert.AreEqual(result.P2.X, result.SideA.P2.X, 0.001, "SideA.P2.X");
-            Assert.AreEqual(result.P2.Y, result.SideA.P2.Y, 0.001, "SideA.P2.Y");
+            Assert.AreEqual(result.P1.X.GetValueOrDefault(), result.SideA.P1.X.GetValueOrDefault(), 0.001, "SideA.P1.X.GetValueOrDefault()");
+            Assert.AreEqual(result.P1.Y.GetValueOrDefault(), result.SideA.P1.Y.GetValueOrDefault(), 0.001, "SideA.P1.Y.GetValueOrDefault()");
+            Assert.AreEqual(result.P2.X.GetValueOrDefault(), result.SideA.P2.X.GetValueOrDefault(), 0.001, "SideA.P2.X.GetValueOrDefault()");
+            Assert.AreEqual(result.P2.Y.GetValueOrDefault(), result.SideA.P2.Y.GetValueOrDefault(), 0.001, "SideA.P2.Y.GetValueOrDefault()");
 
-            Assert.AreEqual(result.P2.X, result.SideB.P1.X, 0.001, "SideB.P1.X");
-            Assert.AreEqual(result.P2.Y, result.SideB.P1.Y, 0.001, "SideB.P1.Y");
-            Assert.AreEqual(result.P3.X, result.SideB.P2.X, 0.001, "SideB.P2.X");
-            Assert.AreEqual(result.P3.Y, result.SideB.P2.Y, 0.001, "SideB.P2.Y");
+            Assert.AreEqual(result.P2.X.GetValueOrDefault(), result.SideB.P1.X.GetValueOrDefault(), 0.001, "SideB.P1.X.GetValueOrDefault()");
+            Assert.AreEqual(result.P2.Y.GetValueOrDefault(), result.SideB.P1.Y.GetValueOrDefault(), 0.001, "SideB.P1.Y.GetValueOrDefault()");
+            Assert.AreEqual(result.P3.X.GetValueOrDefault(), result.SideB.P2.X.GetValueOrDefault(), 0.001, "SideB.P2.X.GetValueOrDefault()");
+            Assert.AreEqual(result.P3.Y.GetValueOrDefault(), result.SideB.P2.Y.GetValueOrDefault(), 0.001, "SideB.P2.Y.GetValueOrDefault()");
 
-            Assert.AreEqual(result.P3.X, result.SideC.P1.X, 0.001, "SideC.P1.X");
-            Assert.AreEqual(result.P3.Y, result.SideC.P1.Y, 0.001, "SideC.P1.Y");
-            Assert.AreEqual(result.P1.X, result.SideC.P2.X, 0.001, "SideC.P2.X");
-            Assert.AreEqual(result.P1.Y, result.SideC.P2.Y, 0.001, "SideC.P2.Y");
+            Assert.AreEqual(result.P3.X.GetValueOrDefault(), result.SideC.P1.X.GetValueOrDefault(), 0.001, "SideC.P1.X.GetValueOrDefault()");
+            Assert.AreEqual(result.P3.Y.GetValueOrDefault(), result.SideC.P1.Y.GetValueOrDefault(), 0.001, "SideC.P1.Y.GetValueOrDefault()");
+            Assert.AreEqual(result.P1.X.GetValueOrDefault(), result.SideC.P2.X.GetValueOrDefault(), 0.001, "SideC.P2.X.GetValueOrDefault()");
+            Assert.AreEqual(result.P1.Y.GetValueOrDefault(), result.SideC.P2.Y.GetValueOrDefault(), 0.001, "SideC.P2.Y.GetValueOrDefault()");
 
             Assert.AreEqual(3, result.SideA.Length, 0.001);
             Assert.AreEqual(4, result.SideB.Length, 0.001);
@@ -107,20 +107,20 @@ namespace Shape.Tests
             Assert.AreEqual("Line Segment", result.SideB.Type);
             Assert.AreEqual("Line Segment", result.SideC.Type);
 
-            Assert.AreEqual(result.P1.X, result.SideA.P1.X, 0.001, "SideA.P1.X");
-            Assert.AreEqual(result.P1.Y, result.SideA.P1.Y, 0.001, "SideA.P1.Y");
-            Assert.AreEqual(result.P2.X, result.SideA.P2.X, 0.001, "SideA.P2.X");
-            Assert.AreEqual(result.P2.Y, result.SideA.P2.Y, 0.001, "SideA.P2.Y");
+            Assert.AreEqual(result.P1.X.GetValueOrDefault(), result.SideA.P1.X.GetValueOrDefault(), 0.001, "SideA.P1.X.GetValueOrDefault()");
+            Assert.AreEqual(result.P1.Y.GetValueOrDefault(), result.SideA.P1.Y.GetValueOrDefault(), 0.001, "SideA.P1.Y.GetValueOrDefault()");
+            Assert.AreEqual(result.P2.X.GetValueOrDefault(), result.SideA.P2.X.GetValueOrDefault(), 0.001, "SideA.P2.X.GetValueOrDefault()");
+            Assert.AreEqual(result.P2.Y.GetValueOrDefault(), result.SideA.P2.Y.GetValueOrDefault(), 0.001, "SideA.P2.Y.GetValueOrDefault()");
 
-            Assert.AreEqual(result.P2.X, result.SideB.P1.X, 0.001, "SideB.P1.X");
-            Assert.AreEqual(result.P2.Y, result.SideB.P1.Y, 0.001, "SideB.P1.Y");
-            Assert.AreEqual(result.P3.X, result.SideB.P2.X, 0.001, "SideB.P2.X");
-            Assert.AreEqual(result.P3.Y, result.SideB.P2.Y, 0.001, "SideB.P2.X");
+            Assert.AreEqual(result.P2.X.GetValueOrDefault(), result.SideB.P1.X.GetValueOrDefault(), 0.001, "SideB.P1.X.GetValueOrDefault()");
+            Assert.AreEqual(result.P2.Y.GetValueOrDefault(), result.SideB.P1.Y.GetValueOrDefault(), 0.001, "SideB.P1.Y.GetValueOrDefault()");
+            Assert.AreEqual(result.P3.X.GetValueOrDefault(), result.SideB.P2.X.GetValueOrDefault(), 0.001, "SideB.P2.X.GetValueOrDefault()");
+            Assert.AreEqual(result.P3.Y.GetValueOrDefault(), result.SideB.P2.Y.GetValueOrDefault(), 0.001, "SideB.P2.X.GetValueOrDefault()");
 
-            Assert.AreEqual(result.P3.X, result.SideC.P1.X, 0.001, "SideC.P1.X");
-            Assert.AreEqual(result.P3.Y, result.SideC.P1.Y, 0.001, "SideC.P1.Y");
-            Assert.AreEqual(result.P1.X, result.SideC.P2.X, 0.001, "SideC.P2.X");
-            Assert.AreEqual(result.P1.Y, result.SideC.P2.Y, 0.001, "SideC.P2.X");
+            Assert.AreEqual(result.P3.X.GetValueOrDefault(), result.SideC.P1.X.GetValueOrDefault(), 0.001, "SideC.P1.X.GetValueOrDefault()");
+            Assert.AreEqual(result.P3.Y.GetValueOrDefault(), result.SideC.P1.Y.GetValueOrDefault(), 0.001, "SideC.P1.Y.GetValueOrDefault()");
+            Assert.AreEqual(result.P1.X.GetValueOrDefault(), result.SideC.P2.X.GetValueOrDefault(), 0.001, "SideC.P2.X.GetValueOrDefault()");
+            Assert.AreEqual(result.P1.Y.GetValueOrDefault(), result.SideC.P2.Y.GetValueOrDefault(), 0.001, "SideC.P2.X.GetValueOrDefault()");
 
             Assert.AreEqual(12, result.SideA.Length, 0.001);
             Assert.AreEqual(16, result.SideB.Length, 0.001);
@@ -144,63 +144,63 @@ namespace Shape.Tests
                 (4, 3)
             );
 
-            Assert.AreEqual(result.P2.X, result.AngleA.P1.X, 0.001, "AngleA P1.X");
-            Assert.AreEqual(result.P2.Y, result.AngleA.P1.Y, 0.001, "AngleA P1.Y");
-            Assert.AreEqual(result.P3.X, result.AngleA.Vertex.X, 0.001, "AngleA Vertex.X");
-            Assert.AreEqual(result.P3.Y, result.AngleA.Vertex.Y, 0.001, "AngleA Vertex.y");
-            Assert.AreEqual(result.P1.X, result.AngleA.P2.X, 0.001, "AngleA P2.X");
-            Assert.AreEqual(result.P1.Y, result.AngleA.P2.Y, 0.001, "AngleA P2.Y");
+            Assert.AreEqual(result.P2.X.GetValueOrDefault(), result.AngleA.P1.X.GetValueOrDefault(), 0.001, "AngleA P1.X.GetValueOrDefault()");
+            Assert.AreEqual(result.P2.Y.GetValueOrDefault(), result.AngleA.P1.Y.GetValueOrDefault(), 0.001, "AngleA P1.Y.GetValueOrDefault()");
+            Assert.AreEqual(result.P3.X.GetValueOrDefault(), result.AngleA.Vertex.X.GetValueOrDefault(), 0.001, "AngleA Vertex.X.GetValueOrDefault()");
+            Assert.AreEqual(result.P3.Y.GetValueOrDefault(), result.AngleA.Vertex.Y.GetValueOrDefault(), 0.001, "AngleA Vertex.Y.GetValueOrDefault()");
+            Assert.AreEqual(result.P1.X.GetValueOrDefault(), result.AngleA.P2.X.GetValueOrDefault(), 0.001, "AngleA P2.X.GetValueOrDefault()");
+            Assert.AreEqual(result.P1.Y.GetValueOrDefault(), result.AngleA.P2.Y.GetValueOrDefault(), 0.001, "AngleA P2.Y.GetValueOrDefault()");
             Assert.AreEqual(36.87, result.AngleA.Degrees, 0.001);
 
-            Assert.AreEqual(result.SideB.P1.X, result.AngleA.SideA.P1.X, 0.001, "AngleA SideA P1.X");
-            Assert.AreEqual(result.SideB.P1.Y, result.AngleA.SideA.P1.Y, 0.001, "AngleA SideA P1.Y");
-            Assert.AreEqual(result.SideB.P2.X, result.AngleA.SideA.P2.X, 0.001, "AngleA SideA P2.X");
-            Assert.AreEqual(result.SideB.P2.Y, result.AngleA.SideA.P2.Y, 0.001, "AngleA SideA P2.Y");
+            Assert.AreEqual(result.SideB.P1.X.GetValueOrDefault(), result.AngleA.SideA.P1.X.GetValueOrDefault(), 0.001, "AngleA SideA P1.X.GetValueOrDefault()");
+            Assert.AreEqual(result.SideB.P1.Y.GetValueOrDefault(), result.AngleA.SideA.P1.Y.GetValueOrDefault(), 0.001, "AngleA SideA P1.Y.GetValueOrDefault()");
+            Assert.AreEqual(result.SideB.P2.X.GetValueOrDefault(), result.AngleA.SideA.P2.X.GetValueOrDefault(), 0.001, "AngleA SideA P2.X.GetValueOrDefault()");
+            Assert.AreEqual(result.SideB.P2.Y.GetValueOrDefault(), result.AngleA.SideA.P2.Y.GetValueOrDefault(), 0.001, "AngleA SideA P2.Y.GetValueOrDefault()");
             Assert.AreEqual(result.SideB.Length, result.AngleA.SideA.Length, "AngleA SideA Length");
 
-            Assert.AreEqual(result.SideC.P2.X, result.AngleA.SideB.P1.X, 0.001, "AngleA SideB P1.X");
-            Assert.AreEqual(result.SideC.P2.Y, result.AngleA.SideB.P1.Y, 0.001, "AngleA SideB P1.Y");
-            Assert.AreEqual(result.SideC.P1.X, result.AngleA.SideB.P2.X, 0.001, "AngleA SideB P2.X");
-            Assert.AreEqual(result.SideC.P1.Y, result.AngleA.SideB.P2.Y, 0.001, "AngleA SideB P2.Y");
+            Assert.AreEqual(result.SideC.P2.X.GetValueOrDefault(), result.AngleA.SideB.P1.X.GetValueOrDefault(), 0.001, "AngleA SideB P1.X.GetValueOrDefault()");
+            Assert.AreEqual(result.SideC.P2.Y.GetValueOrDefault(), result.AngleA.SideB.P1.Y.GetValueOrDefault(), 0.001, "AngleA SideB P1.Y.GetValueOrDefault()");
+            Assert.AreEqual(result.SideC.P1.X.GetValueOrDefault(), result.AngleA.SideB.P2.X.GetValueOrDefault(), 0.001, "AngleA SideB P2.X.GetValueOrDefault()");
+            Assert.AreEqual(result.SideC.P1.Y.GetValueOrDefault(), result.AngleA.SideB.P2.Y.GetValueOrDefault(), 0.001, "AngleA SideB P2.Y.GetValueOrDefault()");
             Assert.AreEqual(result.SideC.Length, result.AngleA.SideB.Length, "AngleA SideB Length");
 
-            Assert.AreEqual(result.P3.X, result.AngleB.P1.X, 0.001, "AngleB P1.X");
-            Assert.AreEqual(result.P3.Y, result.AngleB.P1.Y, 0.001, "AngleB P1.Y");
-            Assert.AreEqual(result.P1.X, result.AngleB.Vertex.X, 0.001, "AngeleB Vertex.X");
-            Assert.AreEqual(result.P1.Y, result.AngleB.Vertex.Y, 0.001, "AngeleB Vertex.Y");
-            Assert.AreEqual(result.P2.X, result.AngleB.P2.X, 0.001, "AngleB P2.X");
-            Assert.AreEqual(result.P2.Y, result.AngleB.P2.Y, 0.001, "AngleB P2.Y");
+            Assert.AreEqual(result.P3.X.GetValueOrDefault(), result.AngleB.P1.X.GetValueOrDefault(), 0.001, "AngleB P1.X.GetValueOrDefault()");
+            Assert.AreEqual(result.P3.Y.GetValueOrDefault(), result.AngleB.P1.Y.GetValueOrDefault(), 0.001, "AngleB P1.Y.GetValueOrDefault()");
+            Assert.AreEqual(result.P1.X.GetValueOrDefault(), result.AngleB.Vertex.X.GetValueOrDefault(), 0.001, "AngeleB Vertex.X.GetValueOrDefault()");
+            Assert.AreEqual(result.P1.Y.GetValueOrDefault(), result.AngleB.Vertex.Y.GetValueOrDefault(), 0.001, "AngeleB Vertex.Y.GetValueOrDefault()");
+            Assert.AreEqual(result.P2.X.GetValueOrDefault(), result.AngleB.P2.X.GetValueOrDefault(), 0.001, "AngleB P2.X.GetValueOrDefault()");
+            Assert.AreEqual(result.P2.Y.GetValueOrDefault(), result.AngleB.P2.Y.GetValueOrDefault(), 0.001, "AngleB P2.Y.GetValueOrDefault()");
             Assert.AreEqual(53.13, result.AngleB.Degrees, 0.001);
 
-            Assert.AreEqual(result.SideC.P1.X, result.AngleB.SideA.P1.X, 0.001, "AngleB SideA P1.X");
-            Assert.AreEqual(result.SideC.P1.Y, result.AngleB.SideA.P1.Y, 0.001, "AngleB SideA P1.Y");
-            Assert.AreEqual(result.SideC.P2.X, result.AngleB.SideA.P2.X, 0.001, "AngleB SideA P2.X");
-            Assert.AreEqual(result.SideC.P2.Y, result.AngleB.SideA.P2.Y, 0.001, "AngleB SideA P2.Y");
+            Assert.AreEqual(result.SideC.P1.X.GetValueOrDefault(), result.AngleB.SideA.P1.X.GetValueOrDefault(), 0.001, "AngleB SideA P1.X.GetValueOrDefault()");
+            Assert.AreEqual(result.SideC.P1.Y.GetValueOrDefault(), result.AngleB.SideA.P1.Y.GetValueOrDefault(), 0.001, "AngleB SideA P1.Y.GetValueOrDefault()");
+            Assert.AreEqual(result.SideC.P2.X.GetValueOrDefault(), result.AngleB.SideA.P2.X.GetValueOrDefault(), 0.001, "AngleB SideA P2.X.GetValueOrDefault()");
+            Assert.AreEqual(result.SideC.P2.Y.GetValueOrDefault(), result.AngleB.SideA.P2.Y.GetValueOrDefault(), 0.001, "AngleB SideA P2.Y.GetValueOrDefault()");
             Assert.AreEqual(result.SideC.Length, result.AngleB.SideA.Length, "AngleA SideA Length");
 
-            Assert.AreEqual(result.SideA.P2.X, result.AngleB.SideB.P1.X, 0.001, "AngleB SideA P1.X");
-            Assert.AreEqual(result.SideA.P2.Y, result.AngleB.SideB.P1.Y, 0.001, "AngleB SideA P1.Y");
-            Assert.AreEqual(result.SideA.P1.X, result.AngleB.SideB.P2.X, 0.001, "AngleB SideA P2.X");
-            Assert.AreEqual(result.SideA.P1.Y, result.AngleB.SideB.P2.Y, 0.001, "AngleB SideA P2.Y");
+            Assert.AreEqual(result.SideA.P2.X.GetValueOrDefault(), result.AngleB.SideB.P1.X.GetValueOrDefault(), 0.001, "AngleB SideA P1.X.GetValueOrDefault()");
+            Assert.AreEqual(result.SideA.P2.Y.GetValueOrDefault(), result.AngleB.SideB.P1.Y.GetValueOrDefault(), 0.001, "AngleB SideA P1.Y.GetValueOrDefault()");
+            Assert.AreEqual(result.SideA.P1.X.GetValueOrDefault(), result.AngleB.SideB.P2.X.GetValueOrDefault(), 0.001, "AngleB SideA P2.X.GetValueOrDefault()");
+            Assert.AreEqual(result.SideA.P1.Y.GetValueOrDefault(), result.AngleB.SideB.P2.Y.GetValueOrDefault(), 0.001, "AngleB SideA P2.Y.GetValueOrDefault()");
             Assert.AreEqual(result.SideA.Length, result.AngleB.SideB.Length, "AngleA SideA Length");
 
-            Assert.AreEqual(result.P1.X, result.AngleC.P1.X, 0.001, "AngleC P1.X");
-            Assert.AreEqual(result.P1.Y, result.AngleC.P1.Y, 0.001, "AngleC P1.Y");
-            Assert.AreEqual(result.P2.Y, result.AngleC.Vertex.Y, 0.001, "AngleC Vertex.Y");
-            Assert.AreEqual(result.P3.X, result.AngleC.P2.X, 0.001, "AngleC P2.X");
-            Assert.AreEqual(result.P3.Y, result.AngleC.P2.Y, 0.001, "AngleC P2.Y");
+            Assert.AreEqual(result.P1.X.GetValueOrDefault(), result.AngleC.P1.X.GetValueOrDefault(), 0.001, "AngleC P1.X.GetValueOrDefault()");
+            Assert.AreEqual(result.P1.Y.GetValueOrDefault(), result.AngleC.P1.Y.GetValueOrDefault(), 0.001, "AngleC P1.Y.GetValueOrDefault()");
+            Assert.AreEqual(result.P2.Y.GetValueOrDefault(), result.AngleC.Vertex.Y.GetValueOrDefault(), 0.001, "AngleC Vertex.Y.GetValueOrDefault()");
+            Assert.AreEqual(result.P3.X.GetValueOrDefault(), result.AngleC.P2.X.GetValueOrDefault(), 0.001, "AngleC P2.X.GetValueOrDefault()");
+            Assert.AreEqual(result.P3.Y.GetValueOrDefault(), result.AngleC.P2.Y.GetValueOrDefault(), 0.001, "AngleC P2.Y.GetValueOrDefault()");
             Assert.AreEqual(90, result.AngleC.Degrees, 0.001);
 
-            Assert.AreEqual(result.SideA.P1.X, result.AngleC.SideA.P1.X, 0.001, "AngleC SideA P1.X");
-            Assert.AreEqual(result.SideA.P1.Y, result.AngleC.SideA.P1.Y, 0.001, "AngleC SideA P1.Y");
-            Assert.AreEqual(result.SideA.P2.X, result.AngleC.SideA.P2.X, 0.001, "AngleC SideA P2.X");
-            Assert.AreEqual(result.SideA.P2.Y, result.AngleC.SideA.P2.Y, 0.001, "AngleC SideA P2.Y");
+            Assert.AreEqual(result.SideA.P1.X.GetValueOrDefault(), result.AngleC.SideA.P1.X.GetValueOrDefault(), 0.001, "AngleC SideA P1.X.GetValueOrDefault()");
+            Assert.AreEqual(result.SideA.P1.Y.GetValueOrDefault(), result.AngleC.SideA.P1.Y.GetValueOrDefault(), 0.001, "AngleC SideA P1.Y.GetValueOrDefault()");
+            Assert.AreEqual(result.SideA.P2.X.GetValueOrDefault(), result.AngleC.SideA.P2.X.GetValueOrDefault(), 0.001, "AngleC SideA P2.X.GetValueOrDefault()");
+            Assert.AreEqual(result.SideA.P2.Y.GetValueOrDefault(), result.AngleC.SideA.P2.Y.GetValueOrDefault(), 0.001, "AngleC SideA P2.Y.GetValueOrDefault()");
             Assert.AreEqual(result.SideA.Length, result.AngleC.SideA.Length, "AngleC SideA Length");
 
-            Assert.AreEqual(result.SideB.P2.X, result.AngleC.SideB.P1.X, 0.001, "AngleC SideB P1.X");
-            Assert.AreEqual(result.SideB.P2.Y, result.AngleC.SideB.P1.Y, 0.001, "AngleC SideB P1.Y");
-            Assert.AreEqual(result.SideB.P1.X, result.AngleC.SideB.P2.X, 0.001, "AngleC SideB P2.X");
-            Assert.AreEqual(result.SideB.P1.Y, result.AngleC.SideB.P2.Y, 0.001, "AngleC SideB P2.Y");
+            Assert.AreEqual(result.SideB.P2.X.GetValueOrDefault(), result.AngleC.SideB.P1.X.GetValueOrDefault(), 0.001, "AngleC SideB P1.X.GetValueOrDefault()");
+            Assert.AreEqual(result.SideB.P2.Y.GetValueOrDefault(), result.AngleC.SideB.P1.Y.GetValueOrDefault(), 0.001, "AngleC SideB P1.Y.GetValueOrDefault()");
+            Assert.AreEqual(result.SideB.P1.X.GetValueOrDefault(), result.AngleC.SideB.P2.X.GetValueOrDefault(), 0.001, "AngleC SideB P2.X.GetValueOrDefault()");
+            Assert.AreEqual(result.SideB.P1.Y.GetValueOrDefault(), result.AngleC.SideB.P2.Y.GetValueOrDefault(), 0.001, "AngleC SideB P2.Y.GetValueOrDefault()");
             Assert.AreEqual(result.SideB.Length, result.AngleC.SideB.Length, "AngleA SideA Length");
         }
 

@@ -1,4 +1,6 @@
-﻿namespace Shape.Lib;
+﻿using System.ComponentModel;
+
+namespace Shape.Lib;
 
 public static class MathHelper
 {
@@ -10,5 +12,30 @@ public static class MathHelper
     public static bool IsEquivalentTo(this double a, double b)
     {
         return AreEquivalent(a, b);
+    }
+
+    public static bool IsEquivalentTo(this double? a, double b)
+    {
+        if (!a.HasValue)
+        {
+            return false;
+        }
+
+        return AreEquivalent(a.Value, b);
+    }
+
+    public static bool IsEquivalentTo(this double? a, double? b)
+    {
+        if (!a.HasValue && !b.HasValue)
+        {
+            return true;
+        }
+
+        if (!a.HasValue || !b.HasValue)
+        {
+            return false;
+        }
+
+        return AreEquivalent(a.Value, b.Value);
     }
 }

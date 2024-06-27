@@ -6,7 +6,7 @@ public class LineSegment : IShape
     {
         P1 = a;
         P2 = b;
-        Length = Math.Sqrt(Math.Pow(P1.X - P2.X, 2) + Math.Pow(P1.Y - P2.Y, 2));
+        Length = Math.Sqrt(Math.Pow(P1.X.GetValueOrDefault() - P2.X.GetValueOrDefault(), 2) + Math.Pow(P1.Y.GetValueOrDefault() - P2.Y.GetValueOrDefault(), 2));
 
         if (a.X.IsEquivalentTo(b.X))
         {
@@ -15,7 +15,7 @@ public class LineSegment : IShape
         else
         {
             var result =
-                (1.0 * (b.Y - a.Y)) / (1.0 * (b.X - a.X));
+                (1.0 * (b.Y.GetValueOrDefault() - a.Y.GetValueOrDefault())) / (1.0 * (b.X.GetValueOrDefault() - a.X.GetValueOrDefault()));
             Slope = Maybe<double>.Some(result);
         }
     }

@@ -108,7 +108,7 @@ namespace Shape.Tests
         {
             const int change = 4;
             var p1 = Builder.Build(1, 4);
-            var p2 = Builder.Build(p1.X + change, p1.Y + change);
+            var p2 = Builder.Build(p1.X.GetValueOrDefault() + change, p1.Y.GetValueOrDefault() + change);
 
             var result = Classifier.Classify(new[] { p1, p2 });
 
