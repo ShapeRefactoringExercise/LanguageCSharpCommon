@@ -136,6 +136,24 @@ public static class Classifier
             return new Rectangle(path[0], path[1], path[2], path[3]);
         }
 
-        return new Other(path);
+        var length = 0.0;
+
+        foreach (var segment in path)
+        {
+            length += segment.Length;
+        }
+
+        var first = points[0];
+        var last = points[^1];
+
+        return new AllShape
+        {
+            Points = points,
+            Length = length,
+            Type = "Other",
+            Representation = "Other",
+            IsClosed = first.X.IsEquivalentTo(last.X) && first.Y.IsEquivalentTo(last.Y),
+            IsOpen = !first.X.IsEquivalentTo(last.X) || !first.Y.IsEquivalentTo(last.Y),
+        };
     }
 }

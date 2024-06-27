@@ -7,7 +7,7 @@ namespace Shape.Tests
     [TestClass]
     public class OtherShould
     {
-        private static (AllShape[], Other) GetOther(params (double, double)[] coords)
+        private static (AllShape[], AllShape) GetOther(params (double, double)[] coords)
         {
             var points = Builder.Build(coords);
 
@@ -15,7 +15,7 @@ namespace Shape.Tests
 
             Assert.AreEqual(shape.Type, "Other");
 
-            return (points, (Other)shape);
+            return (points, (AllShape)shape);
         }
 
         [TestMethod]
@@ -97,7 +97,7 @@ namespace Shape.Tests
                 (3, 3)
             );
 
-            Assert.AreEqual(6, result.Length, 0.001);
+            Assert.AreEqual(6, result.Length.GetValueOrDefault(), 0.001);
         }
 
         [TestMethod]
@@ -113,7 +113,7 @@ namespace Shape.Tests
                 (-3, -3)
             );
 
-            Assert.AreEqual(18, result.Length, 0.001);
+            Assert.AreEqual(18, result.Length.GetValueOrDefault(), 0.001);
         }
     }
 }
