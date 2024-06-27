@@ -2,24 +2,6 @@
 
 public class AllShape: IShape
 {
-    public override int GetHashCode()
-    {
-        return HashCode.Combine(
-            X,
-            Y,
-            Type,
-            Points,
-            IsClosed,
-            IsOpen,
-            Length,
-            HashCode.Combine(
-                P1,
-                P2,
-                Slope
-            )
-        );
-    }
-
     public string Type { get; set; }
 
     public double? X { get; set; }
