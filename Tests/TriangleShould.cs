@@ -17,7 +17,7 @@ namespace Shape.Tests
             return (Triangle)shape;
         }
 
-        private static Triangle GetTriangle(Point p1, Point p2, Point p3)
+        private static Triangle GetTriangle(AllShape p1, AllShape p2, AllShape p3)
         {
             var shape = Classifier.Classify(new[] { p1, p2, p3, p1 });
 

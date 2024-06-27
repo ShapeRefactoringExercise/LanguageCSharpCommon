@@ -18,10 +18,10 @@ public class Rectangle : IShape
         Area = SideA.Length * SideB.Length;
     }
 
-    public Point P1 { get; }
-    public Point P2 { get; }
-    public Point P3 { get; }
-    public Point P4 { get; }
+    public AllShape P1 { get; }
+    public AllShape P2 { get; }
+    public AllShape P3 { get; }
+    public AllShape P4 { get; }
 
     public LineSegment SideA { get; }
     public LineSegment SideB { get; }

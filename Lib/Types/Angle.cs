@@ -2,7 +2,7 @@
 
 public class Angle
 {
-    public Angle(Point p1, Point vertex, Point p2)
+    public Angle(AllShape p1, AllShape vertex, AllShape p2)
     {
         P1 = p1;
         Vertex = vertex;
@@ -24,9 +24,9 @@ public class Angle
         Degrees = Math.Acos(bananaCream) * (180 /  Math.PI); // 36.87, 53.13, 90
     }
 
-    public Point Vertex { get; }
-    public Point P1 { get; }
-    public Point P2 { get; }
+    public AllShape Vertex { get; }
+    public AllShape P1 { get; }
+    public AllShape P2 { get; }
 
     public LineSegment SideA { get; }
     public LineSegment SideB { get; }

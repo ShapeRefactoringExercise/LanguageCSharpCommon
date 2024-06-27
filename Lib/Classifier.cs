@@ -4,22 +4,22 @@ namespace Shape.Lib;
 
 public static class Classifier
 {
-    public static bool PointsAreEqual(Point a, Point b)
+    public static bool PointsAreEqual(AllShape a, AllShape b)
     {
         return a.X.IsEquivalentTo(b.X) && a.Y.IsEquivalentTo(b.Y);
     }
 
-    public static bool EqualsPoint(Point a, object? obj)
+    public static bool EqualsPoint(AllShape a, object? obj)
     {
         if (ReferenceEquals(null, obj)) return false;
         if (ReferenceEquals(a, obj)) return true;
         if (obj.GetType() != a.GetType()) return false;
-        return PointsAreEqual(a, (Point)obj);
+        return PointsAreEqual(a, (AllShape)obj);
     }
 
-    private static Point[] GetDistinct(Point[] points)
+    private static AllShape[] GetDistinct(AllShape[] points)
     {
-        var ret = new List<Point>();
+        var ret = new List<AllShape>();
         var found = false;
         foreach (var point in points)
         {
@@ -44,9 +44,9 @@ public static class Classifier
         return ret.ToArray();
     }
 
-    private static LineSegment[] GetPath(Point[] points)
+    private static LineSegment[] GetPath(AllShape[] points)
     {
-        Point pLast = null;
+        AllShape pLast = null;
         var segments = new List<LineSegment>();
         foreach (var point in points)
         {
@@ -63,7 +63,7 @@ public static class Classifier
         return segments.ToArray();
     }
 
-    private static Angle[] GetAngles(Point[] points)
+    private static Angle[] GetAngles(AllShape[] points)
     {
         var angles = new List<Angle>();
         for (int i = 2; i < points.Length; i++)
@@ -95,7 +95,7 @@ public static class Classifier
         return lastAngle.IsEquivalentTo(90);
     }
 
-    public static IShape Classify(Point[] points)
+    public static IShape Classify(AllShape[] points)
     {
         if(0 == points.Length)
         {
@@ -104,7 +104,15 @@ public static class Classifier
 
         if (1 == points.Length)
         {
-            return points[0];
+            var x = points[0].X;
+            var y = points[0].Y;
+            return new AllShape
+            {
+                X = x,
+                Y = y,
+                Representation = $"({x}, {y})",
+                Type = "Point"
+            };
         }
 
         var distinctPoints = GetDistinct(points);

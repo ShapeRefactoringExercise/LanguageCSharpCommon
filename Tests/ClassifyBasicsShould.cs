@@ -27,7 +27,7 @@ namespace Shape.Tests
             var result = Classifier.Classify(points);
 
             Assert.AreEqual("Point", result.Type);
-            var rPoint = (Point)result;
+            var rPoint = (AllShape)result;
             Assert.AreEqual(point.X, rPoint.X);
             Assert.AreEqual(point.Y, rPoint.Y);
         }

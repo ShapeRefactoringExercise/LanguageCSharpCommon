@@ -9,7 +9,7 @@ namespace Shape.Tests
     [TestClass]
     public class RectangleShould
     {
-        private static (Point[] points, Rectangle result) GetRectangle(double x, double y, double height, double length)
+        private static (AllShape[] points, Rectangle result) GetRectangle(double x, double y, double height, double length)
         {
             var points = Builder.Build(
                 (x, y),
@@ -26,7 +26,7 @@ namespace Shape.Tests
             return (points, result);
         }
 
-        private static void CheckRectangle(Random random, Action<Rectangle, double, double, double, double, IReadOnlyList<Point>> check)
+        private static void CheckRectangle(Random random, Action<Rectangle, double, double, double, double, IReadOnlyList<AllShape>> check)
         {
             var length = random.NextDouble() * 100;
             var height = random.NextDouble() * 100;
@@ -54,7 +54,7 @@ namespace Shape.Tests
         {
             var random = new Random();
 
-            void Check(Rectangle result, double x, double y, double height, double length, IReadOnlyList<Point> points)
+            void Check(Rectangle result, double x, double y, double height, double length, IReadOnlyList<AllShape> points)
             {
                 Assert.AreEqual("Line Segment", result.SideA.Type, $"A x: {x}, y:{y}, height:{height}, length: {length}");
                 Assert.AreEqual(points[0].X, result.SideA.P1.X, 0.001, $"A.P1 x: {x}, y:{y}, height:{height}, length: {length}");
@@ -93,7 +93,7 @@ namespace Shape.Tests
         {
             var random = new Random();
 
-            void Check(Rectangle result, double x, double y, double height, double length, IReadOnlyList<Point> points)
+            void Check(Rectangle result, double x, double y, double height, double length, IReadOnlyList<AllShape> points)
             {
                 Assert.AreEqual(height * length, result.Area, 0.001, $"l: {length}, h: {height}, x:{x}, y: {y}");
             }
@@ -109,7 +109,7 @@ namespace Shape.Tests
         {
             var random = new Random();
 
-            void Check(Rectangle result, double x, double y, double height, double length, IReadOnlyList<Point> points)
+            void Check(Rectangle result, double x, double y, double height, double length, IReadOnlyList<AllShape> points)
             {
                 Assert.AreEqual(2 * (height + length), result.Perimeter, 0.001, $"l: {length}, h: {height}, x:{x}, y: {y}");
             }

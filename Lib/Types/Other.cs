@@ -1,13 +1,10 @@
-﻿using System.Collections;
-using System.Linq.Expressions;
-
-namespace Shape.Lib.Types;
+﻿namespace Shape.Lib.Types;
 
 public class Other: IShape
 {
     public Other(LineSegment[] segments)
     {
-        var pointCollector = new List<Point>();
+        var pointCollector = new List<AllShape>();
 
         if (0 < segments.Length)
         {
@@ -23,7 +20,7 @@ public class Other: IShape
 
     public string Type => "Other";
 
-    public Point[] Points { get; }
+    public AllShape[] Points { get; }
 
     public bool IsClosed => Classifier.EqualsPoint(Points.First(), Points.Last());
 

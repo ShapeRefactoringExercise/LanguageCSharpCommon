@@ -2,7 +2,7 @@
 
 public class LineSegment : IShape
 {
-    public LineSegment(Point a, Point b)
+    public LineSegment(AllShape a, AllShape b)
     {
         P1 = a;
         P2 = b;
@@ -21,9 +21,9 @@ public class LineSegment : IShape
     }
 
     public string Type => "Line Segment";
-    public Point P1 { get; }
+    public AllShape P1 { get; }
 
-    public Point P2 { get; }
+    public AllShape P2 { get; }
 
     public Maybe<double> Slope { get; }
     public double Length { get; }

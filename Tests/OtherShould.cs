@@ -7,7 +7,7 @@ namespace Shape.Tests
     [TestClass]
     public class OtherShould
     {
-        private static (Point[], Other) GetOther(params (double, double)[] coords)
+        private static (AllShape[], Other) GetOther(params (double, double)[] coords)
         {
             var points = Builder.Build(coords);
 

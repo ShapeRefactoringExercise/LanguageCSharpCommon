@@ -4,12 +4,18 @@ namespace Shape.Lib;
 
 public class Builder
 {
-    public static Point Build(double x, double y)
+    public static AllShape Build(double x, double y)
     {
-        return new Point(x, y);
+        return new AllShape
+        {
+            Type = "Point",
+            X = x,
+            Y = y,
+            Representation = $"({x}, {y})",
+        };
     }
 
-    public static Point[] Build(params (double, double)[] points)
+    public static AllShape[] Build(params (double, double)[] points)
     {
         return points
             .Select(coord => Build(coord.Item1, coord.Item2))
