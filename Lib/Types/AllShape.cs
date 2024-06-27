@@ -4,7 +4,20 @@ public class AllShape: IShape
 {
     public override int GetHashCode()
     {
-        return HashCode.Combine(X, Y, Type);
+        return HashCode.Combine(
+            X,
+            Y,
+            Type,
+            Points,
+            IsClosed,
+            IsOpen,
+            Length,
+            HashCode.Combine(
+                P1,
+                P2,
+                Slope
+            )
+        );
     }
 
     public string Type { get; set; }
@@ -20,6 +33,12 @@ public class AllShape: IShape
     public bool? IsOpen { get; set; }
 
     public double? Length { get; set; }
+
+    public AllShape? P1 { get; set; }
+
+    public AllShape? P2 { get; set; }
+
+    public Maybe<double>? Slope { get; set; }
 
     public string Representation { get; set; }
 

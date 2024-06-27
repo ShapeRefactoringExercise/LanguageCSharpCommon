@@ -8,28 +8,49 @@ public class Angle
         Vertex = vertex;
         P2 = p2;
 
-        SideA = new LineSegment(P1, Vertex);
-        SideB = new LineSegment(P2, Vertex);
+        SideA = new AllShape
+        {
+            Type = "Line Segment",
+            P1 = P1,
+            P2 = Vertex,
+            Length = Math.Sqrt(Math.Pow(P1.X.GetValueOrDefault() - Vertex.X.GetValueOrDefault(), 2) + Math.Pow(P1.Y.GetValueOrDefault() - Vertex.Y.GetValueOrDefault(), 2)),
+            Slope = P1.X.IsEquivalentTo(Vertex.X) ? Maybe<double>.None : Maybe<double>.Some((1.0 * (Vertex.Y.GetValueOrDefault() - P1.Y.GetValueOrDefault())) / (1.0 * (Vertex.X.GetValueOrDefault() - P1.X.GetValueOrDefault()))),
+            Representation = $"{P1} -> {Vertex}"
+        };
 
-        var sideC = new LineSegment(P1, P2);
+        SideB = new AllShape
+        {
+            Type = "Line Segment",
+            P1 = P2,
+            P2 = Vertex,
+            Length = Math.Sqrt(Math.Pow(P2.X.GetValueOrDefault() - Vertex.X.GetValueOrDefault(), 2) + Math.Pow(P2.Y.GetValueOrDefault() - Vertex.Y.GetValueOrDefault(), 2)),
+            Slope = P2.X.IsEquivalentTo(Vertex.X) ? Maybe<double>.None : Maybe<double>.Some((1.0 * (Vertex.Y.GetValueOrDefault() - P2.Y.GetValueOrDefault())) / (1.0 * (Vertex.X.GetValueOrDefault() - P2.X.GetValueOrDefault()))),
+            Representation = $"{P2} -> {Vertex}"
+        };
 
-        var c = sideC.Length; // 3, 4, 5,
-        var a = SideA.Length; // 4, 5, 3,
-        var b = SideB.Length; // 5, 3, 4
+        var sideC = new AllShape
+        {
+            Type = "Line Segment",
+            P1 = P1,
+            P2 = P2,
+            Length = Math.Sqrt(Math.Pow(P1.X.GetValueOrDefault() - P2.X.GetValueOrDefault(), 2) + Math.Pow(P1.Y.GetValueOrDefault() - P2.Y.GetValueOrDefault(), 2)),
+            Slope = P1.X.IsEquivalentTo(P2.X) ? Maybe<double>.None : Maybe<double>.Some((1.0 * (P2.Y.GetValueOrDefault() - P1.Y.GetValueOrDefault())) / (1.0 * (P2.X.GetValueOrDefault() - P1.X.GetValueOrDefault()))),
+            Representation = $"{P1} -> {P2}"
+        };
 
-        var applesauce = (Math.Pow(a, 2) + Math.Pow(b, 2) - Math.Pow(c, 2));
-        var pearsauce = 2 * a * b;
-        var bananaCream = Math.Round(applesauce / pearsauce, 6);
+        var c = sideC.Length.GetValueOrDefault();
+        var a = SideA.Length.GetValueOrDefault();
+        var b = SideB.Length.GetValueOrDefault();
 
-        Degrees = Math.Acos(bananaCream) * (180 /  Math.PI); // 36.87, 53.13, 90
+        Degrees = Math.Acos(Math.Round((Math.Pow(a, 2) + Math.Pow(b, 2) - Math.Pow(c, 2)) / (2 * a * b), 6)) * (180 /  Math.PI);
     }
 
     public AllShape Vertex { get; }
     public AllShape P1 { get; }
     public AllShape P2 { get; }
 
-    public LineSegment SideA { get; }
-    public LineSegment SideB { get; }
+    public AllShape SideA { get; }
+    public AllShape SideB { get; }
 
     public double Degrees { get; }
 }

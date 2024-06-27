@@ -2,7 +2,7 @@
 
 public class Triangle: IShape
 {
-    public Triangle(LineSegment sideA, LineSegment sideB, LineSegment sideC)
+    public Triangle(AllShape sideA, AllShape sideB, AllShape sideC)
     {
         SideA = sideA;
         SideB = sideB;
@@ -16,13 +16,13 @@ public class Triangle: IShape
         AngleB = new Angle(P3, P1, P2);
         AngleC = new Angle(P1, P2, P3);
 
-        Perimeter = sideA.Length + sideB.Length + sideC.Length;
+        Perimeter = sideA.Length.GetValueOrDefault() + sideB.Length.GetValueOrDefault() + sideC.Length.GetValueOrDefault();
 
         Area = 0.25 * Math.Sqrt(
-            (sideA.Length + sideB.Length + sideC.Length)
-            * (-(sideA.Length) + sideB.Length + sideC.Length)
-            * (sideA.Length - sideB.Length + sideC.Length)
-            * (sideA.Length + sideB.Length - sideC.Length)
+            (sideA.Length.GetValueOrDefault() + sideB.Length.GetValueOrDefault() + sideC.Length.GetValueOrDefault())
+            * (-(sideA.Length.GetValueOrDefault()) + sideB.Length.GetValueOrDefault() + sideC.Length.GetValueOrDefault())
+            * (sideA.Length.GetValueOrDefault() - sideB.Length.GetValueOrDefault() + sideC.Length.GetValueOrDefault())
+            * (sideA.Length.GetValueOrDefault() + sideB.Length.GetValueOrDefault() - sideC.Length.GetValueOrDefault())
         );
     }
 
@@ -30,9 +30,9 @@ public class Triangle: IShape
     public AllShape P2 { get; }
     public AllShape P3 { get; }
 
-    public LineSegment SideA { get; }
-    public LineSegment SideB { get; }
-    public LineSegment SideC { get; }
+    public AllShape SideA { get; }
+    public AllShape SideB { get; }
+    public AllShape SideC { get; }
 
     public Angle AngleA { get; }
     public Angle AngleB { get; }

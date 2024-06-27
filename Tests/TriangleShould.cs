@@ -81,9 +81,9 @@ namespace Shape.Tests
             Assert.AreEqual(result.P1.X.GetValueOrDefault(), result.SideC.P2.X.GetValueOrDefault(), 0.001, "SideC.P2.X.GetValueOrDefault()");
             Assert.AreEqual(result.P1.Y.GetValueOrDefault(), result.SideC.P2.Y.GetValueOrDefault(), 0.001, "SideC.P2.Y.GetValueOrDefault()");
 
-            Assert.AreEqual(3, result.SideA.Length, 0.001);
-            Assert.AreEqual(4, result.SideB.Length, 0.001);
-            Assert.AreEqual(5, result.SideC.Length, 0.001);
+            Assert.AreEqual(3, result.SideA.Length.GetValueOrDefault(), 0.001);
+            Assert.AreEqual(4, result.SideB.Length.GetValueOrDefault(), 0.001);
+            Assert.AreEqual(5, result.SideC.Length.GetValueOrDefault(), 0.001);
 
             Assert.IsFalse(result.SideA.Slope.IsSome, "SideA.Slope.IsSome");
 
@@ -122,9 +122,9 @@ namespace Shape.Tests
             Assert.AreEqual(result.P1.X.GetValueOrDefault(), result.SideC.P2.X.GetValueOrDefault(), 0.001, "SideC.P2.X.GetValueOrDefault()");
             Assert.AreEqual(result.P1.Y.GetValueOrDefault(), result.SideC.P2.Y.GetValueOrDefault(), 0.001, "SideC.P2.X.GetValueOrDefault()");
 
-            Assert.AreEqual(12, result.SideA.Length, 0.001);
-            Assert.AreEqual(16, result.SideB.Length, 0.001);
-            Assert.AreEqual(20, result.SideC.Length, 0.001);
+            Assert.AreEqual(12, result.SideA.Length.GetValueOrDefault(), 0.001);
+            Assert.AreEqual(16, result.SideB.Length.GetValueOrDefault(), 0.001);
+            Assert.AreEqual(20, result.SideC.Length.GetValueOrDefault(), 0.001);
 
             Assert.IsFalse(result.SideA.Slope.IsSome, "SideA.Slope.IsSome");
 
@@ -217,9 +217,9 @@ namespace Shape.Tests
                 (0, b)
             );
 
-            Assert.AreEqual(a, result.SideA.Length, 0.001);
-            Assert.AreEqual(b, result.SideB.Length, 0.001);
-            Assert.AreEqual(2 * a, result.SideC.Length, 0.001);
+            Assert.AreEqual(a, result.SideA.Length.GetValueOrDefault(), 0.001);
+            Assert.AreEqual(b, result.SideB.Length.GetValueOrDefault(), 0.001);
+            Assert.AreEqual(2 * a, result.SideC.Length.GetValueOrDefault(), 0.001);
 
             Assert.IsTrue(result.SideA.Slope.IsSome, "SideA.Slope.IsSome");
             Assert.AreEqual(0, result.SideA.Slope.Value, 0.001);
@@ -245,9 +245,9 @@ namespace Shape.Tests
                 (1, 2)
             );
 
-            Assert.AreEqual(1, result.SideA.Length, 0.001);
-            Assert.AreEqual(2.236, result.SideB.Length, 0.001);
-            Assert.AreEqual(2, result.SideC.Length, 0.001);
+            Assert.AreEqual(1, result.SideA.Length.GetValueOrDefault(), 0.001);
+            Assert.AreEqual(2.236, result.SideB.Length.GetValueOrDefault(), 0.001);
+            Assert.AreEqual(2, result.SideC.Length.GetValueOrDefault(), 0.001);
 
             Assert.IsTrue(result.SideA.Slope.IsSome, "SideA.Slope.IsSome");
             Assert.AreEqual(0, result.SideA.Slope.Value, 0.001);

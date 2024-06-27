@@ -44,10 +44,10 @@ public static class Classifier
         return ret.ToArray();
     }
 
-    private static LineSegment[] GetPath(AllShape[] points)
+    private static AllShape[] GetPath(AllShape[] points)
     {
         AllShape pLast = null;
-        var segments = new List<LineSegment>();
+        var segments = new List<AllShape>();
         foreach (var point in points)
         {
             if (pLast == null)
@@ -56,7 +56,27 @@ public static class Classifier
                 continue;
             }
 
-            segments.Add(new LineSegment(pLast, point));
+            Maybe<double> slope;
+            if (pLast.X.IsEquivalentTo(point.X))
+            {
+                slope = Maybe<double>.None;
+            }
+            else
+            {
+                var result =
+                    (1.0 * (point.Y.GetValueOrDefault() - pLast.Y.GetValueOrDefault())) / (1.0 * (point.X.GetValueOrDefault() - pLast.X.GetValueOrDefault()));
+                slope = Maybe<double>.Some(result);
+            }
+
+            segments.Add(new AllShape
+            {
+                P1 = pLast,
+                P2 = point,
+                Length = Math.Sqrt(Math.Pow(pLast.X.GetValueOrDefault() - point.X.GetValueOrDefault(), 2) + Math.Pow(pLast.Y.GetValueOrDefault() - point.Y.GetValueOrDefault(), 2)),
+                Slope = slope,
+                Type = "Line Segment",
+                Representation = $"{pLast} -> {point}",
+            });
             pLast = point;
         }
 
@@ -122,7 +142,28 @@ public static class Classifier
 
         if (2 == points.Length && 2 == distinctPoints.Length)
         {
-            return new LineSegment(pStart, pEnd);
+
+            Maybe<double> slope;
+            if (pStart.X.IsEquivalentTo(pEnd.X))
+            {
+                slope = Maybe<double>.None;
+            }
+            else
+            {
+                var result =
+                    (1.0 * (pEnd.Y.GetValueOrDefault() - pStart.Y.GetValueOrDefault())) / (1.0 * (pEnd.X.GetValueOrDefault() - pStart.X.GetValueOrDefault()));
+                slope = Maybe<double>.Some(result);
+            }
+
+            return new AllShape
+            {
+                P1 = pStart,
+                P2 = pEnd,
+                Length = Math.Sqrt(Math.Pow(pStart.X.GetValueOrDefault() - pEnd.X.GetValueOrDefault(), 2) + Math.Pow(pStart.Y.GetValueOrDefault() - pEnd.Y.GetValueOrDefault(), 2)),
+                Slope = slope,
+                Type = "Line Segment",
+                Representation = $"{pStart} -> {pEnd}",
+            };
         }
 
         if (4 == points.Length && 3 == distinctPoints.Length && EqualsPoint(pStart, pEnd))
@@ -140,7 +181,7 @@ public static class Classifier
 
         foreach (var segment in path)
         {
-            length += segment.Length;
+            length += segment.Length.GetValueOrDefault();
         }
 
         var first = points[0];

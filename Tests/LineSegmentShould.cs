@@ -17,7 +17,7 @@ namespace Shape.Tests
 
             Assert.AreEqual(result.Type, "Line Segment");
 
-            var segment = (LineSegment)result;
+            var segment = (AllShape)result;
             Assert.AreEqual(p1, segment.P1);
             Assert.AreEqual(p2, segment.P2);
         }
@@ -32,7 +32,7 @@ namespace Shape.Tests
 
             Assert.AreEqual(result.Type, "Line Segment");
 
-            var segment = (LineSegment)result;
+            var segment = (AllShape)result;
             Assert.AreEqual(p1, segment.P1);
             Assert.AreEqual(p2, segment.P2);
         }
@@ -49,9 +49,9 @@ namespace Shape.Tests
 
             Assert.AreEqual(result.Type, "Line Segment");
 
-            var segment = (LineSegment)result;
+            var segment = (AllShape)result;
 
-            Assert.AreEqual(5, segment.Length, 0.001);
+            Assert.AreEqual(5, segment.Length.GetValueOrDefault(), 0.001);
         }
 
         [TestMethod]
@@ -66,9 +66,9 @@ namespace Shape.Tests
 
             Assert.AreEqual(result.Type, "Line Segment");
 
-            var segment = (LineSegment)result;
+            var segment = (AllShape)result;
 
-            Assert.AreEqual(50, segment.Length, 0.001);
+            Assert.AreEqual(50, segment.Length.GetValueOrDefault(), 0.001);
         }
 
         [TestMethod]
@@ -81,8 +81,8 @@ namespace Shape.Tests
 
             Assert.AreEqual(result.Type, "Line Segment");
 
-            var segment = (LineSegment)result;
-            Assert.AreEqual(5, segment.Length, 0.001);
+            var segment = (AllShape)result;
+            Assert.AreEqual(5, segment.Length.GetValueOrDefault(), 0.001);
         }
 
         [TestMethod]
@@ -98,7 +98,7 @@ namespace Shape.Tests
 
             Assert.AreEqual(result.Type, "Line Segment");
 
-            var segment = (LineSegment)result;
+            var segment = (AllShape)result;
             Assert.IsTrue(segment.Slope.IsSome);
             Assert.AreEqual(0, segment.Slope.Value, 0.001);
         }
@@ -114,7 +114,7 @@ namespace Shape.Tests
 
             Assert.AreEqual(result.Type, "Line Segment");
 
-            var segment = (LineSegment)result;
+            var segment = (AllShape)result;
             Assert.IsTrue(segment.Slope.IsSome);
             Assert.AreEqual(1, segment.Slope.Value, 0.001);
         }
@@ -131,7 +131,7 @@ namespace Shape.Tests
 
             Assert.AreEqual(result.Type, "Line Segment");
 
-            var segment = (LineSegment)result;
+            var segment = (AllShape)result;
             Assert.IsTrue(segment.Slope.IsSome);
             Assert.AreEqual(-4, segment.Slope.Value, 0.001);
         }
@@ -149,7 +149,7 @@ namespace Shape.Tests
 
             Assert.AreEqual(result.Type, "Line Segment");
 
-            var segment = (LineSegment)result;
+            var segment = (AllShape)result;
             Assert.IsFalse(segment.Slope.IsSome);
             Assert.IsTrue(segment.Slope.IsNone);
         }
