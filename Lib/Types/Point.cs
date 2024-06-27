@@ -2,16 +2,6 @@
 
 public class Point(double x, double y): IShape
 {
-    private bool Equals(Point other)
-    {
-        return Classifier.PointsAreEqual(this, other);
-    }
-
-    public override bool Equals(object? obj)
-    {
-        return Classifier.EqualsPoint(this, obj);
-    }
-
     public override int GetHashCode()
     {
         return HashCode.Combine(X, Y);

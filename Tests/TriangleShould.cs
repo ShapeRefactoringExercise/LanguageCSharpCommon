@@ -66,14 +66,20 @@ namespace Shape.Tests
             Assert.AreEqual("Line Segment", result.SideB.Type);
             Assert.AreEqual("Line Segment", result.SideC.Type);
 
-            Assert.AreEqual(result.P1, result.SideA.P1);
-            Assert.AreEqual(result.P2, result.SideA.P2);
+            Assert.AreEqual(result.P1.X, result.SideA.P1.X, 0.001, "SideA.P1.X");
+            Assert.AreEqual(result.P1.Y, result.SideA.P1.Y, 0.001, "SideA.P1.Y");
+            Assert.AreEqual(result.P2.X, result.SideA.P2.X, 0.001, "SideA.P2.X");
+            Assert.AreEqual(result.P2.Y, result.SideA.P2.Y, 0.001, "SideA.P2.Y");
 
-            Assert.AreEqual(result.P2, result.SideB.P1);
-            Assert.AreEqual(result.P3, result.SideB.P2);
+            Assert.AreEqual(result.P2.X, result.SideB.P1.X, 0.001, "SideB.P1.X");
+            Assert.AreEqual(result.P2.Y, result.SideB.P1.Y, 0.001, "SideB.P1.Y");
+            Assert.AreEqual(result.P3.X, result.SideB.P2.X, 0.001, "SideB.P2.X");
+            Assert.AreEqual(result.P3.Y, result.SideB.P2.Y, 0.001, "SideB.P2.Y");
 
-            Assert.AreEqual(result.P3, result.SideC.P1);
-            Assert.AreEqual(result.P1, result.SideC.P2);
+            Assert.AreEqual(result.P3.X, result.SideC.P1.X, 0.001, "SideC.P1.X");
+            Assert.AreEqual(result.P3.Y, result.SideC.P1.Y, 0.001, "SideC.P1.Y");
+            Assert.AreEqual(result.P1.X, result.SideC.P2.X, 0.001, "SideC.P2.X");
+            Assert.AreEqual(result.P1.Y, result.SideC.P2.Y, 0.001, "SideC.P2.Y");
 
             Assert.AreEqual(3, result.SideA.Length, 0.001);
             Assert.AreEqual(4, result.SideB.Length, 0.001);
@@ -101,14 +107,20 @@ namespace Shape.Tests
             Assert.AreEqual("Line Segment", result.SideB.Type);
             Assert.AreEqual("Line Segment", result.SideC.Type);
 
-            Assert.AreEqual(result.P1, result.SideA.P1);
-            Assert.AreEqual(result.P2, result.SideA.P2);
+            Assert.AreEqual(result.P1.X, result.SideA.P1.X, 0.001, "SideA.P1.X");
+            Assert.AreEqual(result.P1.Y, result.SideA.P1.Y, 0.001, "SideA.P1.Y");
+            Assert.AreEqual(result.P2.X, result.SideA.P2.X, 0.001, "SideA.P2.X");
+            Assert.AreEqual(result.P2.Y, result.SideA.P2.Y, 0.001, "SideA.P2.Y");
 
-            Assert.AreEqual(result.P2, result.SideB.P1);
-            Assert.AreEqual(result.P3, result.SideB.P2);
+            Assert.AreEqual(result.P2.X, result.SideB.P1.X, 0.001, "SideB.P1.X");
+            Assert.AreEqual(result.P2.Y, result.SideB.P1.Y, 0.001, "SideB.P1.Y");
+            Assert.AreEqual(result.P3.X, result.SideB.P2.X, 0.001, "SideB.P2.X");
+            Assert.AreEqual(result.P3.Y, result.SideB.P2.Y, 0.001, "SideB.P2.X");
 
-            Assert.AreEqual(result.P3, result.SideC.P1);
-            Assert.AreEqual(result.P1, result.SideC.P2);
+            Assert.AreEqual(result.P3.X, result.SideC.P1.X, 0.001, "SideC.P1.X");
+            Assert.AreEqual(result.P3.Y, result.SideC.P1.Y, 0.001, "SideC.P1.Y");
+            Assert.AreEqual(result.P1.X, result.SideC.P2.X, 0.001, "SideC.P2.X");
+            Assert.AreEqual(result.P1.Y, result.SideC.P2.Y, 0.001, "SideC.P2.X");
 
             Assert.AreEqual(12, result.SideA.Length, 0.001);
             Assert.AreEqual(16, result.SideB.Length, 0.001);
