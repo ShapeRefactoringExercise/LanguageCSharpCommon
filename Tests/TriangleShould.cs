@@ -8,7 +8,7 @@ namespace Shape.Tests
     [TestClass]
     public class TriangleShould
     {
-        private static AllShape GetTriangle ((double, double) c1, (double, double) c2, (double, double) c3)
+        private static Things GetTriangle ((double, double) c1, (double, double) c2, (double, double) c3)
         {
             var points = Builder.Build(new[] { c1, c2, c3, c1 });
             var shape = Classifier.Classify(points);
@@ -17,7 +17,7 @@ namespace Shape.Tests
             return shape;
         }
 
-        private static AllShape GetTriangle(AllShape p1, AllShape p2, AllShape p3)
+        private static Things GetTriangle(Things p1, Things p2, Things p3)
         {
             var shape = Classifier.Classify(new[] { p1, p2, p3, p1 });
 

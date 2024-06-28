@@ -9,7 +9,7 @@ namespace Shape.Tests
     [TestClass]
     public class RectangleShould
     {
-        private static (AllShape[] points, AllShape result) GetRectangle(double x, double y, double height, double length)
+        private static (Things[] points, Things result) GetRectangle(double x, double y, double height, double length)
         {
             var points = Builder.Build(
                 (x, y),
@@ -22,11 +22,11 @@ namespace Shape.Tests
             var shape = Classifier.Classify(points);
             Assert.AreEqual(shape.Type, "Rectangle");
 
-            var result = (AllShape)shape;
+            var result = (Things)shape;
             return (points, result);
         }
 
-        private static void CheckRectangle(Random random, Action<AllShape, double, double, double, double, IReadOnlyList<AllShape>> check)
+        private static void CheckRectangle(Random random, Action<Things, double, double, double, double, IReadOnlyList<Things>> check)
         {
             var length = random.NextDouble() * 100;
             var height = random.NextDouble() * 100;
@@ -61,7 +61,7 @@ namespace Shape.Tests
         {
             var random = new Random();
 
-            void Check(AllShape result, double x, double y, double height, double length, IReadOnlyList<AllShape> points)
+            void Check(Things result, double x, double y, double height, double length, IReadOnlyList<Things> points)
             {
                 Assert.AreEqual("Line Segment", result.SideA.Type, $"A x: {x}, y:{y}, height:{height}, length: {length}");
                 Assert.AreEqual(points[0].X.GetValueOrDefault(), result.SideA.P1.X.GetValueOrDefault(), 0.001, $"A.P1 x: {x}, y:{y}, height:{height}, length: {length}");
@@ -100,7 +100,7 @@ namespace Shape.Tests
         {
             var random = new Random();
 
-            void Check(AllShape result, double x, double y, double height, double length, IReadOnlyList<AllShape> points)
+            void Check(Things result, double x, double y, double height, double length, IReadOnlyList<Things> points)
             {
                 Assert.AreEqual(height * length, result.Area.GetValueOrDefault(), 0.001, $"l: {length}, h: {height}, x:{x}, y: {y}");
             }
@@ -116,7 +116,7 @@ namespace Shape.Tests
         {
             var random = new Random();
 
-            void Check(AllShape result, double x, double y, double height, double length, IReadOnlyList<AllShape> points)
+            void Check(Things result, double x, double y, double height, double length, IReadOnlyList<Things> points)
             {
                 Assert.AreEqual(2 * (height + length), result.Perimeter.GetValueOrDefault(), 0.001, $"l: {length}, h: {height}, x:{x}, y: {y}");
             }

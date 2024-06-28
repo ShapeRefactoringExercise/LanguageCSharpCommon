@@ -1,6 +1,6 @@
 ﻿namespace Shape.Lib.Types;
 
-public class AllShape
+public class Things
 {
     public string Type { get; set; } = "Unknown";
 
@@ -8,7 +8,7 @@ public class AllShape
 
     public double? Y { get; set; }
 
-    public AllShape[]? Points { get; set; }
+    public Things[]? Points { get; set; }
 
     public bool? IsClosed { get; set; }
 
@@ -16,36 +16,36 @@ public class AllShape
 
     public double? Length { get; set; }
 
-    public AllShape? P1 { get; set; }
+    public Things? P1 { get; set; }
 
-    public AllShape? P2 { get; set; }
+    public Things? P2 { get; set; }
 
-    public AllShape? P3 { get; set; }
+    public Things? P3 { get; set; }
 
-    public AllShape? P4 { get; set; }
+    public Things? P4 { get; set; }
 
     public object Slope { get; set; }
 
     public string Representation { get; set; } = "None";
 
-    public AllShape? Vertex { get; set; }
+    public Things? Vertex { get; set; }
 
-    public AllShape? SideA { get; set; }
-    public AllShape? SideB { get; set; }
+    public Things? SideA { get; set; }
+    public Things? SideB { get; set; }
 
-    public AllShape? SideC { get; set; }
+    public Things? SideC { get; set; }
 
-    public AllShape? SideD { get; set; }
+    public Things? SideD { get; set; }
 
     public double? Degrees { get; set; }
 
     public double? Height { get; set; }
 
-    public AllShape? AngleA { get; set; }
+    public Things? AngleA { get; set; }
 
-    public AllShape? AngleB { get; set; }
+    public Things? AngleB { get; set; }
 
-    public AllShape? AngleC { get; set; }
+    public Things? AngleC { get; set; }
 
     public double? Perimeter { get; set; }
 
