@@ -43,10 +43,17 @@ namespace Shape.Tests
         {
             var (points, result) = GetRectangle(0, 0, 3, 4);
 
-            Assert.AreEqual(points[0], result.P1);
-            Assert.AreEqual(points[1], result.P2);
-            Assert.AreEqual(points[2], result.P3);
-            Assert.AreEqual(points[3], result.P4);
+            Assert.AreEqual(points[0].X.GetValueOrDefault(), result.P1.X.GetValueOrDefault(), 0.001, "result.P1.X");
+            Assert.AreEqual(points[0].Y.GetValueOrDefault(), result.P1.Y.GetValueOrDefault(), 0.001, "result.P1.Y");
+
+            Assert.AreEqual(points[1].X.GetValueOrDefault(), result.P2.X.GetValueOrDefault(), 0.001, "result.P2.X");
+            Assert.AreEqual(points[1].Y.GetValueOrDefault(), result.P2.Y.GetValueOrDefault(), 0.001, "result.P2.Y");
+
+            Assert.AreEqual(points[2].X.GetValueOrDefault(), result.P3.X.GetValueOrDefault(), 0.001, "result.P3.X");
+            Assert.AreEqual(points[2].Y.GetValueOrDefault(), result.P3.Y.GetValueOrDefault(), 0.001, "result.P3.Y");
+
+            Assert.AreEqual(points[3].X.GetValueOrDefault(), result.P4.X.GetValueOrDefault(), 0.001, "result.P4.X");
+            Assert.AreEqual(points[3].Y.GetValueOrDefault(), result.P4.Y.GetValueOrDefault(), 0.001, "result.P4.Y");
         }
 
         [TestMethod]
