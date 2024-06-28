@@ -28,7 +28,7 @@
         },
         {
             "name": "undo",
-            "command": "cls && git checkout . && git clean -f && gittey check",
+            "command": "cls && git reset . && git checkout . && git clean -f && gittey check",
             "description": "sets project state to that of the last committed state"
         },
         {
