@@ -11,7 +11,7 @@ public static class Classifier
 
         for (int student = 0; student < points.Length + 1; student++)
         {
-            if(0 == points.Length)
+            if(dumbledor.Type.Length == points.Length && student == 0)
             {
                 return new Thing
                 {
@@ -24,14 +24,12 @@ public static class Classifier
             {
                 var x = points[0].X;
                 var y = points[0].Y;
-                return new Thing
-                {
-                    X = x,
-                    Y = y,
-                    Representation = $"({x}, {y})",
-                    Type = "Point",
-                    Height = -1.0,
-                };
+
+                dumbledor.X = x;
+                dumbledor.Y = y;
+                dumbledor.Representation = $"({x}, {y})";
+                dumbledor.Type = "Point";
+                dumbledor.Height = -1.0;
             }
 
             var ret2 = new List<Thing>();
@@ -134,36 +132,62 @@ public static class Classifier
                 }
             }
 
-            if (4 == points.Length && 3 == distinctPoints.Length && ret)
+            if (dumbledor.Type.Length == points.Length && 3 == distinctPoints.Length && ret  && distinctPoints.Length + 1 == dumbledor.Type.Length)
             {
-                return new Thing
                 {
-                    P2 = path[1].P1,
-                    SideB = path[1],
-                    SideC = path[2],
+                    dumbledor.P2 = path[1].P1;
+                    dumbledor.SideB = path[1];
+                    dumbledor.SideC = path[2];
 
-                    P1 = path[0].P1,
-                    AngleC = new Thing
+                    dumbledor.P1 = path[0].P1;
+                    dumbledor.AngleC = new Thing
                     {
                         Degrees = Math.Acos(Math.Round((Math.Pow(Math.Sqrt(
-                            Math.Pow(path[0].P1.X.GetValueOrDefault() - path[1].P1.X.GetValueOrDefault(), 2) +
-                            Math.Pow(path[0].P1.Y.GetValueOrDefault() - path[1].P1.Y.GetValueOrDefault(), 2)), 2) + Math.Pow(Math.Sqrt(
-                            Math.Pow(path[2].P1.X.GetValueOrDefault() - path[1].P1.X.GetValueOrDefault(), 2) +
-                            Math.Pow(path[2].P1.Y.GetValueOrDefault() - path[1].P1.Y.GetValueOrDefault(), 2)), 2) - Math.Pow(Math.Sqrt(
-                            Math.Pow(path[0].P1.X.GetValueOrDefault() - path[2].P1.X.GetValueOrDefault(), 2) +
-                            Math.Pow(path[0].P1.Y.GetValueOrDefault() - path[2].P1.Y.GetValueOrDefault(), 2)), 2)) / (2 * Math.Sqrt(
-                            Math.Pow(path[0].P1.X.GetValueOrDefault() - path[1].P1.X.GetValueOrDefault(), 2) +
-                            Math.Pow(path[0].P1.Y.GetValueOrDefault() - path[1].P1.Y.GetValueOrDefault(), 2)) * Math.Sqrt(
-                            Math.Pow(path[2].P1.X.GetValueOrDefault() - path[1].P1.X.GetValueOrDefault(), 2) +
-                            Math.Pow(path[2].P1.Y.GetValueOrDefault() - path[1].P1.Y.GetValueOrDefault(), 2))), 6)) * (180 / Math.PI),
+                                                            Math.Pow(
+                                                                path[0].P1.X.GetValueOrDefault() -
+                                                                path[1].P1.X.GetValueOrDefault(), 2) +
+                                                            Math.Pow(
+                                                                path[0].P1.Y.GetValueOrDefault() -
+                                                                path[1].P1.Y.GetValueOrDefault(), 2)), 2) +
+                                                        Math.Pow(Math.Sqrt(
+                                                            Math.Pow(
+                                                                path[2].P1.X.GetValueOrDefault() -
+                                                                path[1].P1.X.GetValueOrDefault(), 2) +
+                                                            Math.Pow(
+                                                                path[2].P1.Y.GetValueOrDefault() -
+                                                                path[1].P1.Y.GetValueOrDefault(), 2)), 2) -
+                                                        Math.Pow(Math.Sqrt(
+                                                            Math.Pow(
+                                                                path[0].P1.X.GetValueOrDefault() -
+                                                                path[2].P1.X.GetValueOrDefault(), 2) +
+                                                            Math.Pow(
+                                                                path[0].P1.Y.GetValueOrDefault() -
+                                                                path[2].P1.Y.GetValueOrDefault(), 2)), 2)) /
+                                                       (2 * Math.Sqrt(
+                                                            Math.Pow(
+                                                                path[0].P1.X.GetValueOrDefault() -
+                                                                path[1].P1.X.GetValueOrDefault(), 2) +
+                                                            Math.Pow(
+                                                                path[0].P1.Y.GetValueOrDefault() -
+                                                                path[1].P1.Y.GetValueOrDefault(), 2)) *
+                                                        Math.Sqrt(
+                                                            Math.Pow(
+                                                                path[2].P1.X.GetValueOrDefault() -
+                                                                path[1].P1.X.GetValueOrDefault(), 2) +
+                                                            Math.Pow(
+                                                                path[2].P1.Y.GetValueOrDefault() -
+                                                                path[1].P1.Y.GetValueOrDefault(), 2))), 6)) *
+                                  (180 / Math.PI),
                         Vertex = path[1].P1,
                         P1 = path[0].P1,
                         P2 = path[2].P1,
                         SideA = new Thing
                         {
-                            Length = Math.Sqrt(Math.Pow(path[0].P1.X.GetValueOrDefault() - path[1].P1.X.GetValueOrDefault(), 2) +
-                                               Math.Pow(path[0].P1.Y.GetValueOrDefault() - path[1].P1.Y.GetValueOrDefault(), 2)),
-                            Slope = Math.Abs(path[0].P1.X.GetValueOrDefault() - path[1].P1.X.GetValueOrDefault()) <= 0.001
+                            Length = Math.Sqrt(
+                                Math.Pow(path[0].P1.X.GetValueOrDefault() - path[1].P1.X.GetValueOrDefault(), 2) +
+                                Math.Pow(path[0].P1.Y.GetValueOrDefault() - path[1].P1.Y.GetValueOrDefault(), 2)),
+                            Slope = Math.Abs(path[0].P1.X.GetValueOrDefault() - path[1].P1.X.GetValueOrDefault()) <=
+                                    0.001
                                 ? "None"
                                 : (1.0 * (path[1].P1.Y.GetValueOrDefault() - path[0].P1.Y.GetValueOrDefault())) /
                                   (1.0 * (path[1].P1.X.GetValueOrDefault() - path[0].P1.X.GetValueOrDefault())),
@@ -176,71 +200,102 @@ public static class Classifier
                         SideB = new Thing
                         {
                             P1 = path[2].P1,
-                            Slope = Math.Abs(path[2].P1.X.GetValueOrDefault() - path[1].P1.X.GetValueOrDefault()) <= 0.001
+                            Slope = Math.Abs(path[2].P1.X.GetValueOrDefault() - path[1].P1.X.GetValueOrDefault()) <=
+                                    0.001
                                 ? "None"
                                 : (1.0 * (path[1].P1.Y.GetValueOrDefault() - path[2].P1.Y.GetValueOrDefault())) /
                                   (1.0 * (path[1].P1.X.GetValueOrDefault() - path[2].P1.X.GetValueOrDefault())),
                             Height = Math.Abs(path[2].P1.Y.GetValueOrDefault() - path[1].P1.Y.GetValueOrDefault()),
-                            Length = Math.Sqrt(Math.Pow(path[2].P1.X.GetValueOrDefault() - path[1].P1.X.GetValueOrDefault(), 2) +
-                                               Math.Pow(path[2].P1.Y.GetValueOrDefault() - path[1].P1.Y.GetValueOrDefault(), 2)),
+                            Length = Math.Sqrt(
+                                Math.Pow(path[2].P1.X.GetValueOrDefault() - path[1].P1.X.GetValueOrDefault(), 2) +
+                                Math.Pow(path[2].P1.Y.GetValueOrDefault() - path[1].P1.Y.GetValueOrDefault(), 2)),
                             Type = "Line Segment",
                             Representation = $"{path[2].P1} -> {path[1].P1}",
                             P2 = path[1].P1,
                         },
-                    },
-                    P3 = path[2].P1,
+                    };
+                    dumbledor.P3 = path[2].P1;
 
-                    AngleA = new Thing
+                    dumbledor.AngleA = new Thing
                     {
                         Degrees = Math.Acos(Math.Round((Math.Pow(Math.Sqrt(
-                            Math.Pow(path[1].P1.X.GetValueOrDefault() - path[2].P1.X.GetValueOrDefault(), 2) +
-                            Math.Pow(path[1].P1.Y.GetValueOrDefault() - path[2].P1.Y.GetValueOrDefault(), 2)), 2) + Math.Pow(Math.Sqrt(
-                            Math.Pow(path[0].P1.X.GetValueOrDefault() - path[2].P1.X.GetValueOrDefault(), 2) +
-                            Math.Pow(path[0].P1.Y.GetValueOrDefault() - path[2].P1.Y.GetValueOrDefault(), 2)), 2) - Math.Pow(Math.Sqrt(
-                            Math.Pow(path[1].P1.X.GetValueOrDefault() - path[0].P1.X.GetValueOrDefault(), 2) +
-                            Math.Pow(path[1].P1.Y.GetValueOrDefault() - path[0].P1.Y.GetValueOrDefault(), 2)), 2)) / (2 * Math.Sqrt(
-                            Math.Pow(path[1].P1.X.GetValueOrDefault() - path[2].P1.X.GetValueOrDefault(), 2) +
-                            Math.Pow(path[1].P1.Y.GetValueOrDefault() - path[2].P1.Y.GetValueOrDefault(), 2)) * Math.Sqrt(
-                            Math.Pow(path[0].P1.X.GetValueOrDefault() - path[2].P1.X.GetValueOrDefault(), 2) +
-                            Math.Pow(path[0].P1.Y.GetValueOrDefault() - path[2].P1.Y.GetValueOrDefault(), 2))), 6)) * (180 / Math.PI),
+                                                            Math.Pow(
+                                                                path[1].P1.X.GetValueOrDefault() -
+                                                                path[2].P1.X.GetValueOrDefault(), 2) +
+                                                            Math.Pow(
+                                                                path[1].P1.Y.GetValueOrDefault() -
+                                                                path[2].P1.Y.GetValueOrDefault(), 2)), 2) +
+                                                        Math.Pow(Math.Sqrt(
+                                                            Math.Pow(
+                                                                path[0].P1.X.GetValueOrDefault() -
+                                                                path[2].P1.X.GetValueOrDefault(), 2) +
+                                                            Math.Pow(
+                                                                path[0].P1.Y.GetValueOrDefault() -
+                                                                path[2].P1.Y.GetValueOrDefault(), 2)), 2) -
+                                                        Math.Pow(Math.Sqrt(
+                                                            Math.Pow(
+                                                                path[1].P1.X.GetValueOrDefault() -
+                                                                path[0].P1.X.GetValueOrDefault(), 2) +
+                                                            Math.Pow(
+                                                                path[1].P1.Y.GetValueOrDefault() -
+                                                                path[0].P1.Y.GetValueOrDefault(), 2)), 2)) /
+                                                       (2 * Math.Sqrt(
+                                                            Math.Pow(
+                                                                path[1].P1.X.GetValueOrDefault() -
+                                                                path[2].P1.X.GetValueOrDefault(), 2) +
+                                                            Math.Pow(
+                                                                path[1].P1.Y.GetValueOrDefault() -
+                                                                path[2].P1.Y.GetValueOrDefault(), 2)) *
+                                                        Math.Sqrt(
+                                                            Math.Pow(
+                                                                path[0].P1.X.GetValueOrDefault() -
+                                                                path[2].P1.X.GetValueOrDefault(), 2) +
+                                                            Math.Pow(
+                                                                path[0].P1.Y.GetValueOrDefault() -
+                                                                path[2].P1.Y.GetValueOrDefault(), 2))), 6)) *
+                                  (180 / Math.PI),
                         Vertex = path[2].P1,
                         P1 = path[1].P1,
                         P2 = path[0].P1,
                         SideA = new Thing
                         {
                             P2 = path[2].P1,
-                            Slope = Math.Abs(path[1].P1.X.GetValueOrDefault() - path[2].P1.X.GetValueOrDefault()) <= 0.001
+                            Slope = Math.Abs(path[1].P1.X.GetValueOrDefault() - path[2].P1.X.GetValueOrDefault()) <=
+                                    0.001
                                 ? "None"
                                 : (1.0 * (path[2].P1.Y.GetValueOrDefault() - path[1].P1.Y.GetValueOrDefault())) /
                                   (1.0 * (path[2].P1.X.GetValueOrDefault() - path[1].P1.X.GetValueOrDefault())),
                             Type = "Line Segment",
                             P1 = path[1].P1,
-                            Length = Math.Sqrt(Math.Pow(path[1].P1.X.GetValueOrDefault() - path[2].P1.X.GetValueOrDefault(), 2) +
-                                               Math.Pow(path[1].P1.Y.GetValueOrDefault() - path[2].P1.Y.GetValueOrDefault(), 2)),
+                            Length = Math.Sqrt(
+                                Math.Pow(path[1].P1.X.GetValueOrDefault() - path[2].P1.X.GetValueOrDefault(), 2) +
+                                Math.Pow(path[1].P1.Y.GetValueOrDefault() - path[2].P1.Y.GetValueOrDefault(), 2)),
                             Height = Math.Abs(path[1].P1.Y.GetValueOrDefault() - path[2].P1.Y.GetValueOrDefault()),
                             Representation = $"{path[1].P1} -> {path[2].P1}",
                         },
                         SideB = new Thing
                         {
-                            Length = Math.Sqrt(Math.Pow(path[0].P1.X.GetValueOrDefault() - path[2].P1.X.GetValueOrDefault(), 2) +
-                                               Math.Pow(path[0].P1.Y.GetValueOrDefault() - path[2].P1.Y.GetValueOrDefault(), 2)),
+                            Length = Math.Sqrt(
+                                Math.Pow(path[0].P1.X.GetValueOrDefault() - path[2].P1.X.GetValueOrDefault(), 2) +
+                                Math.Pow(path[0].P1.Y.GetValueOrDefault() - path[2].P1.Y.GetValueOrDefault(), 2)),
                             P1 = path[0].P1,
                             Height = Math.Abs(path[0].P1.Y.GetValueOrDefault() - path[2].P1.Y.GetValueOrDefault()),
                             P2 = path[2].P1,
-                            Slope = Math.Abs(path[0].P1.X.GetValueOrDefault() - path[2].P1.X.GetValueOrDefault()) <= 0.001
+                            Slope = Math.Abs(path[0].P1.X.GetValueOrDefault() - path[2].P1.X.GetValueOrDefault()) <=
+                                    0.001
                                 ? "None"
                                 : (1.0 * (path[2].P1.Y.GetValueOrDefault() - path[0].P1.Y.GetValueOrDefault())) /
                                   (1.0 * (path[2].P1.X.GetValueOrDefault() - path[0].P1.X.GetValueOrDefault())),
                             Representation = $"{path[0].P1} -> {path[2].P1}",
                             Type = "Line Segment",
                         },
-                    },
+                    };
 
-                    Perimeter = path[0].Length.GetValueOrDefault() + path[1].Length.GetValueOrDefault() +
-                                path[2].Length.GetValueOrDefault(),
+                    dumbledor.Perimeter = path[0].Length.GetValueOrDefault() + path[1].Length.GetValueOrDefault() +
+                                          path[2].Length.GetValueOrDefault();
 
-                    SideA = path[0],
-                    Area = 0.25 * Math.Sqrt(
+                    dumbledor.SideA = path[0];
+                    dumbledor.Area = 0.25 * Math.Sqrt(
                         (path[0].Length.GetValueOrDefault() + path[1].Length.GetValueOrDefault() +
                          path[2].Length.GetValueOrDefault())
                         * (-(path[0].Length.GetValueOrDefault()) + path[1].Length.GetValueOrDefault() +
@@ -249,32 +304,59 @@ public static class Classifier
                            path[2].Length.GetValueOrDefault())
                         * (path[0].Length.GetValueOrDefault() + path[1].Length.GetValueOrDefault() -
                            path[2].Length.GetValueOrDefault())
-                    ),
+                    );
 
-                    Type = "Triangle",
+                    dumbledor.Type = "Triangle";
 
-                    AngleB = new Thing
+                    dumbledor.AngleB = new Thing
                     {
                         Degrees = Math.Acos(Math.Round((Math.Pow(Math.Sqrt(
-                            Math.Pow(path[2].P1.X.GetValueOrDefault() - path[0].P1.X.GetValueOrDefault(), 2) +
-                            Math.Pow(path[2].P1.Y.GetValueOrDefault() - path[0].P1.Y.GetValueOrDefault(), 2)), 2) + Math.Pow(Math.Sqrt(
-                            Math.Pow(path[1].P1.X.GetValueOrDefault() - path[0].P1.X.GetValueOrDefault(), 2) +
-                            Math.Pow(path[1].P1.Y.GetValueOrDefault() - path[0].P1.Y.GetValueOrDefault(), 2)), 2) - Math.Pow(Math.Sqrt(
-                            Math.Pow(path[2].P1.X.GetValueOrDefault() - path[1].P1.X.GetValueOrDefault(), 2) +
-                            Math.Pow(path[2].P1.Y.GetValueOrDefault() - path[1].P1.Y.GetValueOrDefault(), 2)), 2)) / (2 * Math.Sqrt(
-                            Math.Pow(path[2].P1.X.GetValueOrDefault() - path[0].P1.X.GetValueOrDefault(), 2) +
-                            Math.Pow(path[2].P1.Y.GetValueOrDefault() - path[0].P1.Y.GetValueOrDefault(), 2)) * Math.Sqrt(
-                            Math.Pow(path[1].P1.X.GetValueOrDefault() - path[0].P1.X.GetValueOrDefault(), 2) +
-                            Math.Pow(path[1].P1.Y.GetValueOrDefault() - path[0].P1.Y.GetValueOrDefault(), 2))), 6)) * (180 / Math.PI),
+                                                            Math.Pow(
+                                                                path[2].P1.X.GetValueOrDefault() -
+                                                                path[0].P1.X.GetValueOrDefault(), 2) +
+                                                            Math.Pow(
+                                                                path[2].P1.Y.GetValueOrDefault() -
+                                                                path[0].P1.Y.GetValueOrDefault(), 2)), 2) +
+                                                        Math.Pow(Math.Sqrt(
+                                                            Math.Pow(
+                                                                path[1].P1.X.GetValueOrDefault() -
+                                                                path[0].P1.X.GetValueOrDefault(), 2) +
+                                                            Math.Pow(
+                                                                path[1].P1.Y.GetValueOrDefault() -
+                                                                path[0].P1.Y.GetValueOrDefault(), 2)), 2) -
+                                                        Math.Pow(Math.Sqrt(
+                                                            Math.Pow(
+                                                                path[2].P1.X.GetValueOrDefault() -
+                                                                path[1].P1.X.GetValueOrDefault(), 2) +
+                                                            Math.Pow(
+                                                                path[2].P1.Y.GetValueOrDefault() -
+                                                                path[1].P1.Y.GetValueOrDefault(), 2)), 2)) /
+                                                       (2 * Math.Sqrt(
+                                                            Math.Pow(
+                                                                path[2].P1.X.GetValueOrDefault() -
+                                                                path[0].P1.X.GetValueOrDefault(), 2) +
+                                                            Math.Pow(
+                                                                path[2].P1.Y.GetValueOrDefault() -
+                                                                path[0].P1.Y.GetValueOrDefault(), 2)) *
+                                                        Math.Sqrt(
+                                                            Math.Pow(
+                                                                path[1].P1.X.GetValueOrDefault() -
+                                                                path[0].P1.X.GetValueOrDefault(), 2) +
+                                                            Math.Pow(
+                                                                path[1].P1.Y.GetValueOrDefault() -
+                                                                path[0].P1.Y.GetValueOrDefault(), 2))), 6)) *
+                                  (180 / Math.PI),
                         Vertex = path[0].P1,
                         P1 = path[2].P1,
                         P2 = path[1].P1,
                         SideA = new Thing
                         {
                             Height = Math.Abs(path[2].P1.Y.GetValueOrDefault() - path[0].P1.Y.GetValueOrDefault()),
-                            Length = Math.Sqrt(Math.Pow(path[2].P1.X.GetValueOrDefault() - path[0].P1.X.GetValueOrDefault(), 2) +
-                                               Math.Pow(path[2].P1.Y.GetValueOrDefault() - path[0].P1.Y.GetValueOrDefault(), 2)),
-                            Slope = Math.Abs(path[2].P1.X.GetValueOrDefault() - path[0].P1.X.GetValueOrDefault()) <= 0.001
+                            Length = Math.Sqrt(
+                                Math.Pow(path[2].P1.X.GetValueOrDefault() - path[0].P1.X.GetValueOrDefault(), 2) +
+                                Math.Pow(path[2].P1.Y.GetValueOrDefault() - path[0].P1.Y.GetValueOrDefault(), 2)),
+                            Slope = Math.Abs(path[2].P1.X.GetValueOrDefault() - path[0].P1.X.GetValueOrDefault()) <=
+                                    0.001
                                 ? "None"
                                 : (1.0 * (path[0].P1.Y.GetValueOrDefault() - path[2].P1.Y.GetValueOrDefault())) /
                                   (1.0 * (path[0].P1.X.GetValueOrDefault() - path[2].P1.X.GetValueOrDefault())),
@@ -285,19 +367,21 @@ public static class Classifier
                         },
                         SideB = new Thing
                         {
-                            Length = Math.Sqrt(Math.Pow(path[1].P1.X.GetValueOrDefault() - path[0].P1.X.GetValueOrDefault(), 2) +
-                                               Math.Pow(path[1].P1.Y.GetValueOrDefault() - path[0].P1.Y.GetValueOrDefault(), 2)),
+                            Length = Math.Sqrt(
+                                Math.Pow(path[1].P1.X.GetValueOrDefault() - path[0].P1.X.GetValueOrDefault(), 2) +
+                                Math.Pow(path[1].P1.Y.GetValueOrDefault() - path[0].P1.Y.GetValueOrDefault(), 2)),
                             P1 = path[1].P1,
                             Height = Math.Abs(path[1].P1.Y.GetValueOrDefault() - path[0].P1.Y.GetValueOrDefault()),
                             P2 = path[0].P1,
-                            Slope = Math.Abs(path[1].P1.X.GetValueOrDefault() - path[0].P1.X.GetValueOrDefault()) <= 0.001
+                            Slope = Math.Abs(path[1].P1.X.GetValueOrDefault() - path[0].P1.X.GetValueOrDefault()) <=
+                                    0.001
                                 ? "None"
                                 : (1.0 * (path[0].P1.Y.GetValueOrDefault() - path[1].P1.Y.GetValueOrDefault())) /
                                   (1.0 * (path[0].P1.X.GetValueOrDefault() - path[1].P1.X.GetValueOrDefault())),
                             Representation = $"{path[1].P1} -> {path[0].P1}",
                             Type = "Line Segment",
                         },
-                    },
+                    };
                 };
             }
 
