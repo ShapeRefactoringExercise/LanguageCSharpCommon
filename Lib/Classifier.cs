@@ -136,6 +136,7 @@ public static class Classifier
             double? b2 = path[2].P1.X;
             double? b3 = path[2].P1.X;
             double? b4 = path[0].P1.X;
+            double? b5 = path[0].P1.X;
             return new Thing
             {
                 P2 = path[1].P1,
@@ -290,7 +291,7 @@ public static class Classifier
                         P1 = path[1].P1,
                         Height = Math.Abs(path[1].P1.Y.GetValueOrDefault() - path[0].P1.Y.GetValueOrDefault()),
                         P2 = path[0].P1,
-                        Slope = path[1].P1.X.IsEquivalentTo(path[0].P1.X)
+                        Slope = Math.Abs(path[1].P1.X.GetValueOrDefault() - b5.GetValueOrDefault()) <= 0.001
                             ? "None"
                             : (1.0 * (path[0].P1.Y.GetValueOrDefault() - path[1].P1.Y.GetValueOrDefault())) /
                                                  (1.0 * (path[0].P1.X.GetValueOrDefault() - path[1].P1.X.GetValueOrDefault())),
@@ -355,13 +356,12 @@ public static class Classifier
                 if (pEnd.GetType() != pStart.GetType()) ret1 = false;
                 else
                 {
-                    Thing b = pEnd;
-                    ret1 = pStart.X.IsEquivalentTo(b.X) && pStart.Y.IsEquivalentTo(b.Y);
+                    ret1 = Math.Abs(pStart.X.GetValueOrDefault() - pEnd.X.GetValueOrDefault()) <= 0.001 && Math.Abs(pStart.Y.GetValueOrDefault() - pEnd.Y.GetValueOrDefault()) <= 0.001;
                 }
             }
         }
 
-        if (5 == points.Length && 4 == distinctPoints.Length && ret1 && path[0].Length.IsEquivalentTo(path[2].Length) && path[1].Length.IsEquivalentTo(path[3].Length) && ((Func<double[], bool>)(things =>
+        if (5 == points.Length && 4 == distinctPoints.Length && ret1 && (path[0].Length.IsEquivalentTo(path[2].Length)) && path[1].Length.IsEquivalentTo(path[3].Length) && ((Func<double[], bool>)(things =>
             {
                 var lastAngle = 90.0;
                 foreach (var angle in things)
@@ -416,8 +416,8 @@ public static class Classifier
             Length = length,
             Type = "Other",
             Representation = "Other",
-            IsClosed = first.X.IsEquivalentTo(last.X) && first.Y.IsEquivalentTo(last.Y),
-            IsOpen = !first.X.IsEquivalentTo(last.X) || !first.Y.IsEquivalentTo(last.Y),
+            IsClosed = Math.Abs(first.X.GetValueOrDefault() - last.X.GetValueOrDefault()) <= 0.001 && Math.Abs(first.Y.GetValueOrDefault() - last.Y.GetValueOrDefault()) <= 0.001,
+            IsOpen = !(Math.Abs(first.X.GetValueOrDefault() - last.X.GetValueOrDefault()) <= 0.001) || !(Math.Abs(first.Y.GetValueOrDefault() - last.Y.GetValueOrDefault()) <= 0.001),
         };
     }
 }
