@@ -1,8 +1,8 @@
 ﻿namespace Shape.Lib.Types;
 
-public class Rectangle : IShape
+public class Rectangle1 : IShape
 {
-    public Rectangle(AllShape sideA, AllShape sideB, AllShape sideC, AllShape sideD)
+    public Rectangle1(AllShape sideA, AllShape sideB, AllShape sideC, AllShape sideD)
     {
         SideA = sideA;
         SideB = sideB;

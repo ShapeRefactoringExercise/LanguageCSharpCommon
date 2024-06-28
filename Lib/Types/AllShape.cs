@@ -22,6 +22,8 @@ public class AllShape: IShape
 
     public AllShape? P3 { get; set; }
 
+    public AllShape? P4 { get; set; }
+
     public Maybe<double>? Slope { get; set; }
 
     public string Representation { get; set; } = "None";
@@ -32,6 +34,8 @@ public class AllShape: IShape
     public AllShape? SideB { get; set; }
 
     public AllShape? SideC { get; set; }
+
+    public AllShape? SideD { get; set; }
 
     public double? Degrees { get; set; }
 

@@ -376,7 +376,26 @@ public static class Classifier
         var angles = SolvioHexia(points);
         if (5 == points.Length && 4 == distinctPoints.Length && EqualsPoint(pStart, pEnd) && path[0].Length.IsEquivalentTo(path[2].Length) && path[1].Length.IsEquivalentTo(path[3].Length) && AllAreRight(angles))
         {
-            return new Rectangle(path[0], path[1], path[2], path[3]);
+            var sideA = path[0];
+            var sideB = path[1];
+            var sideC = path[2];
+            var sideD = path[3];
+            return new AllShape
+            {
+                Type = "Rectangle",
+                SideA = sideA,
+                SideB = sideB,
+                SideC = sideC,
+                SideD = sideD,
+
+                P1 = sideA.P1,
+                P2 = sideB.P1,
+                P3 = sideC.P1,
+                P4 = sideD.P1,
+
+                Perimeter = (2 * sideA.Length.GetValueOrDefault()) + (2 * sideB.Length.GetValueOrDefault()),
+                Area = sideA.Length.GetValueOrDefault() * sideB.Length.GetValueOrDefault(),
+            };
         }
 
         var length = 0.0;
