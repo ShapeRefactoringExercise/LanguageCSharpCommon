@@ -150,7 +150,7 @@ namespace Shape.Tests
             Assert.AreEqual(result.P3.Y.GetValueOrDefault(), result.AngleA.Vertex.Y.GetValueOrDefault(), 0.001, "AngleA Vertex.Y.GetValueOrDefault()");
             Assert.AreEqual(result.P1.X.GetValueOrDefault(), result.AngleA.P2.X.GetValueOrDefault(), 0.001, "AngleA P2.X.GetValueOrDefault()");
             Assert.AreEqual(result.P1.Y.GetValueOrDefault(), result.AngleA.P2.Y.GetValueOrDefault(), 0.001, "AngleA P2.Y.GetValueOrDefault()");
-            Assert.AreEqual(36.87, result.AngleA.Degrees, 0.001);
+            Assert.AreEqual(36.87, result.AngleA.Degrees.GetValueOrDefault(), 0.001);
 
             Assert.AreEqual(result.SideB.P1.X.GetValueOrDefault(), result.AngleA.SideA.P1.X.GetValueOrDefault(), 0.001, "AngleA SideA P1.X.GetValueOrDefault()");
             Assert.AreEqual(result.SideB.P1.Y.GetValueOrDefault(), result.AngleA.SideA.P1.Y.GetValueOrDefault(), 0.001, "AngleA SideA P1.Y.GetValueOrDefault()");
@@ -170,7 +170,7 @@ namespace Shape.Tests
             Assert.AreEqual(result.P1.Y.GetValueOrDefault(), result.AngleB.Vertex.Y.GetValueOrDefault(), 0.001, "AngeleB Vertex.Y.GetValueOrDefault()");
             Assert.AreEqual(result.P2.X.GetValueOrDefault(), result.AngleB.P2.X.GetValueOrDefault(), 0.001, "AngleB P2.X.GetValueOrDefault()");
             Assert.AreEqual(result.P2.Y.GetValueOrDefault(), result.AngleB.P2.Y.GetValueOrDefault(), 0.001, "AngleB P2.Y.GetValueOrDefault()");
-            Assert.AreEqual(53.13, result.AngleB.Degrees, 0.001);
+            Assert.AreEqual(53.13, result.AngleB.Degrees.GetValueOrDefault(), 0.001);
 
             Assert.AreEqual(result.SideC.P1.X.GetValueOrDefault(), result.AngleB.SideA.P1.X.GetValueOrDefault(), 0.001, "AngleB SideA P1.X.GetValueOrDefault()");
             Assert.AreEqual(result.SideC.P1.Y.GetValueOrDefault(), result.AngleB.SideA.P1.Y.GetValueOrDefault(), 0.001, "AngleB SideA P1.Y.GetValueOrDefault()");
@@ -189,7 +189,7 @@ namespace Shape.Tests
             Assert.AreEqual(result.P2.Y.GetValueOrDefault(), result.AngleC.Vertex.Y.GetValueOrDefault(), 0.001, "AngleC Vertex.Y.GetValueOrDefault()");
             Assert.AreEqual(result.P3.X.GetValueOrDefault(), result.AngleC.P2.X.GetValueOrDefault(), 0.001, "AngleC P2.X.GetValueOrDefault()");
             Assert.AreEqual(result.P3.Y.GetValueOrDefault(), result.AngleC.P2.Y.GetValueOrDefault(), 0.001, "AngleC P2.Y.GetValueOrDefault()");
-            Assert.AreEqual(90, result.AngleC.Degrees, 0.001);
+            Assert.AreEqual(90, result.AngleC.Degrees.GetValueOrDefault(), 0.001);
 
             Assert.AreEqual(result.SideA.P1.X.GetValueOrDefault(), result.AngleC.SideA.P1.X.GetValueOrDefault(), 0.001, "AngleC SideA P1.X.GetValueOrDefault()");
             Assert.AreEqual(result.SideA.P1.Y.GetValueOrDefault(), result.AngleC.SideA.P1.Y.GetValueOrDefault(), 0.001, "AngleC SideA P1.Y.GetValueOrDefault()");
@@ -229,9 +229,9 @@ namespace Shape.Tests
             Assert.IsTrue(result.SideC.Slope.IsSome, "SideC.Slope.IsSome");
             Assert.AreEqual(-1.732, result.SideC.Slope.Value, 0.001);
 
-            Assert.AreEqual(30, result.AngleA.Degrees, 0.001);
-            Assert.AreEqual(60, result.AngleB.Degrees, 0.001);
-            Assert.AreEqual(90, result.AngleC.Degrees, 0.001);
+            Assert.AreEqual(30, result.AngleA.Degrees.GetValueOrDefault(), 0.001);
+            Assert.AreEqual(60, result.AngleB.Degrees.GetValueOrDefault(), 0.001);
+            Assert.AreEqual(90, result.AngleC.Degrees.GetValueOrDefault(), 0.001);
 
             Assert.AreEqual(7.794, result.Area, 0.001);
         }
@@ -257,9 +257,9 @@ namespace Shape.Tests
 
             Assert.IsFalse(result.SideC.Slope.IsSome, "SideC.Slope.IsSome");
 
-            Assert.AreEqual(26.565, result.AngleA.Degrees, 0.001);
-            Assert.AreEqual(90, result.AngleB.Degrees, 0.001);
-            Assert.AreEqual(63.434, result.AngleC.Degrees, 0.001);
+            Assert.AreEqual(26.565, result.AngleA.Degrees.GetValueOrDefault(), 0.001);
+            Assert.AreEqual(90, result.AngleB.Degrees.GetValueOrDefault(), 0.001);
+            Assert.AreEqual(63.434, result.AngleC.Degrees.GetValueOrDefault(), 0.001);
 
             Assert.AreEqual(1, result.Area, 0.001);
         }
@@ -276,9 +276,9 @@ namespace Shape.Tests
                 (x + change, change + y)
             );
 
-            Assert.AreEqual(45, result.AngleA.Degrees, 0.001);
-            Assert.AreEqual(45, result.AngleB.Degrees, 0.001);
-            Assert.AreEqual(90, result.AngleC.Degrees, 0.001);
+            Assert.AreEqual(45, result.AngleA.Degrees.GetValueOrDefault(), 0.001);
+            Assert.AreEqual(45, result.AngleB.Degrees.GetValueOrDefault(), 0.001);
+            Assert.AreEqual(90, result.AngleC.Degrees.GetValueOrDefault(), 0.001);
             Assert.AreEqual(4.5, result.Area, 0.001);
         }
 
