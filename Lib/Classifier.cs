@@ -35,7 +35,7 @@ public static class Classifier
         {
             foreach (var value in ret2)
             {
-                if (value.X.IsEquivalentTo(point.X) && value.Y.IsEquivalentTo(point.Y))
+                if (Math.Abs(value.X.GetValueOrDefault() - point.X.GetValueOrDefault()) <= 0.001 && Math.Abs(value.Y.GetValueOrDefault() - point.Y.GetValueOrDefault()) <= 0.001)
                 {
                     found = true;
                     break;
@@ -65,7 +65,7 @@ public static class Classifier
             }
 
             object slope1;
-            if (pLast.X.IsEquivalentTo(point1.X))
+            if (Math.Abs(pLast.X.GetValueOrDefault() - point1.X.GetValueOrDefault()) <= 0.001)
             {
                 slope1 = "None";
             }
@@ -93,7 +93,7 @@ public static class Classifier
         {
 
             object slope;
-            if (pStart.X.IsEquivalentTo(pEnd.X))
+            if (Math.Abs(pStart.X.GetValueOrDefault() - pEnd.X.GetValueOrDefault()) <= 0.001)
             {
                 slope = "None";
             }
@@ -124,14 +124,18 @@ public static class Classifier
                 if (pEnd.GetType() != pStart.GetType()) ret = false;
                 else
                 {
-                    Thing b = pEnd;
-                    ret = pStart.X.IsEquivalentTo(b.X) && pStart.Y.IsEquivalentTo(b.Y);
+                    ret = Math.Abs(pStart.X.GetValueOrDefault() - pEnd.X.GetValueOrDefault()) <= 0.001 && Math.Abs(pStart.Y.GetValueOrDefault() - pEnd.Y.GetValueOrDefault()) <= 0.001;
                 }
             }
         }
 
         if (4 == points.Length && 3 == distinctPoints.Length && ret)
         {
+            double? b = path[1].P1.X;
+            double? b1 = path[1].P1.X;
+            double? b2 = path[2].P1.X;
+            double? b3 = path[2].P1.X;
+            double? b4 = path[0].P1.X;
             return new Thing
             {
                 P2 = path[1].P1,
@@ -159,7 +163,7 @@ public static class Classifier
                     {
                         Length = Math.Sqrt(Math.Pow(path[0].P1.X.GetValueOrDefault() - path[1].P1.X.GetValueOrDefault(), 2) +
                                            Math.Pow(path[0].P1.Y.GetValueOrDefault() - path[1].P1.Y.GetValueOrDefault(), 2)),
-                        Slope = path[0].P1.X.IsEquivalentTo(path[1].P1.X)
+                        Slope = Math.Abs(path[0].P1.X.GetValueOrDefault() - b.GetValueOrDefault()) <= 0.001
                             ? "None"
                             : (1.0 * (path[1].P1.Y.GetValueOrDefault() - path[0].P1.Y.GetValueOrDefault())) /
                                                  (1.0 * (path[1].P1.X.GetValueOrDefault() - path[0].P1.X.GetValueOrDefault())),
@@ -172,7 +176,7 @@ public static class Classifier
                     SideB = new Thing
                     {
                         P1 = path[2].P1,
-                        Slope = path[2].P1.X.IsEquivalentTo(path[1].P1.X)
+                        Slope = Math.Abs(path[2].P1.X.GetValueOrDefault() - b1.GetValueOrDefault()) <= 0.001
                             ? "None"
                             : (1.0 * (path[1].P1.Y.GetValueOrDefault() - path[2].P1.Y.GetValueOrDefault())) /
                                                  (1.0 * (path[1].P1.X.GetValueOrDefault() - path[2].P1.X.GetValueOrDefault())),
@@ -205,7 +209,7 @@ public static class Classifier
                     SideA = new Thing
                     {
                         P2 = path[2].P1,
-                        Slope = path[1].P1.X.IsEquivalentTo(path[2].P1.X)
+                        Slope = Math.Abs(path[1].P1.X.GetValueOrDefault() - b2.GetValueOrDefault()) <= 0.001
                             ? "None"
                             : (1.0 * (path[2].P1.Y.GetValueOrDefault() - path[1].P1.Y.GetValueOrDefault())) /
                                                  (1.0 * (path[2].P1.X.GetValueOrDefault() - path[1].P1.X.GetValueOrDefault())),
@@ -223,7 +227,7 @@ public static class Classifier
                         P1 = path[0].P1,
                         Height = Math.Abs(path[0].P1.Y.GetValueOrDefault() - path[2].P1.Y.GetValueOrDefault()),
                         P2 = path[2].P1,
-                        Slope = path[0].P1.X.IsEquivalentTo(path[2].P1.X)
+                        Slope = Math.Abs(path[0].P1.X.GetValueOrDefault() - b3.GetValueOrDefault()) <= 0.001
                             ? "None"
                             : (1.0 * (path[2].P1.Y.GetValueOrDefault() - path[0].P1.Y.GetValueOrDefault())) /
                                                  (1.0 * (path[2].P1.X.GetValueOrDefault() - path[0].P1.X.GetValueOrDefault())),
@@ -270,7 +274,7 @@ public static class Classifier
                         Height = Math.Abs(path[2].P1.Y.GetValueOrDefault() - path[0].P1.Y.GetValueOrDefault()),
                         Length = Math.Sqrt(Math.Pow(path[2].P1.X.GetValueOrDefault() - path[0].P1.X.GetValueOrDefault(), 2) +
                                            Math.Pow(path[2].P1.Y.GetValueOrDefault() - path[0].P1.Y.GetValueOrDefault(), 2)),
-                        Slope = path[2].P1.X.IsEquivalentTo(path[0].P1.X)
+                        Slope = Math.Abs(path[2].P1.X.GetValueOrDefault() - b4.GetValueOrDefault()) <= 0.001
                             ? "None"
                             : (1.0 * (path[0].P1.Y.GetValueOrDefault() - path[2].P1.Y.GetValueOrDefault())) /
                                                  (1.0 * (path[0].P1.X.GetValueOrDefault() - path[2].P1.X.GetValueOrDefault())),
