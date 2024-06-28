@@ -83,80 +83,62 @@ public static class Classifier
         return segments.ToArray();
     }
 
-    private static AllShape[] GetAngles(AllShape[] points)
+    private static double[] GetAngles(AllShape[] points)
     {
-        var angles = new List<AllShape>();
-        for (int i = 2; i < points.Length; i++)
+        var angles = new List<double>();
+        for (var i = 2; i < points.Length; i++)
         {
-            var p1 = points[i - 2];
-            var vertex = points[i - 1];
-            var p2 = points[i];
-
-            var SideA = new AllShape
-            {
-                Type = "Line Segment",
-                P1 = p1,
-                P2 = vertex,
-                Length = Math.Sqrt(Math.Pow(p1.X.GetValueOrDefault() - vertex.X.GetValueOrDefault(), 2) +
-                                   Math.Pow(p1.Y.GetValueOrDefault() - vertex.Y.GetValueOrDefault(), 2)),
-                Slope = p1.X.IsEquivalentTo(vertex.X)
-                    ? Maybe<double>.None
-                    : Maybe<double>.Some((1.0 * (vertex.Y.GetValueOrDefault() - p1.Y.GetValueOrDefault())) /
-                                         (1.0 * (vertex.X.GetValueOrDefault() - p1.X.GetValueOrDefault()))),
-                Representation = $"{p1} -> {vertex}"
-            };
-
-            var SideB = new AllShape
-            {
-                Type = "Line Segment",
-                P1 = p2,
-                P2 = vertex,
-                Length = Math.Sqrt(Math.Pow(p2.X.GetValueOrDefault() - vertex.X.GetValueOrDefault(), 2) +
-                                   Math.Pow(p2.Y.GetValueOrDefault() - vertex.Y.GetValueOrDefault(), 2)),
-                Slope = p2.X.IsEquivalentTo(vertex.X)
-                    ? Maybe<double>.None
-                    : Maybe<double>.Some((1.0 * (vertex.Y.GetValueOrDefault() - p2.Y.GetValueOrDefault())) /
-                                         (1.0 * (vertex.X.GetValueOrDefault() - p2.X.GetValueOrDefault()))),
-                Representation = $"{p2} -> {vertex}"
-            };
-
-            var sideC = new AllShape
-            {
-                Type = "Line Segment",
-                P1 = p1,
-                P2 = p2,
-                Length = Math.Sqrt(Math.Pow(p1.X.GetValueOrDefault() - p2.X.GetValueOrDefault(), 2) + Math.Pow(p1.Y.GetValueOrDefault() - p2.Y.GetValueOrDefault(), 2)),
-                Slope = p1.X.IsEquivalentTo(p2.X) ? Maybe<double>.None : Maybe<double>.Some((1.0 * (p2.Y.GetValueOrDefault() - p1.Y.GetValueOrDefault())) / (1.0 * (p2.X.GetValueOrDefault() - p1.X.GetValueOrDefault()))),
-                Representation = $"{p1} -> {p2}"
-            };
-
-            var c = sideC.Length.GetValueOrDefault();
-            var a = SideA.Length.GetValueOrDefault();
-            var b = SideB.Length.GetValueOrDefault();
-
-
-            angles.Add(new AllShape
-            {
-                P1 = p1,
-                Vertex = vertex,
-                P2 = p2,
-                Degrees = Math.Acos(Math.Round((Math.Pow(a, 2) + Math.Pow(b, 2) - Math.Pow(c, 2)) / (2 * a * b), 6)) * (180 /  Math.PI),
-                SideA = SideA,
-                SideB = SideB,
-            }); //(p1, vertex, p2)
+            if (i - 2 >= 0 && i - 2 < points.Length)
+                angles.Add(Math.Acos(Math.Round((Math.Pow(Math.Sqrt(
+                                                        Math.Pow(
+                                                            points[i - 2].X.GetValueOrDefault() -
+                                                            points[i - 1].X.GetValueOrDefault(), 2) +
+                                                        Math.Pow(
+                                                            points[i - 2].Y.GetValueOrDefault() -
+                                                            points[i - 1].Y.GetValueOrDefault(), 2)), 2) +
+                                                    Math.Pow(Math.Sqrt(
+                                                            Math.Pow(
+                                                                points[i].X.GetValueOrDefault() -
+                                                                points[i - 1].X.GetValueOrDefault(), 2) +
+                                                            Math.Pow(
+                                                                points[i].Y.GetValueOrDefault() -
+                                                                points[i - 1].Y.GetValueOrDefault(), 2)),
+                                                        2) - Math.Pow(
+                                                        Math.Sqrt(
+                                                            Math.Pow(
+                                                                points[i - 2].X.GetValueOrDefault() -
+                                                                points[i].X.GetValueOrDefault(), 2) +
+                                                            Math.Pow(
+                                                                points[i - 2].Y.GetValueOrDefault() -
+                                                                points[i].Y.GetValueOrDefault(), 2)), 2)) /
+                                                (2 * Math.Sqrt(
+                                                     Math.Pow(
+                                                         points[i - 2].X.GetValueOrDefault() -
+                                                         points[i - 1].X.GetValueOrDefault(), 2) +
+                                                     Math.Pow(
+                                                         points[i - 2].Y.GetValueOrDefault() -
+                                                         points[i - 1].Y.GetValueOrDefault(), 2)) *
+                                                 Math.Sqrt(
+                                                     Math.Pow(
+                                                         points[i].X.GetValueOrDefault() -
+                                                         points[i - 1].X.GetValueOrDefault(), 2) +
+                                                     Math.Pow(
+                                                         points[i].Y.GetValueOrDefault() -
+                                                         points[i - 1].Y.GetValueOrDefault(), 2))), 6)) *
+                           (180 / Math.PI));
         }
 
         return angles.ToArray();
     }
 
-    private static bool AllAreRight(AllShape[] angles)
+    private static bool AllAreRight(double[] angles)
     {
         var lastAngle = 90.0;
         foreach (var angle in angles)
         {
             if (lastAngle.IsEquivalentTo(90))
             {
-                lastAngle = angle.Degrees.GetValueOrDefault();
+                lastAngle = angle;
                 continue;
             }
 
