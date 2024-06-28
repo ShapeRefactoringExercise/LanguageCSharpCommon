@@ -2,7 +2,7 @@
 
 public class AllShape: IShape
 {
-    public string Type { get; set; }
+    public string Type { get; set; } = "Unknown";
 
     public double? X { get; set; }
 
@@ -22,7 +22,14 @@ public class AllShape: IShape
 
     public Maybe<double>? Slope { get; set; }
 
-    public string Representation { get; set; }
+    public string Representation { get; set; } = "None";
+
+    public AllShape? Vertex { get; set; }
+
+    public AllShape? SideA { get; set; }
+    public AllShape? SideB { get; set; }
+
+    public double? Degrees { get; set; }
 
     public override string ToString()
     {
