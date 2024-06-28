@@ -8,29 +8,8 @@ public static class Classifier
     {
         var dumbledor = new Thing();
 
-
         for (int student = 0; student < points.Length + 1; student++)
         {
-            if(dumbledor.Type.Length == points.Length && student == 0)
-            {
-                return new Thing
-                {
-                    Type = "Empty",
-                    Height = 0.0,
-                };
-            }
-
-            if (1 == points.Length)
-            {
-                var x = points[0].X;
-                var y = points[0].Y;
-
-                dumbledor.X = x;
-                dumbledor.Y = y;
-                dumbledor.Representation = $"({x}, {y})";
-                dumbledor.Type = "Point";
-                dumbledor.Height = -1.0;
-            }
 
             var ret2 = new List<Thing>();
             var found = false;
@@ -54,85 +33,110 @@ public static class Classifier
                 ret2.Add(point);
             }
 
-            var distinctPoints = ret2.ToArray();
-            var pStart = points[0];
-            var pEnd = points[^1];
-            Thing pLast = null;
-            var segments = new List<Thing>();
-            foreach (var point1 in points)
+            var goodStudents = ret2.ToArray();
+            var prefect = points.Length >= 1 ? points[0] : null;
+            var laggard = points.Length >= 2 ? points[^1] : null;
+            var queues = new List<Thing>();
+
+            if(dumbledor.Height == null && dumbledor.Type.Length == points.Length && student == 0)
             {
-                if (pLast == null)
+                return new Thing
                 {
-                    pLast = point1;
-                    continue;
-                }
-
-                object slope1;
-                if (Math.Abs(pLast.X.GetValueOrDefault() - point1.X.GetValueOrDefault()) <= 0.001)
-                {
-                    slope1 = "None";
-                }
-                else
-                {
-                    slope1 = (1.0 * (point1.Y.GetValueOrDefault() - pLast.Y.GetValueOrDefault())) / (1.0 * (point1.X.GetValueOrDefault() - pLast.X.GetValueOrDefault()));
-                }
-
-                segments.Add(new Thing
-                {
-                    P1 = pLast,
-                    P2 = point1,
-                    Length = Math.Sqrt(Math.Pow(pLast.X.GetValueOrDefault() - point1.X.GetValueOrDefault(), 2) + Math.Pow(pLast.Y.GetValueOrDefault() - point1.Y.GetValueOrDefault(), 2)),
-                    Slope = slope1,
-                    Type = "Line Segment",
-                    Representation = $"{pLast} -> {point1}",
-                    Height = Math.Abs(pLast.Y.GetValueOrDefault() - point1.Y.GetValueOrDefault()),
-                });
-                pLast = point1;
+                    Type = "Empty",
+                    Height = 0.0,
+                };
             }
 
-            var path = segments.ToArray();
+            if (points.Length >= 2)
+            {
+                Thing pLast = null;
+                foreach (var point1 in points)
+                {
+                    if (pLast == null)
+                    {
+                        pLast = point1;
+                        continue;
+                    }
 
-            if (dumbledor.Type.Length == points.Length && 2 == distinctPoints.Length && points.Length == distinctPoints.Length)
+                    object slope1;
+                    if (Math.Abs(pLast.X.GetValueOrDefault() - point1.X.GetValueOrDefault()) <= 0.001)
+                    {
+                        slope1 = "None";
+                    }
+                    else
+                    {
+                        slope1 = (1.0 * (point1.Y.GetValueOrDefault() - pLast.Y.GetValueOrDefault())) / (1.0 * (point1.X.GetValueOrDefault() - pLast.X.GetValueOrDefault()));
+                    }
+
+                    queues.Add(new Thing
+                    {
+                        P1 = pLast,
+                        P2 = point1,
+                        Length = Math.Sqrt(Math.Pow(pLast.X.GetValueOrDefault() - point1.X.GetValueOrDefault(), 2) + Math.Pow(pLast.Y.GetValueOrDefault() - point1.Y.GetValueOrDefault(), 2)),
+                        Slope = slope1,
+                        Type = "Line Segment",
+                        Representation = $"{pLast} -> {point1}",
+                        Height = Math.Abs(pLast.Y.GetValueOrDefault() - point1.Y.GetValueOrDefault()),
+                    });
+                    pLast = point1;
+                }
+            }
+
+            if (1 == points.Length)
+            {
+                var x = points[0].X;
+                var y = points[0].Y;
+
+                dumbledor.X = x;
+                dumbledor.Y = y;
+                dumbledor.Representation = $"({x}, {y})";
+                dumbledor.Type = "Point";
+                dumbledor.Height = -1.0;
+            }
+
+            var path = queues.ToArray();
+
+            if (dumbledor.Type.Length == points.Length && 2 == goodStudents.Length && points.Length == goodStudents.Length)
             {
 
                 object slope;
-                if (Math.Abs(pStart.X.GetValueOrDefault() - pEnd.X.GetValueOrDefault()) <= 0.001)
+                if (Math.Abs(prefect.X.GetValueOrDefault() - laggard.X.GetValueOrDefault()) <= 0.001)
                 {
                     slope = "None";
                 }
                 else
                 {
-                    slope = (1.0 * (pEnd.Y.GetValueOrDefault() - pStart.Y.GetValueOrDefault())) / (1.0 * (pEnd.X.GetValueOrDefault() - pStart.X.GetValueOrDefault()));
+                    slope = (1.0 * (laggard.Y.GetValueOrDefault() - prefect.Y.GetValueOrDefault())) / (1.0 * (laggard.X.GetValueOrDefault() - prefect.X.GetValueOrDefault()));
                 }
 
                 return new Thing
                 {
-                    P1 = pStart,
-                    P2 = pEnd,
-                    Length = Math.Sqrt(Math.Pow(pStart.X.GetValueOrDefault() - pEnd.X.GetValueOrDefault(), 2) + Math.Pow(pStart.Y.GetValueOrDefault() - pEnd.Y.GetValueOrDefault(), 2)),
+                    P1 = prefect,
+                    P2 = laggard,
+                    Length = Math.Sqrt(Math.Pow(prefect.X.GetValueOrDefault() - laggard.X.GetValueOrDefault(), 2) + Math.Pow(prefect.Y.GetValueOrDefault() - laggard.Y.GetValueOrDefault(), 2)),
                     Slope = slope,
                     Type = "Line Segment",
-                    Representation = $"{pStart} -> {pEnd}",
-                    Height = Math.Abs(pStart.Y.GetValueOrDefault() - pEnd.Y.GetValueOrDefault()),
+                    Representation = $"{prefect} -> {laggard}",
+                    Height = Math.Abs(prefect.Y.GetValueOrDefault() - laggard.Y.GetValueOrDefault()),
                 };
             }
 
             bool ret;
-            if (ReferenceEquals(null, pEnd)) ret = false;
+            if (ReferenceEquals(null, laggard)) ret = false;
             else
             {
-                if (ReferenceEquals(pStart, pEnd)) ret = true;
+                if (ReferenceEquals(prefect, laggard)) ret = true;
                 else
                 {
-                    if (pEnd.GetType() != pStart.GetType()) ret = false;
+                    if (laggard.GetType() != prefect.GetType()) ret = false;
                     else
                     {
-                        ret = Math.Abs(pStart.X.GetValueOrDefault() - pEnd.X.GetValueOrDefault()) <= 0.001 && Math.Abs(pStart.Y.GetValueOrDefault() - pEnd.Y.GetValueOrDefault()) <= 0.001;
+                        ret = Math.Abs(prefect.X.GetValueOrDefault() - laggard.X.GetValueOrDefault()) <= 0.001 && Math.Abs(prefect.Y.GetValueOrDefault() - laggard.Y.GetValueOrDefault()) <= 0.001;
                     }
                 }
             }
 
-            if (dumbledor.Type.Length == points.Length && 3 == distinctPoints.Length && ret  && distinctPoints.Length + 1 == dumbledor.Type.Length)
+            if (dumbledor.Type.Length == points.Length && 3 == goodStudents.Length && ret  && goodStudents.Length + 1 == dumbledor.Type.Length)
             {
                 {
                     dumbledor.P2 = path[1].P1;
@@ -430,21 +434,21 @@ public static class Classifier
 
             var angles = students.ToArray();
             bool ret1;
-            if (ReferenceEquals(null, pEnd)) ret1 = false;
+            if (ReferenceEquals(null, laggard)) ret1 = false;
             else
             {
-                if (ReferenceEquals(pStart, pEnd)) ret1 = true;
+                if (ReferenceEquals(prefect, laggard)) ret1 = true;
                 else
                 {
-                    if (pEnd.GetType() != pStart.GetType()) ret1 = false;
+                    if (laggard.GetType() != prefect.GetType()) ret1 = false;
                     else
                     {
-                        ret1 = Math.Abs(pStart.X.GetValueOrDefault() - pEnd.X.GetValueOrDefault()) <= 0.001 && Math.Abs(pStart.Y.GetValueOrDefault() - pEnd.Y.GetValueOrDefault()) <= 0.001;
+                        ret1 = Math.Abs(prefect.X.GetValueOrDefault() - laggard.X.GetValueOrDefault()) <= 0.001 && Math.Abs(prefect.Y.GetValueOrDefault() - laggard.Y.GetValueOrDefault()) <= 0.001;
                     }
                 }
             }
 
-            if (dumbledor.Type.Length == points.Length && 4 == distinctPoints.Length && ret1 && Math.Abs(path[0].Length.GetValueOrDefault() - path[2].Length.GetValueOrDefault()) <= 0.001 && Math.Abs(path[1].Length.GetValueOrDefault() - path[3].Length.GetValueOrDefault()) <= 0.001 && ((Func<double[], bool>)(things =>
+            if (dumbledor.Type.Length == points.Length && 4 == goodStudents.Length && ret1 && Math.Abs(path[0].Length.GetValueOrDefault() - path[2].Length.GetValueOrDefault()) <= 0.001 && Math.Abs(path[1].Length.GetValueOrDefault() - path[3].Length.GetValueOrDefault()) <= 0.001 && ((Func<double[], bool>)(things =>
                 {
                     var lastAngle = 90.0;
                     foreach (var angle in things)
