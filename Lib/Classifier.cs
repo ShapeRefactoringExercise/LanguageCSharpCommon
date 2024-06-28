@@ -362,16 +362,16 @@ public static class Classifier
                 var lastAngle = 90.0;
                 foreach (var angle in things)
                 {
-                    if (lastAngle.IsEquivalentTo(90))
+                    if (Math.Abs(lastAngle - 90) <= 0.001)
                     {
                         lastAngle = angle;
                         continue;
                     }
 
-                    return lastAngle.IsEquivalentTo(90);
+                    return Math.Abs(lastAngle - 90) <= 0.001;
                 }
 
-                return lastAngle.IsEquivalentTo(90);
+                return Math.Abs(lastAngle - 90) <= 0.001;
             }))(angles))
         {
             var sideA = path[0];
