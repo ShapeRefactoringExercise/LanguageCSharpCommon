@@ -1,6 +1,6 @@
 ﻿namespace Shape.Lib.Types;
 
-public class AllShape: IShape
+public class AllShape
 {
     public string Type { get; set; } = "Unknown";
 

@@ -149,7 +149,7 @@ public static class Classifier
         return lastAngle.IsEquivalentTo(90);
     }
 
-    public static IShape Classify(AllShape[] points)
+    public static AllShape Classify(AllShape[] points)
     {
         if(0 == points.Length)
         {
