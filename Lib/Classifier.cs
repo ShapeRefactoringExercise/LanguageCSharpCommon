@@ -94,7 +94,7 @@ public static class Classifier
 
             var path = segments.ToArray();
 
-            if (2 == points.Length && 2 == distinctPoints.Length)
+            if (dumbledor.Type.Length == points.Length && 2 == distinctPoints.Length && points.Length == distinctPoints.Length)
             {
 
                 object slope;
@@ -136,12 +136,6 @@ public static class Classifier
 
             if (4 == points.Length && 3 == distinctPoints.Length && ret)
             {
-                double? b = path[1].P1.X;
-                double? b1 = path[1].P1.X;
-                double? b2 = path[2].P1.X;
-                double? b3 = path[2].P1.X;
-                double? b4 = path[0].P1.X;
-                double? b5 = path[0].P1.X;
                 return new Thing
                 {
                     P2 = path[1].P1,
@@ -169,7 +163,7 @@ public static class Classifier
                         {
                             Length = Math.Sqrt(Math.Pow(path[0].P1.X.GetValueOrDefault() - path[1].P1.X.GetValueOrDefault(), 2) +
                                                Math.Pow(path[0].P1.Y.GetValueOrDefault() - path[1].P1.Y.GetValueOrDefault(), 2)),
-                            Slope = Math.Abs(path[0].P1.X.GetValueOrDefault() - b.GetValueOrDefault()) <= 0.001
+                            Slope = Math.Abs(path[0].P1.X.GetValueOrDefault() - path[1].P1.X.GetValueOrDefault()) <= 0.001
                                 ? "None"
                                 : (1.0 * (path[1].P1.Y.GetValueOrDefault() - path[0].P1.Y.GetValueOrDefault())) /
                                   (1.0 * (path[1].P1.X.GetValueOrDefault() - path[0].P1.X.GetValueOrDefault())),
@@ -182,7 +176,7 @@ public static class Classifier
                         SideB = new Thing
                         {
                             P1 = path[2].P1,
-                            Slope = Math.Abs(path[2].P1.X.GetValueOrDefault() - b1.GetValueOrDefault()) <= 0.001
+                            Slope = Math.Abs(path[2].P1.X.GetValueOrDefault() - path[1].P1.X.GetValueOrDefault()) <= 0.001
                                 ? "None"
                                 : (1.0 * (path[1].P1.Y.GetValueOrDefault() - path[2].P1.Y.GetValueOrDefault())) /
                                   (1.0 * (path[1].P1.X.GetValueOrDefault() - path[2].P1.X.GetValueOrDefault())),
@@ -215,7 +209,7 @@ public static class Classifier
                         SideA = new Thing
                         {
                             P2 = path[2].P1,
-                            Slope = Math.Abs(path[1].P1.X.GetValueOrDefault() - b2.GetValueOrDefault()) <= 0.001
+                            Slope = Math.Abs(path[1].P1.X.GetValueOrDefault() - path[2].P1.X.GetValueOrDefault()) <= 0.001
                                 ? "None"
                                 : (1.0 * (path[2].P1.Y.GetValueOrDefault() - path[1].P1.Y.GetValueOrDefault())) /
                                   (1.0 * (path[2].P1.X.GetValueOrDefault() - path[1].P1.X.GetValueOrDefault())),
@@ -233,7 +227,7 @@ public static class Classifier
                             P1 = path[0].P1,
                             Height = Math.Abs(path[0].P1.Y.GetValueOrDefault() - path[2].P1.Y.GetValueOrDefault()),
                             P2 = path[2].P1,
-                            Slope = Math.Abs(path[0].P1.X.GetValueOrDefault() - b3.GetValueOrDefault()) <= 0.001
+                            Slope = Math.Abs(path[0].P1.X.GetValueOrDefault() - path[2].P1.X.GetValueOrDefault()) <= 0.001
                                 ? "None"
                                 : (1.0 * (path[2].P1.Y.GetValueOrDefault() - path[0].P1.Y.GetValueOrDefault())) /
                                   (1.0 * (path[2].P1.X.GetValueOrDefault() - path[0].P1.X.GetValueOrDefault())),
@@ -280,7 +274,7 @@ public static class Classifier
                             Height = Math.Abs(path[2].P1.Y.GetValueOrDefault() - path[0].P1.Y.GetValueOrDefault()),
                             Length = Math.Sqrt(Math.Pow(path[2].P1.X.GetValueOrDefault() - path[0].P1.X.GetValueOrDefault(), 2) +
                                                Math.Pow(path[2].P1.Y.GetValueOrDefault() - path[0].P1.Y.GetValueOrDefault(), 2)),
-                            Slope = Math.Abs(path[2].P1.X.GetValueOrDefault() - b4.GetValueOrDefault()) <= 0.001
+                            Slope = Math.Abs(path[2].P1.X.GetValueOrDefault() - path[0].P1.X.GetValueOrDefault()) <= 0.001
                                 ? "None"
                                 : (1.0 * (path[0].P1.Y.GetValueOrDefault() - path[2].P1.Y.GetValueOrDefault())) /
                                   (1.0 * (path[0].P1.X.GetValueOrDefault() - path[2].P1.X.GetValueOrDefault())),
@@ -296,7 +290,7 @@ public static class Classifier
                             P1 = path[1].P1,
                             Height = Math.Abs(path[1].P1.Y.GetValueOrDefault() - path[0].P1.Y.GetValueOrDefault()),
                             P2 = path[0].P1,
-                            Slope = Math.Abs(path[1].P1.X.GetValueOrDefault() - b5.GetValueOrDefault()) <= 0.001
+                            Slope = Math.Abs(path[1].P1.X.GetValueOrDefault() - path[0].P1.X.GetValueOrDefault()) <= 0.001
                                 ? "None"
                                 : (1.0 * (path[0].P1.Y.GetValueOrDefault() - path[1].P1.Y.GetValueOrDefault())) /
                                   (1.0 * (path[0].P1.X.GetValueOrDefault() - path[1].P1.X.GetValueOrDefault())),
@@ -383,26 +377,17 @@ public static class Classifier
                     return Math.Abs(lastAngle - 90) <= 0.001;
                 }))(angles))
             {
-                var sideA = path[0];
-                var sideB = path[1];
-                var sideC = path[2];
-                var sideD = path[3];
-                return new Thing
-                {
-                    Type = "Rectangle",
-                    SideA = sideA,
-                    SideB = sideB,
-                    SideC = sideC,
-                    SideD = sideD,
-
-                    P1 = sideA.P1,
-                    P2 = sideB.P1,
-                    P3 = sideC.P1,
-                    P4 = sideD.P1,
-
-                    Perimeter = (2 * sideA.Length.GetValueOrDefault()) + (2 * sideB.Length.GetValueOrDefault()),
-                    Area = sideA.Length.GetValueOrDefault() * sideB.Length.GetValueOrDefault(),
-                };
+                dumbledor.Type = "Rectangle";
+                dumbledor.SideA = path[0];
+                dumbledor.SideB = path[1];
+                dumbledor.SideC = path[2];
+                dumbledor.SideD = path[3];
+                dumbledor.P1 = path[0].P1;
+                dumbledor.P2 = path[1].P1;
+                dumbledor.P3 = path[2].P1;
+                dumbledor.P4 = path[3].P1;
+                dumbledor.Perimeter = (2 * path[0].Length.GetValueOrDefault()) + (2 * path[1].Length.GetValueOrDefault());
+                dumbledor.Area = path[0].Length.GetValueOrDefault() * path[1].Length.GetValueOrDefault();
             }
 
             if (dumbledor.Type.Length == points.Length)
@@ -417,15 +402,14 @@ public static class Classifier
                 var first = points[0];
                 var last = points[^1];
 
-                return new Thing
-                {
-                    Points = points,
-                    Length = length,
-                    Type = "Other",
-                    Representation = "Other",
-                    IsClosed = Math.Abs(first.X.GetValueOrDefault() - last.X.GetValueOrDefault()) <= 0.001 && Math.Abs(first.Y.GetValueOrDefault() - last.Y.GetValueOrDefault()) <= 0.001,
-                    IsOpen = !(Math.Abs(first.X.GetValueOrDefault() - last.X.GetValueOrDefault()) <= 0.001) || !(Math.Abs(first.Y.GetValueOrDefault() - last.Y.GetValueOrDefault()) <= 0.001),
-                };
+                dumbledor.Points = points;
+                dumbledor.Length = length;
+                dumbledor.Type = "Other";
+                dumbledor.Representation = "Other";
+                dumbledor.IsClosed = Math.Abs(first.X.GetValueOrDefault() - last.X.GetValueOrDefault()) <= 0.001 &&
+                                     Math.Abs(first.Y.GetValueOrDefault() - last.Y.GetValueOrDefault()) <= 0.001;
+                dumbledor.IsOpen = !(Math.Abs(first.X.GetValueOrDefault() - last.X.GetValueOrDefault()) <= 0.001) ||
+                                   !(Math.Abs(first.Y.GetValueOrDefault() - last.Y.GetValueOrDefault()) <= 0.001);
             }
 
             dumbledor.GiveSpeach();
