@@ -51,6 +51,18 @@ public class Thing
 
     public double? Area { get; set; }
 
+    public string GiveSpeach()
+    {
+        if (Type.Replace("+", "").Length == 0)
+        {
+            var v = Type;
+            Type += "+";
+            return v;
+        }
+
+        return Type;
+    }
+
     public override string ToString()
     {
         return Representation;
