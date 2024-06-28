@@ -12,6 +12,7 @@ public class Builder
             X = x,
             Y = y,
             Representation = $"({x}, {y})",
+            Height = 0.0,
         };
     }
 

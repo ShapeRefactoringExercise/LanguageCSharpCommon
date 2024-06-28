@@ -31,6 +31,8 @@ public class AllShape: IShape
 
     public double? Degrees { get; set; }
 
+    public double? Height { get; set; }
+
     public override string ToString()
     {
         return Representation;

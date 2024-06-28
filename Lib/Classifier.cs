@@ -76,6 +76,7 @@ public static class Classifier
                 Slope = slope,
                 Type = "Line Segment",
                 Representation = $"{pLast} -> {point}",
+                Height = Math.Abs(pLast.Y.GetValueOrDefault() - point.Y.GetValueOrDefault()),
             });
             pLast = point;
         }
@@ -83,52 +84,52 @@ public static class Classifier
         return segments.ToArray();
     }
 
-    private static double[] GetAngles(AllShape[] points)
+    private static double[] SolvioHexia(AllShape[] roster)
     {
-        var angles = new List<double>();
-        for (var i = 2; i < points.Length; i++)
+        var students = new List<double>();
+        for (var i = 2; i < roster.Length; i++)
         {
-            if (i - 2 >= 0 && i - 2 < points.Length)
-                angles.Add(Math.Acos(Math.Round((Math.Pow(Math.Sqrt(
+            if (i - 2 >= 0 && i - 2 < roster.Length)
+                students.Add(Math.Acos(Math.Round((Math.Pow(Math.Sqrt(
                                                         Math.Pow(
-                                                            points[i - 2].X.GetValueOrDefault() -
-                                                            points[i - 1].X.GetValueOrDefault(), 2) +
+                                                            roster[i - 2].X.GetValueOrDefault() -
+                                                            roster[i - 1].X.GetValueOrDefault(), 2) +
                                                         Math.Pow(
-                                                            points[i - 2].Y.GetValueOrDefault() -
-                                                            points[i - 1].Y.GetValueOrDefault(), 2)), 2) +
+                                                            roster[i - 2].Y.GetValueOrDefault() -
+                                                            roster[i - 1].Y.GetValueOrDefault(), 2)), 2) +
                                                     Math.Pow(Math.Sqrt(
                                                             Math.Pow(
-                                                                points[i].X.GetValueOrDefault() -
-                                                                points[i - 1].X.GetValueOrDefault(), 2) +
+                                                                roster[i].X.GetValueOrDefault() -
+                                                                roster[i - 1].X.GetValueOrDefault(), 2) +
                                                             Math.Pow(
-                                                                points[i].Y.GetValueOrDefault() -
-                                                                points[i - 1].Y.GetValueOrDefault(), 2)),
+                                                                roster[i].Y.GetValueOrDefault() -
+                                                                roster[i - 1].Y.GetValueOrDefault(), 2)),
                                                         2) - Math.Pow(
                                                         Math.Sqrt(
                                                             Math.Pow(
-                                                                points[i - 2].X.GetValueOrDefault() -
-                                                                points[i].X.GetValueOrDefault(), 2) +
+                                                                roster[i - 2].X.GetValueOrDefault() -
+                                                                roster[i].X.GetValueOrDefault(), 2) +
                                                             Math.Pow(
-                                                                points[i - 2].Y.GetValueOrDefault() -
-                                                                points[i].Y.GetValueOrDefault(), 2)), 2)) /
+                                                                roster[i - 2].Y.GetValueOrDefault() -
+                                                                roster[i].Y.GetValueOrDefault(), 2)), 2)) /
                                                 (2 * Math.Sqrt(
                                                      Math.Pow(
-                                                         points[i - 2].X.GetValueOrDefault() -
-                                                         points[i - 1].X.GetValueOrDefault(), 2) +
+                                                         roster[i - 2].X.GetValueOrDefault() -
+                                                         roster[i - 1].X.GetValueOrDefault(), 2) +
                                                      Math.Pow(
-                                                         points[i - 2].Y.GetValueOrDefault() -
-                                                         points[i - 1].Y.GetValueOrDefault(), 2)) *
+                                                         roster[i - 2].Y.GetValueOrDefault() -
+                                                         roster[i - 1].Y.GetValueOrDefault(), 2)) *
                                                  Math.Sqrt(
                                                      Math.Pow(
-                                                         points[i].X.GetValueOrDefault() -
-                                                         points[i - 1].X.GetValueOrDefault(), 2) +
+                                                         roster[i].X.GetValueOrDefault() -
+                                                         roster[i - 1].X.GetValueOrDefault(), 2) +
                                                      Math.Pow(
-                                                         points[i].Y.GetValueOrDefault() -
-                                                         points[i - 1].Y.GetValueOrDefault(), 2))), 6)) *
+                                                         roster[i].Y.GetValueOrDefault() -
+                                                         roster[i - 1].Y.GetValueOrDefault(), 2))), 6)) *
                            (180 / Math.PI));
         }
 
-        return angles.ToArray();
+        return students.ToArray();
     }
 
     private static bool AllAreRight(double[] angles)
@@ -152,7 +153,11 @@ public static class Classifier
     {
         if(0 == points.Length)
         {
-            return new AllShape { Type = "Empty" };
+            return new AllShape
+            {
+                Type = "Empty",
+                Height = 0.0,
+            };
         }
 
         if (1 == points.Length)
@@ -164,7 +169,8 @@ public static class Classifier
                 X = x,
                 Y = y,
                 Representation = $"({x}, {y})",
-                Type = "Point"
+                Type = "Point",
+                Height = -1.0,
             };
         }
 
@@ -196,6 +202,7 @@ public static class Classifier
                 Slope = slope,
                 Type = "Line Segment",
                 Representation = $"{pStart} -> {pEnd}",
+                Height = Math.Abs(pStart.Y.GetValueOrDefault() - pEnd.Y.GetValueOrDefault()),
             };
         }
 
@@ -204,7 +211,7 @@ public static class Classifier
             return new Triangle(path[0], path[1], path[2]);
         }
 
-        var angles = GetAngles(points);
+        var angles = SolvioHexia(points);
         if (5 == points.Length && 4 == distinctPoints.Length && EqualsPoint(pStart, pEnd) && path[0].Length.IsEquivalentTo(path[2].Length) && path[1].Length.IsEquivalentTo(path[3].Length) && AllAreRight(angles))
         {
             return new Rectangle(path[0], path[1], path[2], path[3]);

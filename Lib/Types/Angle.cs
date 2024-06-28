@@ -15,7 +15,8 @@ public class Angle
             P2 = Vertex,
             Length = Math.Sqrt(Math.Pow(P1.X.GetValueOrDefault() - Vertex.X.GetValueOrDefault(), 2) + Math.Pow(P1.Y.GetValueOrDefault() - Vertex.Y.GetValueOrDefault(), 2)),
             Slope = P1.X.IsEquivalentTo(Vertex.X) ? Maybe<double>.None : Maybe<double>.Some((1.0 * (Vertex.Y.GetValueOrDefault() - P1.Y.GetValueOrDefault())) / (1.0 * (Vertex.X.GetValueOrDefault() - P1.X.GetValueOrDefault()))),
-            Representation = $"{P1} -> {Vertex}"
+            Representation = $"{P1} -> {Vertex}",
+            Height = Math.Abs(p1.Y.GetValueOrDefault() - vertex.Y.GetValueOrDefault()),
         };
 
         SideB = new AllShape
@@ -25,7 +26,8 @@ public class Angle
             P2 = Vertex,
             Length = Math.Sqrt(Math.Pow(P2.X.GetValueOrDefault() - Vertex.X.GetValueOrDefault(), 2) + Math.Pow(P2.Y.GetValueOrDefault() - Vertex.Y.GetValueOrDefault(), 2)),
             Slope = P2.X.IsEquivalentTo(Vertex.X) ? Maybe<double>.None : Maybe<double>.Some((1.0 * (Vertex.Y.GetValueOrDefault() - P2.Y.GetValueOrDefault())) / (1.0 * (Vertex.X.GetValueOrDefault() - P2.X.GetValueOrDefault()))),
-            Representation = $"{P2} -> {Vertex}"
+            Representation = $"{P2} -> {Vertex}",
+            Height = Math.Abs(P2.Y.GetValueOrDefault() - Vertex.Y.GetValueOrDefault()),
         };
 
         var sideC = new AllShape
@@ -35,7 +37,8 @@ public class Angle
             P2 = P2,
             Length = Math.Sqrt(Math.Pow(P1.X.GetValueOrDefault() - P2.X.GetValueOrDefault(), 2) + Math.Pow(P1.Y.GetValueOrDefault() - P2.Y.GetValueOrDefault(), 2)),
             Slope = P1.X.IsEquivalentTo(P2.X) ? Maybe<double>.None : Maybe<double>.Some((1.0 * (P2.Y.GetValueOrDefault() - P1.Y.GetValueOrDefault())) / (1.0 * (P2.X.GetValueOrDefault() - P1.X.GetValueOrDefault()))),
-            Representation = $"{P1} -> {P2}"
+            Representation = $"{P1} -> {P2}",
+            Height = Math.Abs(P1.Y.GetValueOrDefault() - P2.Y.GetValueOrDefault()),
         };
 
         var c = sideC.Length.GetValueOrDefault();
