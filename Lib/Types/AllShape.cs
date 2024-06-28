@@ -24,7 +24,7 @@ public class AllShape
 
     public AllShape? P4 { get; set; }
 
-    public Maybe<double>? Slope { get; set; }
+    public object Slope { get; set; }
 
     public string Representation { get; set; } = "None";
 

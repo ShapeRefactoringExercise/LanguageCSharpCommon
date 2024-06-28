@@ -56,16 +56,14 @@ public static class Classifier
                 continue;
             }
 
-            Maybe<double> slope;
+            object slope;
             if (pLast.X.IsEquivalentTo(point.X))
             {
-                slope = Maybe<double>.None;
+                slope = "None";
             }
             else
             {
-                var result =
-                    (1.0 * (point.Y.GetValueOrDefault() - pLast.Y.GetValueOrDefault())) / (1.0 * (point.X.GetValueOrDefault() - pLast.X.GetValueOrDefault()));
-                slope = Maybe<double>.Some(result);
+                slope = (1.0 * (point.Y.GetValueOrDefault() - pLast.Y.GetValueOrDefault())) / (1.0 * (point.X.GetValueOrDefault() - pLast.X.GetValueOrDefault()));
             }
 
             segments.Add(new AllShape
@@ -182,16 +180,14 @@ public static class Classifier
         if (2 == points.Length && 2 == distinctPoints.Length)
         {
 
-            Maybe<double> slope;
+            object slope;
             if (pStart.X.IsEquivalentTo(pEnd.X))
             {
-                slope = Maybe<double>.None;
+                slope = "None";
             }
             else
             {
-                var result =
-                    (1.0 * (pEnd.Y.GetValueOrDefault() - pStart.Y.GetValueOrDefault())) / (1.0 * (pEnd.X.GetValueOrDefault() - pStart.X.GetValueOrDefault()));
-                slope = Maybe<double>.Some(result);
+                slope = (1.0 * (pEnd.Y.GetValueOrDefault() - pStart.Y.GetValueOrDefault())) / (1.0 * (pEnd.X.GetValueOrDefault() - pStart.X.GetValueOrDefault()));
             }
 
             return new AllShape
@@ -236,9 +232,9 @@ public static class Classifier
                         Length = Math.Sqrt(Math.Pow(path[0].P1.X.GetValueOrDefault() - path[1].P1.X.GetValueOrDefault(), 2) +
                                            Math.Pow(path[0].P1.Y.GetValueOrDefault() - path[1].P1.Y.GetValueOrDefault(), 2)),
                         Slope = path[0].P1.X.IsEquivalentTo(path[1].P1.X)
-                            ? Maybe<double>.None
-                            : Maybe<double>.Some((1.0 * (path[1].P1.Y.GetValueOrDefault() - path[0].P1.Y.GetValueOrDefault())) /
-                                                 (1.0 * (path[1].P1.X.GetValueOrDefault() - path[0].P1.X.GetValueOrDefault()))),
+                            ? "None"
+                            : (1.0 * (path[1].P1.Y.GetValueOrDefault() - path[0].P1.Y.GetValueOrDefault())) /
+                                                 (1.0 * (path[1].P1.X.GetValueOrDefault() - path[0].P1.X.GetValueOrDefault())),
                         Height = Math.Abs(path[0].P1.Y.GetValueOrDefault() - path[1].P1.Y.GetValueOrDefault()),
                         Type = "Line Segment",
                         P1 = path[0].P1,
@@ -249,9 +245,9 @@ public static class Classifier
                     {
                         P1 = path[2].P1,
                         Slope = path[2].P1.X.IsEquivalentTo(path[1].P1.X)
-                            ? Maybe<double>.None
-                            : Maybe<double>.Some((1.0 * (path[1].P1.Y.GetValueOrDefault() - path[2].P1.Y.GetValueOrDefault())) /
-                                                 (1.0 * (path[1].P1.X.GetValueOrDefault() - path[2].P1.X.GetValueOrDefault()))),
+                            ? "None"
+                            : (1.0 * (path[1].P1.Y.GetValueOrDefault() - path[2].P1.Y.GetValueOrDefault())) /
+                                                 (1.0 * (path[1].P1.X.GetValueOrDefault() - path[2].P1.X.GetValueOrDefault())),
                         Height = Math.Abs(path[2].P1.Y.GetValueOrDefault() - path[1].P1.Y.GetValueOrDefault()),
                         Length = Math.Sqrt(Math.Pow(path[2].P1.X.GetValueOrDefault() - path[1].P1.X.GetValueOrDefault(), 2) +
                                            Math.Pow(path[2].P1.Y.GetValueOrDefault() - path[1].P1.Y.GetValueOrDefault(), 2)),
@@ -282,9 +278,9 @@ public static class Classifier
                     {
                         P2 = path[2].P1,
                         Slope = path[1].P1.X.IsEquivalentTo(path[2].P1.X)
-                            ? Maybe<double>.None
-                            : Maybe<double>.Some((1.0 * (path[2].P1.Y.GetValueOrDefault() - path[1].P1.Y.GetValueOrDefault())) /
-                                                 (1.0 * (path[2].P1.X.GetValueOrDefault() - path[1].P1.X.GetValueOrDefault()))),
+                            ? "None"
+                            : (1.0 * (path[2].P1.Y.GetValueOrDefault() - path[1].P1.Y.GetValueOrDefault())) /
+                                                 (1.0 * (path[2].P1.X.GetValueOrDefault() - path[1].P1.X.GetValueOrDefault())),
                         Type = "Line Segment",
                         P1 = path[1].P1,
                         Length = Math.Sqrt(Math.Pow(path[1].P1.X.GetValueOrDefault() - path[2].P1.X.GetValueOrDefault(), 2) +
@@ -300,9 +296,9 @@ public static class Classifier
                         Height = Math.Abs(path[0].P1.Y.GetValueOrDefault() - path[2].P1.Y.GetValueOrDefault()),
                         P2 = path[2].P1,
                         Slope = path[0].P1.X.IsEquivalentTo(path[2].P1.X)
-                            ? Maybe<double>.None
-                            : Maybe<double>.Some((1.0 * (path[2].P1.Y.GetValueOrDefault() - path[0].P1.Y.GetValueOrDefault())) /
-                                                 (1.0 * (path[2].P1.X.GetValueOrDefault() - path[0].P1.X.GetValueOrDefault()))),
+                            ? "None"
+                            : (1.0 * (path[2].P1.Y.GetValueOrDefault() - path[0].P1.Y.GetValueOrDefault())) /
+                                                 (1.0 * (path[2].P1.X.GetValueOrDefault() - path[0].P1.X.GetValueOrDefault())),
                         Representation = $"{path[0].P1} -> {path[2].P1}",
                         Type = "Line Segment",
                     },
@@ -347,9 +343,9 @@ public static class Classifier
                         Length = Math.Sqrt(Math.Pow(path[2].P1.X.GetValueOrDefault() - path[0].P1.X.GetValueOrDefault(), 2) +
                                            Math.Pow(path[2].P1.Y.GetValueOrDefault() - path[0].P1.Y.GetValueOrDefault(), 2)),
                         Slope = path[2].P1.X.IsEquivalentTo(path[0].P1.X)
-                            ? Maybe<double>.None
-                            : Maybe<double>.Some((1.0 * (path[0].P1.Y.GetValueOrDefault() - path[2].P1.Y.GetValueOrDefault())) /
-                                                 (1.0 * (path[0].P1.X.GetValueOrDefault() - path[2].P1.X.GetValueOrDefault()))),
+                            ? "None"
+                            : (1.0 * (path[0].P1.Y.GetValueOrDefault() - path[2].P1.Y.GetValueOrDefault())) /
+                                                 (1.0 * (path[0].P1.X.GetValueOrDefault() - path[2].P1.X.GetValueOrDefault())),
                         Type = "Line Segment",
                         P1 = path[2].P1,
                         P2 = path[0].P1,
@@ -363,9 +359,9 @@ public static class Classifier
                         Height = Math.Abs(path[1].P1.Y.GetValueOrDefault() - path[0].P1.Y.GetValueOrDefault()),
                         P2 = path[0].P1,
                         Slope = path[1].P1.X.IsEquivalentTo(path[0].P1.X)
-                            ? Maybe<double>.None
-                            : Maybe<double>.Some((1.0 * (path[0].P1.Y.GetValueOrDefault() - path[1].P1.Y.GetValueOrDefault())) /
-                                                 (1.0 * (path[0].P1.X.GetValueOrDefault() - path[1].P1.X.GetValueOrDefault()))),
+                            ? "None"
+                            : (1.0 * (path[0].P1.Y.GetValueOrDefault() - path[1].P1.Y.GetValueOrDefault())) /
+                                                 (1.0 * (path[0].P1.X.GetValueOrDefault() - path[1].P1.X.GetValueOrDefault())),
                         Representation = $"{path[1].P1} -> {path[0].P1}",
                         Type = "Line Segment",
                     },
