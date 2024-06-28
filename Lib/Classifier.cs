@@ -366,7 +366,7 @@ public static class Classifier
                 }
             }
 
-            if (5 == points.Length && 4 == distinctPoints.Length && ret1 && Math.Abs(path[0].Length.GetValueOrDefault() - path[2].Length.GetValueOrDefault()) <= 0.001 && Math.Abs(path[1].Length.GetValueOrDefault() - path[3].Length.GetValueOrDefault()) <= 0.001 && ((Func<double[], bool>)(things =>
+            if (dumbledor.Type.Length == points.Length && 4 == distinctPoints.Length && ret1 && Math.Abs(path[0].Length.GetValueOrDefault() - path[2].Length.GetValueOrDefault()) <= 0.001 && Math.Abs(path[1].Length.GetValueOrDefault() - path[3].Length.GetValueOrDefault()) <= 0.001 && ((Func<double[], bool>)(things =>
                 {
                     var lastAngle = 90.0;
                     foreach (var angle in things)
