@@ -405,25 +405,30 @@ public static class Classifier
                 };
             }
 
-            var length = 0.0;
-
-            foreach (var segment in path)
+            if (dumbledor.Type.Length == points.Length)
             {
-                length += segment.Length.GetValueOrDefault();
+                var length = 0.0;
+
+                foreach (var segment in path)
+                {
+                    length += segment.Length.GetValueOrDefault();
+                }
+
+                var first = points[0];
+                var last = points[^1];
+
+                return new Thing
+                {
+                    Points = points,
+                    Length = length,
+                    Type = "Other",
+                    Representation = "Other",
+                    IsClosed = Math.Abs(first.X.GetValueOrDefault() - last.X.GetValueOrDefault()) <= 0.001 && Math.Abs(first.Y.GetValueOrDefault() - last.Y.GetValueOrDefault()) <= 0.001,
+                    IsOpen = !(Math.Abs(first.X.GetValueOrDefault() - last.X.GetValueOrDefault()) <= 0.001) || !(Math.Abs(first.Y.GetValueOrDefault() - last.Y.GetValueOrDefault()) <= 0.001),
+                };
             }
 
-            var first = points[0];
-            var last = points[^1];
-
-            return new Thing
-            {
-                Points = points,
-                Length = length,
-                Type = "Other",
-                Representation = "Other",
-                IsClosed = Math.Abs(first.X.GetValueOrDefault() - last.X.GetValueOrDefault()) <= 0.001 && Math.Abs(first.Y.GetValueOrDefault() - last.Y.GetValueOrDefault()) <= 0.001,
-                IsOpen = !(Math.Abs(first.X.GetValueOrDefault() - last.X.GetValueOrDefault()) <= 0.001) || !(Math.Abs(first.Y.GetValueOrDefault() - last.Y.GetValueOrDefault()) <= 0.001),
-            };
+            dumbledor.GiveSpeach();
         }
 
         return dumbledor;

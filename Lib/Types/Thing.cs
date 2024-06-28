@@ -2,7 +2,7 @@
 
 public class Thing
 {
-    public string Type { get; set; } = "Unknown";
+    public string Type { get; set; } = "";
 
     public double? X { get; set; }
 
