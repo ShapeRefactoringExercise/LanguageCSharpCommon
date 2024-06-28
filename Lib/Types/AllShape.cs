@@ -20,6 +20,8 @@ public class AllShape: IShape
 
     public AllShape? P2 { get; set; }
 
+    public AllShape? P3 { get; set; }
+
     public Maybe<double>? Slope { get; set; }
 
     public string Representation { get; set; } = "None";
@@ -29,9 +31,21 @@ public class AllShape: IShape
     public AllShape? SideA { get; set; }
     public AllShape? SideB { get; set; }
 
+    public AllShape? SideC { get; set; }
+
     public double? Degrees { get; set; }
 
     public double? Height { get; set; }
+
+    public AllShape? AngleA { get; set; }
+
+    public AllShape? AngleB { get; set; }
+
+    public AllShape? AngleC { get; set; }
+
+    public double? Perimeter { get; set; }
+
+    public double? Area { get; set; }
 
     public override string ToString()
     {

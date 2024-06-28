@@ -8,21 +8,21 @@ namespace Shape.Tests
     [TestClass]
     public class TriangleShould
     {
-        private static Triangle GetTriangle ((double, double) c1, (double, double) c2, (double, double) c3)
+        private static AllShape GetTriangle ((double, double) c1, (double, double) c2, (double, double) c3)
         {
             var points = Builder.Build(new[] { c1, c2, c3, c1 });
             var shape = Classifier.Classify(points);
 
             Assert.AreEqual(shape.Type, "Triangle");
-            return (Triangle)shape;
+            return (AllShape)shape;
         }
 
-        private static Triangle GetTriangle(AllShape p1, AllShape p2, AllShape p3)
+        private static AllShape GetTriangle(AllShape p1, AllShape p2, AllShape p3)
         {
             var shape = Classifier.Classify(new[] { p1, p2, p3, p1 });
 
             Assert.AreEqual(shape.Type, "Triangle");
-            return (Triangle)shape;
+            return (AllShape)shape;
         }
 
         [TestMethod]
@@ -233,7 +233,7 @@ namespace Shape.Tests
             Assert.AreEqual(60, result.AngleB.Degrees.GetValueOrDefault(), 0.001);
             Assert.AreEqual(90, result.AngleC.Degrees.GetValueOrDefault(), 0.001);
 
-            Assert.AreEqual(7.794, result.Area, 0.001);
+            Assert.AreEqual(7.794, result.Area.GetValueOrDefault(), 0.001);
         }
 
         [TestMethod]
@@ -261,7 +261,7 @@ namespace Shape.Tests
             Assert.AreEqual(90, result.AngleB.Degrees.GetValueOrDefault(), 0.001);
             Assert.AreEqual(63.434, result.AngleC.Degrees.GetValueOrDefault(), 0.001);
 
-            Assert.AreEqual(1, result.Area, 0.001);
+            Assert.AreEqual(1, result.Area.GetValueOrDefault(), 0.001);
         }
 
         [TestMethod]
@@ -279,7 +279,7 @@ namespace Shape.Tests
             Assert.AreEqual(45, result.AngleA.Degrees.GetValueOrDefault(), 0.001);
             Assert.AreEqual(45, result.AngleB.Degrees.GetValueOrDefault(), 0.001);
             Assert.AreEqual(90, result.AngleC.Degrees.GetValueOrDefault(), 0.001);
-            Assert.AreEqual(4.5, result.Area, 0.001);
+            Assert.AreEqual(4.5, result.Area.GetValueOrDefault(), 0.001);
         }
 
         [TestMethod]
@@ -292,7 +292,7 @@ namespace Shape.Tests
 
             var result = GetTriangle(p1, p2, p3);
 
-            Assert.AreEqual(110.851, result.Area, 0.001);
+            Assert.AreEqual(110.851, result.Area.GetValueOrDefault(), 0.001);
         }
 
         [TestMethod]
@@ -304,7 +304,7 @@ namespace Shape.Tests
                 (4, 3)
             );
 
-            Assert.AreEqual(6, result.Area, 0.001);
+            Assert.AreEqual(6, result.Area.GetValueOrDefault(), 0.001);
         }
 
         [TestMethod]
@@ -317,7 +317,7 @@ namespace Shape.Tests
                 (a / 2.0, (Math.Sqrt(3) * a) / 2.0)
             );
 
-            Assert.AreEqual(a * 3, result.Perimeter, 0.001);
+            Assert.AreEqual(a * 3, result.Perimeter.GetValueOrDefault(), 0.001);
         }
 
         [TestMethod]
@@ -329,7 +329,7 @@ namespace Shape.Tests
                 (3, 4)
             );
 
-            Assert.AreEqual(12, result.Perimeter, 0.001);
+            Assert.AreEqual(12, result.Perimeter.GetValueOrDefault(), 0.001);
         }
     }
 }

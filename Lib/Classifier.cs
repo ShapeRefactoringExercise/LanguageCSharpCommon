@@ -208,7 +208,169 @@ public static class Classifier
 
         if (4 == points.Length && 3 == distinctPoints.Length && EqualsPoint(pStart, pEnd))
         {
-            return new Triangle(path[0], path[1], path[2]);
+            return new AllShape
+            {
+                P2 = path[1].P1,
+                SideB = path[1],
+                SideC = path[2],
+
+                P1 = path[0].P1,
+                AngleC = new AllShape
+                {
+                    Degrees = Math.Acos(Math.Round((Math.Pow(Math.Sqrt(
+                        Math.Pow(path[0].P1.X.GetValueOrDefault() - path[1].P1.X.GetValueOrDefault(), 2) +
+                        Math.Pow(path[0].P1.Y.GetValueOrDefault() - path[1].P1.Y.GetValueOrDefault(), 2)), 2) + Math.Pow(Math.Sqrt(
+                        Math.Pow(path[2].P1.X.GetValueOrDefault() - path[1].P1.X.GetValueOrDefault(), 2) +
+                        Math.Pow(path[2].P1.Y.GetValueOrDefault() - path[1].P1.Y.GetValueOrDefault(), 2)), 2) - Math.Pow(Math.Sqrt(
+                        Math.Pow(path[0].P1.X.GetValueOrDefault() - path[2].P1.X.GetValueOrDefault(), 2) +
+                        Math.Pow(path[0].P1.Y.GetValueOrDefault() - path[2].P1.Y.GetValueOrDefault(), 2)), 2)) / (2 * Math.Sqrt(
+                        Math.Pow(path[0].P1.X.GetValueOrDefault() - path[1].P1.X.GetValueOrDefault(), 2) +
+                        Math.Pow(path[0].P1.Y.GetValueOrDefault() - path[1].P1.Y.GetValueOrDefault(), 2)) * Math.Sqrt(
+                        Math.Pow(path[2].P1.X.GetValueOrDefault() - path[1].P1.X.GetValueOrDefault(), 2) +
+                        Math.Pow(path[2].P1.Y.GetValueOrDefault() - path[1].P1.Y.GetValueOrDefault(), 2))), 6)) * (180 / Math.PI),
+                    Vertex = path[1].P1,
+                    P1 = path[0].P1,
+                    P2 = path[2].P1,
+                    SideA = new AllShape
+                    {
+                        Length = Math.Sqrt(Math.Pow(path[0].P1.X.GetValueOrDefault() - path[1].P1.X.GetValueOrDefault(), 2) +
+                                           Math.Pow(path[0].P1.Y.GetValueOrDefault() - path[1].P1.Y.GetValueOrDefault(), 2)),
+                        Slope = path[0].P1.X.IsEquivalentTo(path[1].P1.X)
+                            ? Maybe<double>.None
+                            : Maybe<double>.Some((1.0 * (path[1].P1.Y.GetValueOrDefault() - path[0].P1.Y.GetValueOrDefault())) /
+                                                 (1.0 * (path[1].P1.X.GetValueOrDefault() - path[0].P1.X.GetValueOrDefault()))),
+                        Height = Math.Abs(path[0].P1.Y.GetValueOrDefault() - path[1].P1.Y.GetValueOrDefault()),
+                        Type = "Line Segment",
+                        P1 = path[0].P1,
+                        P2 = path[1].P1,
+                        Representation = $"{path[0].P1} -> {path[1].P1}",
+                    },
+                    SideB = new AllShape
+                    {
+                        P1 = path[2].P1,
+                        Slope = path[2].P1.X.IsEquivalentTo(path[1].P1.X)
+                            ? Maybe<double>.None
+                            : Maybe<double>.Some((1.0 * (path[1].P1.Y.GetValueOrDefault() - path[2].P1.Y.GetValueOrDefault())) /
+                                                 (1.0 * (path[1].P1.X.GetValueOrDefault() - path[2].P1.X.GetValueOrDefault()))),
+                        Height = Math.Abs(path[2].P1.Y.GetValueOrDefault() - path[1].P1.Y.GetValueOrDefault()),
+                        Length = Math.Sqrt(Math.Pow(path[2].P1.X.GetValueOrDefault() - path[1].P1.X.GetValueOrDefault(), 2) +
+                                           Math.Pow(path[2].P1.Y.GetValueOrDefault() - path[1].P1.Y.GetValueOrDefault(), 2)),
+                        Type = "Line Segment",
+                        Representation = $"{path[2].P1} -> {path[1].P1}",
+                        P2 = path[1].P1,
+                    },
+                },
+                P3 = path[2].P1,
+
+                AngleA = new AllShape
+                {
+                    Degrees = Math.Acos(Math.Round((Math.Pow(Math.Sqrt(
+                        Math.Pow(path[1].P1.X.GetValueOrDefault() - path[2].P1.X.GetValueOrDefault(), 2) +
+                        Math.Pow(path[1].P1.Y.GetValueOrDefault() - path[2].P1.Y.GetValueOrDefault(), 2)), 2) + Math.Pow(Math.Sqrt(
+                        Math.Pow(path[0].P1.X.GetValueOrDefault() - path[2].P1.X.GetValueOrDefault(), 2) +
+                        Math.Pow(path[0].P1.Y.GetValueOrDefault() - path[2].P1.Y.GetValueOrDefault(), 2)), 2) - Math.Pow(Math.Sqrt(
+                        Math.Pow(path[1].P1.X.GetValueOrDefault() - path[0].P1.X.GetValueOrDefault(), 2) +
+                        Math.Pow(path[1].P1.Y.GetValueOrDefault() - path[0].P1.Y.GetValueOrDefault(), 2)), 2)) / (2 * Math.Sqrt(
+                        Math.Pow(path[1].P1.X.GetValueOrDefault() - path[2].P1.X.GetValueOrDefault(), 2) +
+                        Math.Pow(path[1].P1.Y.GetValueOrDefault() - path[2].P1.Y.GetValueOrDefault(), 2)) * Math.Sqrt(
+                        Math.Pow(path[0].P1.X.GetValueOrDefault() - path[2].P1.X.GetValueOrDefault(), 2) +
+                        Math.Pow(path[0].P1.Y.GetValueOrDefault() - path[2].P1.Y.GetValueOrDefault(), 2))), 6)) * (180 / Math.PI),
+                    Vertex = path[2].P1,
+                    P1 = path[1].P1,
+                    P2 = path[0].P1,
+                    SideA = new AllShape
+                    {
+                        P2 = path[2].P1,
+                        Slope = path[1].P1.X.IsEquivalentTo(path[2].P1.X)
+                            ? Maybe<double>.None
+                            : Maybe<double>.Some((1.0 * (path[2].P1.Y.GetValueOrDefault() - path[1].P1.Y.GetValueOrDefault())) /
+                                                 (1.0 * (path[2].P1.X.GetValueOrDefault() - path[1].P1.X.GetValueOrDefault()))),
+                        Type = "Line Segment",
+                        P1 = path[1].P1,
+                        Length = Math.Sqrt(Math.Pow(path[1].P1.X.GetValueOrDefault() - path[2].P1.X.GetValueOrDefault(), 2) +
+                                           Math.Pow(path[1].P1.Y.GetValueOrDefault() - path[2].P1.Y.GetValueOrDefault(), 2)),
+                        Height = Math.Abs(path[1].P1.Y.GetValueOrDefault() - path[2].P1.Y.GetValueOrDefault()),
+                        Representation = $"{path[1].P1} -> {path[2].P1}",
+                    },
+                    SideB = new AllShape
+                    {
+                        Length = Math.Sqrt(Math.Pow(path[0].P1.X.GetValueOrDefault() - path[2].P1.X.GetValueOrDefault(), 2) +
+                                           Math.Pow(path[0].P1.Y.GetValueOrDefault() - path[2].P1.Y.GetValueOrDefault(), 2)),
+                        P1 = path[0].P1,
+                        Height = Math.Abs(path[0].P1.Y.GetValueOrDefault() - path[2].P1.Y.GetValueOrDefault()),
+                        P2 = path[2].P1,
+                        Slope = path[0].P1.X.IsEquivalentTo(path[2].P1.X)
+                            ? Maybe<double>.None
+                            : Maybe<double>.Some((1.0 * (path[2].P1.Y.GetValueOrDefault() - path[0].P1.Y.GetValueOrDefault())) /
+                                                 (1.0 * (path[2].P1.X.GetValueOrDefault() - path[0].P1.X.GetValueOrDefault()))),
+                        Representation = $"{path[0].P1} -> {path[2].P1}",
+                        Type = "Line Segment",
+                    },
+                },
+
+                Perimeter = path[0].Length.GetValueOrDefault() + path[1].Length.GetValueOrDefault() +
+                            path[2].Length.GetValueOrDefault(),
+
+                SideA = path[0],
+                Area = 0.25 * Math.Sqrt(
+                    (path[0].Length.GetValueOrDefault() + path[1].Length.GetValueOrDefault() +
+                     path[2].Length.GetValueOrDefault())
+                    * (-(path[0].Length.GetValueOrDefault()) + path[1].Length.GetValueOrDefault() +
+                       path[2].Length.GetValueOrDefault())
+                    * (path[0].Length.GetValueOrDefault() - path[1].Length.GetValueOrDefault() +
+                       path[2].Length.GetValueOrDefault())
+                    * (path[0].Length.GetValueOrDefault() + path[1].Length.GetValueOrDefault() -
+                       path[2].Length.GetValueOrDefault())
+                ),
+
+                Type = "Triangle",
+
+                AngleB = new AllShape
+                {
+                    Degrees = Math.Acos(Math.Round((Math.Pow(Math.Sqrt(
+                        Math.Pow(path[2].P1.X.GetValueOrDefault() - path[0].P1.X.GetValueOrDefault(), 2) +
+                        Math.Pow(path[2].P1.Y.GetValueOrDefault() - path[0].P1.Y.GetValueOrDefault(), 2)), 2) + Math.Pow(Math.Sqrt(
+                        Math.Pow(path[1].P1.X.GetValueOrDefault() - path[0].P1.X.GetValueOrDefault(), 2) +
+                        Math.Pow(path[1].P1.Y.GetValueOrDefault() - path[0].P1.Y.GetValueOrDefault(), 2)), 2) - Math.Pow(Math.Sqrt(
+                        Math.Pow(path[2].P1.X.GetValueOrDefault() - path[1].P1.X.GetValueOrDefault(), 2) +
+                        Math.Pow(path[2].P1.Y.GetValueOrDefault() - path[1].P1.Y.GetValueOrDefault(), 2)), 2)) / (2 * Math.Sqrt(
+                        Math.Pow(path[2].P1.X.GetValueOrDefault() - path[0].P1.X.GetValueOrDefault(), 2) +
+                        Math.Pow(path[2].P1.Y.GetValueOrDefault() - path[0].P1.Y.GetValueOrDefault(), 2)) * Math.Sqrt(
+                        Math.Pow(path[1].P1.X.GetValueOrDefault() - path[0].P1.X.GetValueOrDefault(), 2) +
+                        Math.Pow(path[1].P1.Y.GetValueOrDefault() - path[0].P1.Y.GetValueOrDefault(), 2))), 6)) * (180 / Math.PI),
+                    Vertex = path[0].P1,
+                    P1 = path[2].P1,
+                    P2 = path[1].P1,
+                    SideA = new AllShape
+                    {
+                        Height = Math.Abs(path[2].P1.Y.GetValueOrDefault() - path[0].P1.Y.GetValueOrDefault()),
+                        Length = Math.Sqrt(Math.Pow(path[2].P1.X.GetValueOrDefault() - path[0].P1.X.GetValueOrDefault(), 2) +
+                                           Math.Pow(path[2].P1.Y.GetValueOrDefault() - path[0].P1.Y.GetValueOrDefault(), 2)),
+                        Slope = path[2].P1.X.IsEquivalentTo(path[0].P1.X)
+                            ? Maybe<double>.None
+                            : Maybe<double>.Some((1.0 * (path[0].P1.Y.GetValueOrDefault() - path[2].P1.Y.GetValueOrDefault())) /
+                                                 (1.0 * (path[0].P1.X.GetValueOrDefault() - path[2].P1.X.GetValueOrDefault()))),
+                        Type = "Line Segment",
+                        P1 = path[2].P1,
+                        P2 = path[0].P1,
+                        Representation = $"{path[2].P1} -> {path[0].P1}",
+                    },
+                    SideB = new AllShape
+                    {
+                        Length = Math.Sqrt(Math.Pow(path[1].P1.X.GetValueOrDefault() - path[0].P1.X.GetValueOrDefault(), 2) +
+                                           Math.Pow(path[1].P1.Y.GetValueOrDefault() - path[0].P1.Y.GetValueOrDefault(), 2)),
+                        P1 = path[1].P1,
+                        Height = Math.Abs(path[1].P1.Y.GetValueOrDefault() - path[0].P1.Y.GetValueOrDefault()),
+                        P2 = path[0].P1,
+                        Slope = path[1].P1.X.IsEquivalentTo(path[0].P1.X)
+                            ? Maybe<double>.None
+                            : Maybe<double>.Some((1.0 * (path[0].P1.Y.GetValueOrDefault() - path[1].P1.Y.GetValueOrDefault())) /
+                                                 (1.0 * (path[0].P1.X.GetValueOrDefault() - path[1].P1.X.GetValueOrDefault()))),
+                        Representation = $"{path[1].P1} -> {path[0].P1}",
+                        Type = "Line Segment",
+                    },
+                },
+            };
         }
 
         var angles = SolvioHexia(points);
