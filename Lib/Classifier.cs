@@ -4,13 +4,36 @@ namespace Shape.Lib;
 
 public static class Classifier
 {
-    private static Things[] GetDistinct(Things[] points)
+    public static Thing Classify(Thing[] points)
     {
-        var ret = new List<Things>();
+        if(0 == points.Length)
+        {
+            return new Thing
+            {
+                Type = "Empty",
+                Height = 0.0,
+            };
+        }
+
+        if (1 == points.Length)
+        {
+            var x = points[0].X;
+            var y = points[0].Y;
+            return new Thing
+            {
+                X = x,
+                Y = y,
+                Representation = $"({x}, {y})",
+                Type = "Point",
+                Height = -1.0,
+            };
+        }
+
+        var ret2 = new List<Thing>();
         var found = false;
         foreach (var point in points)
         {
-            foreach (var value in ret)
+            foreach (var value in ret2)
             {
                 if (value.X.IsEquivalentTo(point.X) && value.Y.IsEquivalentTo(point.Y))
                 {
@@ -25,144 +48,46 @@ public static class Classifier
                 continue;
             }
 
-            ret.Add(point);
+            ret2.Add(point);
         }
 
-        return ret.ToArray();
-    }
-
-    private static Things[] GetPath(Things[] points)
-    {
-        Things pLast = null;
-        var segments = new List<Things>();
-        foreach (var point in points)
+        var distinctPoints = ret2.ToArray();
+        var pStart = points[0];
+        var pEnd = points[^1];
+        Thing pLast = null;
+        var segments = new List<Thing>();
+        foreach (var point1 in points)
         {
             if (pLast == null)
             {
-                pLast = point;
+                pLast = point1;
                 continue;
             }
 
-            object slope;
-            if (pLast.X.IsEquivalentTo(point.X))
+            object slope1;
+            if (pLast.X.IsEquivalentTo(point1.X))
             {
-                slope = "None";
+                slope1 = "None";
             }
             else
             {
-                slope = (1.0 * (point.Y.GetValueOrDefault() - pLast.Y.GetValueOrDefault())) / (1.0 * (point.X.GetValueOrDefault() - pLast.X.GetValueOrDefault()));
+                slope1 = (1.0 * (point1.Y.GetValueOrDefault() - pLast.Y.GetValueOrDefault())) / (1.0 * (point1.X.GetValueOrDefault() - pLast.X.GetValueOrDefault()));
             }
 
-            segments.Add(new Things
+            segments.Add(new Thing
             {
                 P1 = pLast,
-                P2 = point,
-                Length = Math.Sqrt(Math.Pow(pLast.X.GetValueOrDefault() - point.X.GetValueOrDefault(), 2) + Math.Pow(pLast.Y.GetValueOrDefault() - point.Y.GetValueOrDefault(), 2)),
-                Slope = slope,
+                P2 = point1,
+                Length = Math.Sqrt(Math.Pow(pLast.X.GetValueOrDefault() - point1.X.GetValueOrDefault(), 2) + Math.Pow(pLast.Y.GetValueOrDefault() - point1.Y.GetValueOrDefault(), 2)),
+                Slope = slope1,
                 Type = "Line Segment",
-                Representation = $"{pLast} -> {point}",
-                Height = Math.Abs(pLast.Y.GetValueOrDefault() - point.Y.GetValueOrDefault()),
+                Representation = $"{pLast} -> {point1}",
+                Height = Math.Abs(pLast.Y.GetValueOrDefault() - point1.Y.GetValueOrDefault()),
             });
-            pLast = point;
+            pLast = point1;
         }
 
-        return segments.ToArray();
-    }
-
-    private static double[] SolvioHexia(Things[] roster)
-    {
-        var students = new List<double>();
-        for (var i = 2; i < roster.Length; i++)
-        {
-            if (i - 2 >= 0 && i - 2 < roster.Length)
-                students.Add(Math.Acos(Math.Round((Math.Pow(Math.Sqrt(
-                                                        Math.Pow(
-                                                            roster[i - 2].X.GetValueOrDefault() -
-                                                            roster[i - 1].X.GetValueOrDefault(), 2) +
-                                                        Math.Pow(
-                                                            roster[i - 2].Y.GetValueOrDefault() -
-                                                            roster[i - 1].Y.GetValueOrDefault(), 2)), 2) +
-                                                    Math.Pow(Math.Sqrt(
-                                                            Math.Pow(
-                                                                roster[i].X.GetValueOrDefault() -
-                                                                roster[i - 1].X.GetValueOrDefault(), 2) +
-                                                            Math.Pow(
-                                                                roster[i].Y.GetValueOrDefault() -
-                                                                roster[i - 1].Y.GetValueOrDefault(), 2)),
-                                                        2) - Math.Pow(
-                                                        Math.Sqrt(
-                                                            Math.Pow(
-                                                                roster[i - 2].X.GetValueOrDefault() -
-                                                                roster[i].X.GetValueOrDefault(), 2) +
-                                                            Math.Pow(
-                                                                roster[i - 2].Y.GetValueOrDefault() -
-                                                                roster[i].Y.GetValueOrDefault(), 2)), 2)) /
-                                                (2 * Math.Sqrt(
-                                                     Math.Pow(
-                                                         roster[i - 2].X.GetValueOrDefault() -
-                                                         roster[i - 1].X.GetValueOrDefault(), 2) +
-                                                     Math.Pow(
-                                                         roster[i - 2].Y.GetValueOrDefault() -
-                                                         roster[i - 1].Y.GetValueOrDefault(), 2)) *
-                                                 Math.Sqrt(
-                                                     Math.Pow(
-                                                         roster[i].X.GetValueOrDefault() -
-                                                         roster[i - 1].X.GetValueOrDefault(), 2) +
-                                                     Math.Pow(
-                                                         roster[i].Y.GetValueOrDefault() -
-                                                         roster[i - 1].Y.GetValueOrDefault(), 2))), 6)) *
-                           (180 / Math.PI));
-        }
-
-        return students.ToArray();
-    }
-
-    private static bool AllAreRight(double[] angles)
-    {
-        var lastAngle = 90.0;
-        foreach (var angle in angles)
-        {
-            if (lastAngle.IsEquivalentTo(90))
-            {
-                lastAngle = angle;
-                continue;
-            }
-
-            return lastAngle.IsEquivalentTo(90);
-        }
-
-        return lastAngle.IsEquivalentTo(90);
-    }
-
-    public static Things Classify(Things[] points)
-    {
-        if(0 == points.Length)
-        {
-            return new Things
-            {
-                Type = "Empty",
-                Height = 0.0,
-            };
-        }
-
-        if (1 == points.Length)
-        {
-            var x = points[0].X;
-            var y = points[0].Y;
-            return new Things
-            {
-                X = x,
-                Y = y,
-                Representation = $"({x}, {y})",
-                Type = "Point",
-                Height = -1.0,
-            };
-        }
-
-        var distinctPoints = GetDistinct(points);
-        var pStart = points[0];
-        var pEnd = points[^1];
-        var path = GetPath(points);
+        var path = segments.ToArray();
 
         if (2 == points.Length && 2 == distinctPoints.Length)
         {
@@ -177,7 +102,7 @@ public static class Classifier
                 slope = (1.0 * (pEnd.Y.GetValueOrDefault() - pStart.Y.GetValueOrDefault())) / (1.0 * (pEnd.X.GetValueOrDefault() - pStart.X.GetValueOrDefault()));
             }
 
-            return new Things
+            return new Thing
             {
                 P1 = pStart,
                 P2 = pEnd,
@@ -199,7 +124,7 @@ public static class Classifier
                 if (pEnd.GetType() != pStart.GetType()) ret = false;
                 else
                 {
-                    Things b = (Things)pEnd;
+                    Thing b = pEnd;
                     ret = pStart.X.IsEquivalentTo(b.X) && pStart.Y.IsEquivalentTo(b.Y);
                 }
             }
@@ -207,14 +132,14 @@ public static class Classifier
 
         if (4 == points.Length && 3 == distinctPoints.Length && ret)
         {
-            return new Things
+            return new Thing
             {
                 P2 = path[1].P1,
                 SideB = path[1],
                 SideC = path[2],
 
                 P1 = path[0].P1,
-                AngleC = new Things
+                AngleC = new Thing
                 {
                     Degrees = Math.Acos(Math.Round((Math.Pow(Math.Sqrt(
                         Math.Pow(path[0].P1.X.GetValueOrDefault() - path[1].P1.X.GetValueOrDefault(), 2) +
@@ -230,7 +155,7 @@ public static class Classifier
                     Vertex = path[1].P1,
                     P1 = path[0].P1,
                     P2 = path[2].P1,
-                    SideA = new Things
+                    SideA = new Thing
                     {
                         Length = Math.Sqrt(Math.Pow(path[0].P1.X.GetValueOrDefault() - path[1].P1.X.GetValueOrDefault(), 2) +
                                            Math.Pow(path[0].P1.Y.GetValueOrDefault() - path[1].P1.Y.GetValueOrDefault(), 2)),
@@ -244,7 +169,7 @@ public static class Classifier
                         P2 = path[1].P1,
                         Representation = $"{path[0].P1} -> {path[1].P1}",
                     },
-                    SideB = new Things
+                    SideB = new Thing
                     {
                         P1 = path[2].P1,
                         Slope = path[2].P1.X.IsEquivalentTo(path[1].P1.X)
@@ -261,7 +186,7 @@ public static class Classifier
                 },
                 P3 = path[2].P1,
 
-                AngleA = new Things
+                AngleA = new Thing
                 {
                     Degrees = Math.Acos(Math.Round((Math.Pow(Math.Sqrt(
                         Math.Pow(path[1].P1.X.GetValueOrDefault() - path[2].P1.X.GetValueOrDefault(), 2) +
@@ -277,7 +202,7 @@ public static class Classifier
                     Vertex = path[2].P1,
                     P1 = path[1].P1,
                     P2 = path[0].P1,
-                    SideA = new Things
+                    SideA = new Thing
                     {
                         P2 = path[2].P1,
                         Slope = path[1].P1.X.IsEquivalentTo(path[2].P1.X)
@@ -291,7 +216,7 @@ public static class Classifier
                         Height = Math.Abs(path[1].P1.Y.GetValueOrDefault() - path[2].P1.Y.GetValueOrDefault()),
                         Representation = $"{path[1].P1} -> {path[2].P1}",
                     },
-                    SideB = new Things
+                    SideB = new Thing
                     {
                         Length = Math.Sqrt(Math.Pow(path[0].P1.X.GetValueOrDefault() - path[2].P1.X.GetValueOrDefault(), 2) +
                                            Math.Pow(path[0].P1.Y.GetValueOrDefault() - path[2].P1.Y.GetValueOrDefault(), 2)),
@@ -324,7 +249,7 @@ public static class Classifier
 
                 Type = "Triangle",
 
-                AngleB = new Things
+                AngleB = new Thing
                 {
                     Degrees = Math.Acos(Math.Round((Math.Pow(Math.Sqrt(
                         Math.Pow(path[2].P1.X.GetValueOrDefault() - path[0].P1.X.GetValueOrDefault(), 2) +
@@ -340,7 +265,7 @@ public static class Classifier
                     Vertex = path[0].P1,
                     P1 = path[2].P1,
                     P2 = path[1].P1,
-                    SideA = new Things
+                    SideA = new Thing
                     {
                         Height = Math.Abs(path[2].P1.Y.GetValueOrDefault() - path[0].P1.Y.GetValueOrDefault()),
                         Length = Math.Sqrt(Math.Pow(path[2].P1.X.GetValueOrDefault() - path[0].P1.X.GetValueOrDefault(), 2) +
@@ -354,7 +279,7 @@ public static class Classifier
                         P2 = path[0].P1,
                         Representation = $"{path[2].P1} -> {path[0].P1}",
                     },
-                    SideB = new Things
+                    SideB = new Thing
                     {
                         Length = Math.Sqrt(Math.Pow(path[1].P1.X.GetValueOrDefault() - path[0].P1.X.GetValueOrDefault(), 2) +
                                            Math.Pow(path[1].P1.Y.GetValueOrDefault() - path[0].P1.Y.GetValueOrDefault(), 2)),
@@ -372,7 +297,50 @@ public static class Classifier
             };
         }
 
-        var angles = SolvioHexia(points);
+        var students = new List<double>();
+        for (var i = 2; i < points.Length; i++)
+        {
+            if (i - 2 >= 0 && i - 2 < points.Length)
+                students.Add(Math.Acos(Math.Round((Math.Pow(Math.Sqrt(
+                                                          Math.Pow(
+                                                              points[i - 2].X.GetValueOrDefault() -
+                                                              points[i - 1].X.GetValueOrDefault(), 2) +
+                                                          Math.Pow(
+                                                              points[i - 2].Y.GetValueOrDefault() -
+                                                              points[i - 1].Y.GetValueOrDefault(), 2)), 2) +
+                                                      Math.Pow(Math.Sqrt(
+                                                              Math.Pow(
+                                                                  points[i].X.GetValueOrDefault() -
+                                                                  points[i - 1].X.GetValueOrDefault(), 2) +
+                                                              Math.Pow(
+                                                                  points[i].Y.GetValueOrDefault() -
+                                                                  points[i - 1].Y.GetValueOrDefault(), 2)),
+                                                          2) - Math.Pow(
+                                                          Math.Sqrt(
+                                                              Math.Pow(
+                                                                  points[i - 2].X.GetValueOrDefault() -
+                                                                  points[i].X.GetValueOrDefault(), 2) +
+                                                              Math.Pow(
+                                                                  points[i - 2].Y.GetValueOrDefault() -
+                                                                  points[i].Y.GetValueOrDefault(), 2)), 2)) /
+                                                  (2 * Math.Sqrt(
+                                                       Math.Pow(
+                                                           points[i - 2].X.GetValueOrDefault() -
+                                                           points[i - 1].X.GetValueOrDefault(), 2) +
+                                                       Math.Pow(
+                                                           points[i - 2].Y.GetValueOrDefault() -
+                                                           points[i - 1].Y.GetValueOrDefault(), 2)) *
+                                                   Math.Sqrt(
+                                                       Math.Pow(
+                                                           points[i].X.GetValueOrDefault() -
+                                                           points[i - 1].X.GetValueOrDefault(), 2) +
+                                                       Math.Pow(
+                                                           points[i].Y.GetValueOrDefault() -
+                                                           points[i - 1].Y.GetValueOrDefault(), 2))), 6)) *
+                             (180 / Math.PI));
+        }
+
+        var angles = students.ToArray();
         bool ret1;
         if (ReferenceEquals(null, pEnd)) ret1 = false;
         else
@@ -383,19 +351,34 @@ public static class Classifier
                 if (pEnd.GetType() != pStart.GetType()) ret1 = false;
                 else
                 {
-                    Things b = (Things)pEnd;
+                    Thing b = pEnd;
                     ret1 = pStart.X.IsEquivalentTo(b.X) && pStart.Y.IsEquivalentTo(b.Y);
                 }
             }
         }
 
-        if (5 == points.Length && 4 == distinctPoints.Length && ret1 && path[0].Length.IsEquivalentTo(path[2].Length) && path[1].Length.IsEquivalentTo(path[3].Length) && AllAreRight(angles))
+        if (5 == points.Length && 4 == distinctPoints.Length && ret1 && path[0].Length.IsEquivalentTo(path[2].Length) && path[1].Length.IsEquivalentTo(path[3].Length) && ((Func<double[], bool>)(things =>
+            {
+                var lastAngle = 90.0;
+                foreach (var angle in things)
+                {
+                    if (lastAngle.IsEquivalentTo(90))
+                    {
+                        lastAngle = angle;
+                        continue;
+                    }
+
+                    return lastAngle.IsEquivalentTo(90);
+                }
+
+                return lastAngle.IsEquivalentTo(90);
+            }))(angles))
         {
             var sideA = path[0];
             var sideB = path[1];
             var sideC = path[2];
             var sideD = path[3];
-            return new Things
+            return new Thing
             {
                 Type = "Rectangle",
                 SideA = sideA,
@@ -423,7 +406,7 @@ public static class Classifier
         var first = points[0];
         var last = points[^1];
 
-        return new Things
+        return new Thing
         {
             Points = points,
             Length = length,

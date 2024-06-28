@@ -1,6 +1,6 @@
 ﻿namespace Shape.Lib.Types;
 
-public class Things
+public class Thing
 {
     public string Type { get; set; } = "Unknown";
 
@@ -8,7 +8,7 @@ public class Things
 
     public double? Y { get; set; }
 
-    public Things[]? Points { get; set; }
+    public Thing[]? Points { get; set; }
 
     public bool? IsClosed { get; set; }
 
@@ -16,36 +16,36 @@ public class Things
 
     public double? Length { get; set; }
 
-    public Things? P1 { get; set; }
+    public Thing? P1 { get; set; }
 
-    public Things? P2 { get; set; }
+    public Thing? P2 { get; set; }
 
-    public Things? P3 { get; set; }
+    public Thing? P3 { get; set; }
 
-    public Things? P4 { get; set; }
+    public Thing? P4 { get; set; }
 
     public object Slope { get; set; }
 
     public string Representation { get; set; } = "None";
 
-    public Things? Vertex { get; set; }
+    public Thing? Vertex { get; set; }
 
-    public Things? SideA { get; set; }
-    public Things? SideB { get; set; }
+    public Thing? SideA { get; set; }
+    public Thing? SideB { get; set; }
 
-    public Things? SideC { get; set; }
+    public Thing? SideC { get; set; }
 
-    public Things? SideD { get; set; }
+    public Thing? SideD { get; set; }
 
     public double? Degrees { get; set; }
 
     public double? Height { get; set; }
 
-    public Things? AngleA { get; set; }
+    public Thing? AngleA { get; set; }
 
-    public Things? AngleB { get; set; }
+    public Thing? AngleB { get; set; }
 
-    public Things? AngleC { get; set; }
+    public Thing? AngleC { get; set; }
 
     public double? Perimeter { get; set; }
 

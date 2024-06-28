@@ -14,16 +14,6 @@ public static class MathHelper
         return AreEquivalent(a, b);
     }
 
-    public static bool IsEquivalentTo(this double? a, double b)
-    {
-        if (!a.HasValue)
-        {
-            return false;
-        }
-
-        return AreEquivalent(a.Value, b);
-    }
-
     public static bool IsEquivalentTo(this double? a, double? b)
     {
         if (!a.HasValue && !b.HasValue)

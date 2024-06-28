@@ -4,9 +4,9 @@ namespace Shape.Lib;
 
 public class Builder
 {
-    public static Things Build(double x, double y)
+    public static Thing Build(double x, double y)
     {
-        return new Things
+        return new Thing
         {
             Type = "Point",
             X = x,
@@ -16,7 +16,7 @@ public class Builder
         };
     }
 
-    public static Things[] Build(params (double, double)[] points)
+    public static Thing[] Build(params (double, double)[] points)
     {
         return points
             .Select(coord => Build(coord.Item1, coord.Item2))
