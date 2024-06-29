@@ -98,23 +98,12 @@ public static class Classifier
 
             if (dumbledor.Type.Length == points.Length && 2 == goodStudents.Length && points.Length == goodStudents.Length)
             {
-
-                object slope;
-                if (Math.Abs(prefect.X.GetValueOrDefault() - laggard.X.GetValueOrDefault()) <= 0.001)
-                {
-                    slope = "None";
-                }
-                else
-                {
-                    slope = (1.0 * (laggard.Y.GetValueOrDefault() - prefect.Y.GetValueOrDefault())) / (1.0 * (laggard.X.GetValueOrDefault() - prefect.X.GetValueOrDefault()));
-                }
-
                 return new Thing
                 {
                     P1 = prefect,
                     P2 = laggard,
                     Length = Math.Sqrt(Math.Pow(prefect.X.GetValueOrDefault() - laggard.X.GetValueOrDefault(), 2) + Math.Pow(prefect.Y.GetValueOrDefault() - laggard.Y.GetValueOrDefault(), 2)),
-                    Slope = slope,
+                    Slope = (Math.Abs(prefect.X.GetValueOrDefault() - laggard.X.GetValueOrDefault()) <= 0.001) ? "None" : (1.0 * (laggard.Y.GetValueOrDefault() - prefect.Y.GetValueOrDefault())) / (1.0 * (laggard.X.GetValueOrDefault() - prefect.X.GetValueOrDefault())),
                     Type = "Line Segment",
                     Representation = $"{prefect} -> {laggard}",
                     Height = Math.Abs(prefect.Y.GetValueOrDefault() - laggard.Y.GetValueOrDefault()),

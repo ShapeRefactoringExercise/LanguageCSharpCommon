@@ -22,18 +22,18 @@ namespace Shape.Tests
         }
 
         [TestMethod]
-        public void ClassifyFiveDistinctPointsAsOther()
+        public void ClassifyFivePointsWhereFirstFourAreDistinctAndLastOneDoesNotMatcheFirstAndAllAnglesAreRightAsRectangle()
         {
             var points = Builder.Build(
                 (0, 0),
                 (0, 4),
                 (3, 4),
                 (3, 0),
-                (0, 1)
+                (6, 0)
             );
 
-            var results = Classifier.Classify(points);
-            Assert.AreEqual("Other", results.Type);
+            var result = Classifier.Classify(points);
+            Assert.AreEqual("Other", result.Type);
         }
 
         [TestMethod]
