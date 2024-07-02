@@ -17,7 +17,8 @@ public static class Classifier
             {
                 foreach (var value in ret2)
                 {
-                    if (Math.Abs(value.X.GetValueOrDefault() - point.X.GetValueOrDefault()) <= 0.001 && Math.Abs(value.Y.GetValueOrDefault() - point.Y.GetValueOrDefault()) <= 0.001)
+                    if (value.Y.GetValueOrDefault() - point.Y.GetValueOrDefault() >= -0.001 && value.Y.GetValueOrDefault() - point.Y.GetValueOrDefault() <= 0.001 &&
+                        value.X.GetValueOrDefault() - point.X.GetValueOrDefault() <= 0.001 && value.X.GetValueOrDefault() - point.X.GetValueOrDefault() >= -0.001)
                     {
                         found = true;
                         break;
