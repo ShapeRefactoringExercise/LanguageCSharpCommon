@@ -50,7 +50,7 @@ public static class Classifier
 
             if (points.Length >= 2)
             {
-                Thing pLast = null;
+                Thing? pLast = null;
                 foreach (var point1 in points)
                 {
                     if (pLast == null)
@@ -103,7 +103,7 @@ public static class Classifier
                 {
                     P1 = prefect,
                     P2 = laggard,
-                    Length = Math.Sqrt(Math.Pow(prefect.X.GetValueOrDefault() - laggard.X.GetValueOrDefault(), 2) + Math.Pow(prefect.Y.GetValueOrDefault() - laggard.Y.GetValueOrDefault(), 2)),
+                    Length = Math.Sqrt(Math.Pow((prefect?.X ?? 0) - (laggard?.X ?? 0), 2) + Math.Pow((prefect?.Y ?? 0) - (laggard?.Y ?? 0), 2)),
                     Slope = (Math.Abs(prefect.X.GetValueOrDefault() - laggard.X.GetValueOrDefault()) <= 0.001) ? "None" : (1.0 * (laggard.Y.GetValueOrDefault() - prefect.Y.GetValueOrDefault())) / (1.0 * (laggard.X.GetValueOrDefault() - prefect.X.GetValueOrDefault())),
                     Type = "Line Segment",
                     Representation = $"{prefect} -> {laggard}",
