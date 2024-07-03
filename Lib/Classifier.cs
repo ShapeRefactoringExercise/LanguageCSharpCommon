@@ -17,8 +17,8 @@ public static class Classifier
             {
                 foreach (var value in ret2)
                 {
-                    if ((value?.Y ?? 0) - (point?.Y ?? 0) >= -0.001 && (value?.Y ?? 0) - (point?.Y ?? 0) <= 0.001 &&
-                        (value?.X ?? 0) - (point?.X ?? 0) <= 0.001 && (value?.X ?? 0) - (point?.X ?? 0) >= -0.001)
+                    if ((value.Y ?? 0) - (point?.Y ?? 0) >= -0.001 && (value.Y ?? 0) - (point?.Y ?? 0) <= 0.001 &&
+                        (value.X ?? 0) - (point?.X ?? 0) <= 0.001 && (value.X ?? 0) - (point?.X ?? 0) >= -0.001)
                     {
                         found = true;
                         break;
@@ -31,7 +31,8 @@ public static class Classifier
                     continue;
                 }
 
-                ret2.Add(point);
+                if(point != null)
+                    ret2.Add(point);
             }
 
             var goodStudents = ret2.ToArray();
@@ -60,24 +61,24 @@ public static class Classifier
                     }
 
                     object slope1;
-                    if (Math.Abs((pLast?.X ?? 0) - (point1?.X ?? 0)) <= 0.001)
+                    if (Math.Abs((pLast.X ?? 0) - (point1.X ?? 0)) <= 0.001)
                     {
                         slope1 = "None";
                     }
                     else
                     {
-                        slope1 = (1.0 * ((point1?.Y ?? 0) - (pLast?.Y ?? 0))) / (1.0 * ((point1?.X ?? 0) - (pLast?.X ?? 0)));
+                        slope1 = (1.0 * ((point1.Y ?? 0) - (pLast.Y ?? 0))) / (1.0 * ((point1.X ?? 0) - (pLast.X ?? 0)));
                     }
 
                     queues.Add(new Thing
                     {
                         P1 = pLast,
                         P2 = point1,
-                        Length = Math.Sqrt(Math.Pow((pLast?.X ?? 0) - (point1?.X ?? 0), 2) + Math.Pow((pLast?.Y ?? 0) - (point1?.Y ?? 0), 2)),
+                        Length = Math.Sqrt(Math.Pow((pLast.X ?? 0) - (point1.X ?? 0), 2) + Math.Pow((pLast.Y ?? 0) - (point1.Y ?? 0), 2)),
                         Slope = slope1,
                         Type = "Line Segment",
                         Representation = $"{pLast} -> {point1}",
-                        Height = Math.Abs((pLast?.Y ?? 0) - (point1?.Y ?? 0)),
+                        Height = Math.Abs((pLast.Y ?? 0) - (point1.Y ?? 0)),
                     });
                     pLast = point1;
                 }
@@ -118,10 +119,10 @@ public static class Classifier
                 if (ReferenceEquals(prefect, laggard)) ret = true;
                 else
                 {
-                    if (laggard.GetType() != prefect.GetType()) ret = false;
+                    if ((prefect != null && laggard.GetType() != prefect.GetType()) || prefect == null) ret = false;
                     else
                     {
-                        ret = Math.Abs((prefect?.X ?? 0) - (laggard?.X ?? 0)) <= 0.001 && Math.Abs((prefect?.Y ?? 0) - (laggard?.Y ?? 0)) <= 0.001;
+                        ret = Math.Abs((prefect.X ?? 0) - (laggard.X ?? 0)) <= 0.001 && Math.Abs((prefect.Y ?? 0) - (laggard.Y ?? 0)) <= 0.001;
                     }
                 }
             }
@@ -376,7 +377,7 @@ public static class Classifier
                             Type = "Line Segment",
                         },
                     };
-                };
+                }
             }
 
             var students = new List<double>();
@@ -385,40 +386,40 @@ public static class Classifier
                 if (i - 2 >= 0 && i - 2 < points.Length)
                     students.Add(Math.Acos(Math.Round((Math.Pow(Math.Sqrt(
                                                               Math.Pow(
-                                                                  (points[i - 2]?.X ?? 0) -
-                                                                  (points[i - 1]?.X ?? 0), 2) +
+                                                                  (points[i - 2].X ?? 0) -
+                                                                  (points[i - 1].X ?? 0), 2) +
                                                               Math.Pow(
-                                                                  (points[i - 2]?.Y ?? 0) -
-                                                                  (points[i - 1]?.Y ?? 0), 2)), 2) +
+                                                                  (points[i - 2].Y ?? 0) -
+                                                                  (points[i - 1].Y ?? 0), 2)), 2) +
                                                           Math.Pow(Math.Sqrt(
                                                                   Math.Pow(
-                                                                      (points[i]?.X ?? 0) -
-                                                                      (points[i - 1]?.X ?? 0), 2) +
+                                                                      (points[i].X ?? 0) -
+                                                                      (points[i - 1].X ?? 0), 2) +
                                                                   Math.Pow(
-                                                                      (points[i]?.Y ?? 0) -
-                                                                      (points[i - 1]?.Y ?? 0), 2)),
+                                                                      (points[i].Y ?? 0) -
+                                                                      (points[i - 1].Y ?? 0), 2)),
                                                               2) - Math.Pow(
                                                               Math.Sqrt(
                                                                   Math.Pow(
-                                                                      (points[i - 2]?.X ?? 0) -
-                                                                      (points[i]?.X ?? 0), 2) +
+                                                                      (points[i - 2].X ?? 0) -
+                                                                      (points[i].X ?? 0), 2) +
                                                                   Math.Pow(
-                                                                      (points[i - 2]?.Y ?? 0) -
-                                                                      (points[i]?.Y ?? 0), 2)), 2)) /
+                                                                      (points[i - 2].Y ?? 0) -
+                                                                      (points[i].Y ?? 0), 2)), 2)) /
                                                       (2 * Math.Sqrt(
                                                            Math.Pow(
-                                                               (points[i - 2]?.X ?? 0) -
-                                                               (points[i - 1]?.X ?? 0), 2) +
+                                                               (points[i - 2].X ?? 0) -
+                                                               (points[i - 1].X ?? 0), 2) +
                                                            Math.Pow(
-                                                               (points[i - 2]?.Y ?? 0) -
-                                                               (points[i - 1]?.Y ?? 0), 2)) *
+                                                               (points[i - 2].Y ?? 0) -
+                                                               (points[i - 1].Y ?? 0), 2)) *
                                                        Math.Sqrt(
                                                            Math.Pow(
-                                                               (points[i]?.X ?? 0) -
-                                                               (points[i - 1]?.X ?? 0), 2) +
+                                                               (points[i].X ?? 0) -
+                                                               (points[i - 1].X ?? 0), 2) +
                                                            Math.Pow(
-                                                               (points[i]?.Y ?? 0) -
-                                                               (points[i - 1]?.Y ?? 0), 2))), 6)) *
+                                                               (points[i].Y ?? 0) -
+                                                               (points[i - 1].Y ?? 0), 2))), 6)) *
                                  (180 / Math.PI));
             }
 
@@ -430,10 +431,10 @@ public static class Classifier
                 if (ReferenceEquals(prefect, laggard)) ret1 = true;
                 else
                 {
-                    if (laggard.GetType() != prefect.GetType()) ret1 = false;
+                    if (prefect == null || laggard.GetType() != prefect.GetType()) ret1 = false;
                     else
                     {
-                        ret1 = Math.Abs((prefect?.X ?? 0) - (laggard?.X ?? 0)) <= 0.001 && Math.Abs((prefect?.Y ?? 0) - (laggard?.Y ?? 0)) <= 0.001;
+                        ret1 = Math.Abs((prefect.X ?? 0) - (laggard.X ?? 0)) <= 0.001 && Math.Abs((prefect.Y ?? 0) - (laggard.Y ?? 0)) <= 0.001;
                     }
                 }
             }
@@ -484,10 +485,10 @@ public static class Classifier
                 dumbledor.Length = length;
                 dumbledor.Type = "Other";
                 dumbledor.Representation = "Other";
-                dumbledor.IsClosed = Math.Abs((first?.X ?? 0) - (last?.X ?? 0)) <= 0.001 &&
-                                     Math.Abs((first?.Y ?? 0) - (last?.Y ?? 0)) <= 0.001;
-                dumbledor.IsOpen = !(Math.Abs((first?.X ?? 0) - (last?.X ?? 0)) <= 0.001) ||
-                                   !(Math.Abs((first?.Y ?? 0) - (last?.Y ?? 0)) <= 0.001);
+                dumbledor.IsClosed = Math.Abs((first.X ?? 0) - (last.X ?? 0)) <= 0.001 &&
+                                     Math.Abs((first.Y ?? 0) - (last.Y ?? 0)) <= 0.001;
+                dumbledor.IsOpen = !(Math.Abs((first.X ?? 0) - (last.X ?? 0)) <= 0.001) ||
+                                   !(Math.Abs((first.Y ?? 0) - (last.Y ?? 0)) <= 0.001);
             }
 
             dumbledor.GiveSpeach();
