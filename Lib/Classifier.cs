@@ -17,8 +17,8 @@ public static class Classifier
             {
                 foreach (var value in ret2)
                 {
-                    if ((value.Y ?? 0) - (point.Y ?? 0) >= -0.001 && (value.Y ?? 0) - (point.Y ?? 0) <= 0.001 &&
-                        (value.X ?? 0) - (point.X ?? 0) <= 0.001 && (value.X ?? 0) - (point.X ?? 0) >= -0.001)
+                    if ((value?.Y ?? 0) - (point?.Y ?? 0) >= -0.001 && (value?.Y ?? 0) - (point?.Y ?? 0) <= 0.001 &&
+                        (value?.X ?? 0) - (point?.X ?? 0) <= 0.001 && (value?.X ?? 0) - (point?.X ?? 0) >= -0.001)
                     {
                         found = true;
                         break;
@@ -60,24 +60,24 @@ public static class Classifier
                     }
 
                     object slope1;
-                    if (Math.Abs((pLast.X ?? 0) - (point1.X ?? 0)) <= 0.001)
+                    if (Math.Abs((pLast?.X ?? 0) - (point1?.X ?? 0)) <= 0.001)
                     {
                         slope1 = "None";
                     }
                     else
                     {
-                        slope1 = (1.0 * ((point1.Y ?? 0) - (pLast.Y ?? 0))) / (1.0 * ((point1.X ?? 0) - (pLast.X ?? 0)));
+                        slope1 = (1.0 * ((point1?.Y ?? 0) - (pLast?.Y ?? 0))) / (1.0 * ((point1?.X ?? 0) - (pLast?.X ?? 0)));
                     }
 
                     queues.Add(new Thing
                     {
                         P1 = pLast,
                         P2 = point1,
-                        Length = Math.Sqrt(Math.Pow((pLast.X ?? 0) - (point1.X ?? 0), 2) + Math.Pow((pLast.Y ?? 0) - (point1.Y ?? 0), 2)),
+                        Length = Math.Sqrt(Math.Pow((pLast?.X ?? 0) - (point1?.X ?? 0), 2) + Math.Pow((pLast?.Y ?? 0) - (point1?.Y ?? 0), 2)),
                         Slope = slope1,
                         Type = "Line Segment",
                         Representation = $"{pLast} -> {point1}",
-                        Height = Math.Abs((pLast.Y ?? 0) - (point1.Y ?? 0)),
+                        Height = Math.Abs((pLast?.Y ?? 0) - (point1?.Y ?? 0)),
                     });
                     pLast = point1;
                 }
@@ -104,10 +104,10 @@ public static class Classifier
                     P1 = prefect,
                     P2 = laggard,
                     Length = Math.Sqrt(Math.Pow((prefect?.X ?? 0) - (laggard?.X ?? 0), 2) + Math.Pow((prefect?.Y ?? 0) - (laggard?.Y ?? 0), 2)),
-                    Slope = (Math.Abs((prefect.X ?? 0) - (laggard.X ?? 0)) <= 0.001) ? "None" : (1.0 * ((laggard.Y ?? 0) - (prefect.Y ?? 0))) / (1.0 * ((laggard.X ?? 0) - (prefect.X ?? 0))),
+                    Slope = (Math.Abs((prefect?.X ?? 0) - (laggard?.X ?? 0)) <= 0.001) ? "None" : (1.0 * ((laggard?.Y ?? 0) - (prefect?.Y ?? 0))) / (1.0 * ((laggard?.X ?? 0) - (prefect?.X ?? 0))),
                     Type = "Line Segment",
                     Representation = $"{prefect} -> {laggard}",
-                    Height = Math.Abs((prefect.Y ?? 0) - (laggard.Y ?? 0)),
+                    Height = Math.Abs((prefect?.Y ?? 0) - (laggard?.Y ?? 0)),
                 };
             }
 
@@ -121,7 +121,7 @@ public static class Classifier
                     if (laggard.GetType() != prefect.GetType()) ret = false;
                     else
                     {
-                        ret = Math.Abs((prefect.X ?? 0) - (laggard.X ?? 0)) <= 0.001 && Math.Abs((prefect.Y ?? 0) - (laggard.Y ?? 0)) <= 0.001;
+                        ret = Math.Abs((prefect?.X ?? 0) - (laggard?.X ?? 0)) <= 0.001 && Math.Abs((prefect?.Y ?? 0) - (laggard?.Y ?? 0)) <= 0.001;
                     }
                 }
             }
@@ -138,39 +138,39 @@ public static class Classifier
                     {
                         Degrees = Math.Acos(Math.Round((Math.Pow(Math.Sqrt(
                                                             Math.Pow(
-                                                                (path[0].P1.X ?? 0) -
-                                                                (path[1].P1.X ?? 0), 2) +
+                                                                (path[0].P1?.X ?? 0) -
+                                                                (path[1].P1?.X ?? 0), 2) +
                                                             Math.Pow(
-                                                                (path[0].P1.Y ?? 0) -
-                                                                (path[1].P1.Y ?? 0), 2)), 2) +
+                                                                (path[0].P1?.Y ?? 0) -
+                                                                (path[1].P1?.Y ?? 0), 2)), 2) +
                                                         Math.Pow(Math.Sqrt(
                                                             Math.Pow(
-                                                                (path[2].P1.X ?? 0) -
-                                                                (path[1].P1.X ?? 0), 2) +
+                                                                (path[2].P1?.X ?? 0) -
+                                                                (path[1].P1?.X ?? 0), 2) +
                                                             Math.Pow(
-                                                                (path[2].P1.Y ?? 0) -
-                                                                (path[1].P1.Y ?? 0), 2)), 2) -
+                                                                (path[2].P1?.Y ?? 0) -
+                                                                (path[1].P1?.Y ?? 0), 2)), 2) -
                                                         Math.Pow(Math.Sqrt(
                                                             Math.Pow(
-                                                                (path[0].P1.X ?? 0) -
-                                                                (path[2].P1.X ?? 0), 2) +
+                                                                (path[0].P1?.X ?? 0) -
+                                                                (path[2].P1?.X ?? 0), 2) +
                                                             Math.Pow(
-                                                                (path[0].P1.Y ?? 0) -
-                                                                (path[2].P1.Y ?? 0), 2)), 2)) /
+                                                                (path[0].P1?.Y ?? 0) -
+                                                                (path[2].P1?.Y ?? 0), 2)), 2)) /
                                                        (2 * Math.Sqrt(
                                                             Math.Pow(
-                                                                (path[0].P1.X ?? 0) -
-                                                                (path[1].P1.X ?? 0), 2) +
+                                                                (path[0].P1?.X ?? 0) -
+                                                                (path[1].P1?.X ?? 0), 2) +
                                                             Math.Pow(
-                                                                (path[0].P1.Y ?? 0) -
-                                                                (path[1].P1.Y ?? 0), 2)) *
+                                                                (path[0].P1?.Y ?? 0) -
+                                                                (path[1].P1?.Y ?? 0), 2)) *
                                                         Math.Sqrt(
                                                             Math.Pow(
-                                                                (path[2].P1.X ?? 0) -
-                                                                (path[1].P1.X ?? 0), 2) +
+                                                                (path[2].P1?.X ?? 0) -
+                                                                (path[1].P1?.X ?? 0), 2) +
                                                             Math.Pow(
-                                                                (path[2].P1.Y ?? 0) -
-                                                                (path[1].P1.Y ?? 0), 2))), 6)) *
+                                                                (path[2].P1?.Y ?? 0) -
+                                                                (path[1].P1?.Y ?? 0), 2))), 6)) *
                                   (180 / Math.PI),
                         Vertex = path[1].P1,
                         P1 = path[0].P1,
@@ -178,14 +178,14 @@ public static class Classifier
                         SideA = new Thing
                         {
                             Length = Math.Sqrt(
-                                Math.Pow((path[0].P1.X ?? 0) - (path[1].P1.X ?? 0), 2) +
-                                Math.Pow((path[0].P1.Y ?? 0) - (path[1].P1.Y ?? 0), 2)),
-                            Slope = Math.Abs((path[0].P1.X ?? 0) - (path[1].P1.X ?? 0)) <=
+                                Math.Pow((path[0].P1?.X ?? 0) - (path[1].P1?.X ?? 0), 2) +
+                                Math.Pow((path[0].P1?.Y ?? 0) - (path[1].P1?.Y ?? 0), 2)),
+                            Slope = Math.Abs((path[0].P1?.X ?? 0) - (path[1].P1?.X ?? 0)) <=
                                     0.001
                                 ? "None"
-                                : (1.0 * ((path[1].P1.Y ?? 0) - (path[0].P1.Y ?? 0))) /
-                                  (1.0 * ((path[1].P1.X ?? 0) - (path[0].P1.X ?? 0))),
-                            Height = Math.Abs((path[0].P1.Y ?? 0) - (path[1].P1.Y ?? 0)),
+                                : (1.0 * ((path[1].P1?.Y ?? 0) - (path[0].P1?.Y ?? 0))) /
+                                  (1.0 * ((path[1].P1?.X ?? 0) - (path[0].P1?.X ?? 0))),
+                            Height = Math.Abs((path[0].P1?.Y ?? 0) - (path[1].P1?.Y ?? 0)),
                             Type = "Line Segment",
                             P1 = path[0].P1,
                             P2 = path[1].P1,
@@ -194,15 +194,15 @@ public static class Classifier
                         SideB = new Thing
                         {
                             P1 = path[2].P1,
-                            Slope = Math.Abs((path[2].P1.X ?? 0) - (path[1].P1.X ?? 0)) <=
+                            Slope = Math.Abs((path[2].P1?.X ?? 0) - (path[1].P1?.X ?? 0)) <=
                                     0.001
                                 ? "None"
-                                : (1.0 * ((path[1].P1.Y ?? 0) - (path[2].P1.Y ?? 0))) /
-                                  (1.0 * ((path[1].P1.X ?? 0) - (path[2].P1.X ?? 0))),
-                            Height = Math.Abs((path[2].P1.Y ?? 0) - (path[1].P1.Y ?? 0)),
+                                : (1.0 * ((path[1].P1?.Y ?? 0) - (path[2].P1?.Y ?? 0))) /
+                                  (1.0 * ((path[1].P1?.X ?? 0) - (path[2].P1?.X ?? 0))),
+                            Height = Math.Abs((path[2].P1?.Y ?? 0) - (path[1].P1?.Y ?? 0)),
                             Length = Math.Sqrt(
-                                Math.Pow((path[2].P1.X ?? 0) - (path[1].P1.X ?? 0), 2) +
-                                Math.Pow((path[2].P1.Y ?? 0) - (path[1].P1.Y ?? 0), 2)),
+                                Math.Pow((path[2].P1?.X ?? 0) - (path[1].P1?.X ?? 0), 2) +
+                                Math.Pow((path[2].P1?.Y ?? 0) - (path[1].P1?.Y ?? 0), 2)),
                             Type = "Line Segment",
                             Representation = $"{path[2].P1} -> {path[1].P1}",
                             P2 = path[1].P1,
@@ -214,39 +214,39 @@ public static class Classifier
                     {
                         Degrees = Math.Acos(Math.Round((Math.Pow(Math.Sqrt(
                                                             Math.Pow(
-                                                                (path[1].P1.X ?? 0) -
-                                                                (path[2].P1.X ?? 0), 2) +
+                                                                (path[1].P1?.X ?? 0) -
+                                                                (path[2].P1?.X ?? 0), 2) +
                                                             Math.Pow(
-                                                                (path[1].P1.Y ?? 0) -
-                                                                (path[2].P1.Y ?? 0), 2)), 2) +
+                                                                (path[1].P1?.Y ?? 0) -
+                                                                (path[2].P1?.Y ?? 0), 2)), 2) +
                                                         Math.Pow(Math.Sqrt(
                                                             Math.Pow(
-                                                                (path[0].P1.X ?? 0) -
-                                                                (path[2].P1.X ?? 0), 2) +
+                                                                (path[0].P1?.X ?? 0) -
+                                                                (path[2].P1?.X ?? 0), 2) +
                                                             Math.Pow(
-                                                                (path[0].P1.Y ?? 0) -
-                                                                (path[2].P1.Y ?? 0), 2)), 2) -
+                                                                (path[0].P1?.Y ?? 0) -
+                                                                (path[2].P1?.Y ?? 0), 2)), 2) -
                                                         Math.Pow(Math.Sqrt(
                                                             Math.Pow(
-                                                                (path[1].P1.X ?? 0) -
-                                                                (path[0].P1.X ?? 0), 2) +
+                                                                (path[1].P1?.X ?? 0) -
+                                                                (path[0].P1?.X ?? 0), 2) +
                                                             Math.Pow(
-                                                                (path[1].P1.Y ?? 0) -
-                                                                (path[0].P1.Y ?? 0), 2)), 2)) /
+                                                                (path[1].P1?.Y ?? 0) -
+                                                                (path[0].P1?.Y ?? 0), 2)), 2)) /
                                                        (2 * Math.Sqrt(
                                                             Math.Pow(
-                                                                (path[1].P1.X ?? 0) -
-                                                                (path[2].P1.X ?? 0), 2) +
+                                                                (path[1].P1?.X ?? 0) -
+                                                                (path[2].P1?.X ?? 0), 2) +
                                                             Math.Pow(
-                                                                (path[1].P1.Y ?? 0) -
-                                                                (path[2].P1.Y ?? 0), 2)) *
+                                                                (path[1].P1?.Y ?? 0) -
+                                                                (path[2].P1?.Y ?? 0), 2)) *
                                                         Math.Sqrt(
                                                             Math.Pow(
-                                                                (path[0].P1.X ?? 0) -
-                                                                (path[2].P1.X ?? 0), 2) +
+                                                                (path[0].P1?.X ?? 0) -
+                                                                (path[2].P1?.X ?? 0), 2) +
                                                             Math.Pow(
-                                                                (path[0].P1.Y ?? 0) -
-                                                                (path[2].P1.Y ?? 0), 2))), 6)) *
+                                                                (path[0].P1?.Y ?? 0) -
+                                                                (path[2].P1?.Y ?? 0), 2))), 6)) *
                                   (180 / Math.PI),
                         Vertex = path[2].P1,
                         P1 = path[1].P1,
@@ -254,32 +254,32 @@ public static class Classifier
                         SideA = new Thing
                         {
                             P2 = path[2].P1,
-                            Slope = Math.Abs((path[1].P1.X ?? 0) - (path[2].P1.X ?? 0)) <=
+                            Slope = Math.Abs((path[1].P1?.X ?? 0) - (path[2].P1?.X ?? 0)) <=
                                     0.001
                                 ? "None"
-                                : (1.0 * ((path[2].P1.Y ?? 0) - (path[1].P1.Y ?? 0))) /
-                                  (1.0 * ((path[2].P1.X ?? 0) - (path[1].P1.X ?? 0))),
+                                : (1.0 * ((path[2].P1?.Y ?? 0) - (path[1].P1?.Y ?? 0))) /
+                                  (1.0 * ((path[2].P1?.X ?? 0) - (path[1].P1?.X ?? 0))),
                             Type = "Line Segment",
                             P1 = path[1].P1,
                             Length = Math.Sqrt(
-                                Math.Pow((path[1].P1.X ?? 0) - (path[2].P1.X ?? 0), 2) +
-                                Math.Pow((path[1].P1.Y ?? 0) - (path[2].P1.Y ?? 0), 2)),
-                            Height = Math.Abs((path[1].P1.Y ?? 0) - (path[2].P1.Y ?? 0)),
+                                Math.Pow((path[1].P1?.X ?? 0) - (path[2].P1?.X ?? 0), 2) +
+                                Math.Pow((path[1].P1?.Y ?? 0) - (path[2].P1?.Y ?? 0), 2)),
+                            Height = Math.Abs((path[1].P1?.Y ?? 0) - (path[2].P1?.Y ?? 0)),
                             Representation = $"{path[1].P1} -> {path[2].P1}",
                         },
                         SideB = new Thing
                         {
                             Length = Math.Sqrt(
-                                Math.Pow((path[0].P1.X ?? 0) - (path[2].P1.X ?? 0), 2) +
-                                Math.Pow((path[0].P1.Y ?? 0) - (path[2].P1.Y ?? 0), 2)),
+                                Math.Pow((path[0].P1?.X ?? 0) - (path[2].P1?.X ?? 0), 2) +
+                                Math.Pow((path[0].P1?.Y ?? 0) - (path[2].P1?.Y ?? 0), 2)),
                             P1 = path[0].P1,
-                            Height = Math.Abs((path[0].P1.Y ?? 0) - (path[2].P1.Y ?? 0)),
+                            Height = Math.Abs((path[0].P1?.Y ?? 0) - (path[2].P1?.Y ?? 0)),
                             P2 = path[2].P1,
-                            Slope = Math.Abs((path[0].P1.X ?? 0) - (path[2].P1.X ?? 0)) <=
+                            Slope = Math.Abs((path[0].P1?.X ?? 0) - (path[2].P1?.X ?? 0)) <=
                                     0.001
                                 ? "None"
-                                : (1.0 * ((path[2].P1.Y ?? 0) - (path[0].P1.Y ?? 0))) /
-                                  (1.0 * ((path[2].P1.X ?? 0) - (path[0].P1.X ?? 0))),
+                                : (1.0 * ((path[2].P1?.Y ?? 0) - (path[0].P1?.Y ?? 0))) /
+                                  (1.0 * ((path[2].P1?.X ?? 0) - (path[0].P1?.X ?? 0))),
                             Representation = $"{path[0].P1} -> {path[2].P1}",
                             Type = "Line Segment",
                         },
@@ -306,54 +306,54 @@ public static class Classifier
                     {
                         Degrees = Math.Acos(Math.Round((Math.Pow(Math.Sqrt(
                                                             Math.Pow(
-                                                                (path[2].P1.X ?? 0) -
-                                                                (path[0].P1.X ?? 0), 2) +
+                                                                (path[2].P1?.X ?? 0) -
+                                                                (path[0].P1?.X ?? 0), 2) +
                                                             Math.Pow(
-                                                                (path[2].P1.Y ?? 0) -
-                                                                (path[0].P1.Y ?? 0), 2)), 2) +
+                                                                (path[2].P1?.Y ?? 0) -
+                                                                (path[0].P1?.Y ?? 0), 2)), 2) +
                                                         Math.Pow(Math.Sqrt(
                                                             Math.Pow(
-                                                                (path[1].P1.X ?? 0) -
-                                                                (path[0].P1.X ?? 0), 2) +
+                                                                (path[1].P1?.X ?? 0) -
+                                                                (path[0].P1?.X ?? 0), 2) +
                                                             Math.Pow(
-                                                                (path[1].P1.Y ?? 0) -
-                                                                (path[0].P1.Y ?? 0), 2)), 2) -
+                                                                (path[1].P1?.Y ?? 0) -
+                                                                (path[0].P1?.Y ?? 0), 2)), 2) -
                                                         Math.Pow(Math.Sqrt(
                                                             Math.Pow(
-                                                                (path[2].P1.X ?? 0) -
-                                                                (path[1].P1.X ?? 0), 2) +
+                                                                (path[2].P1?.X ?? 0) -
+                                                                (path[1].P1?.X ?? 0), 2) +
                                                             Math.Pow(
-                                                                (path[2].P1.Y ?? 0) -
-                                                                (path[1].P1.Y ?? 0), 2)), 2)) /
+                                                                (path[2].P1?.Y ?? 0) -
+                                                                (path[1].P1?.Y ?? 0), 2)), 2)) /
                                                        (2 * Math.Sqrt(
                                                             Math.Pow(
-                                                                (path[2].P1.X ?? 0) -
-                                                                (path[0].P1.X ?? 0), 2) +
+                                                                (path[2].P1?.X ?? 0) -
+                                                                (path[0].P1?.X ?? 0), 2) +
                                                             Math.Pow(
-                                                                (path[2].P1.Y ?? 0) -
-                                                                (path[0].P1.Y ?? 0), 2)) *
+                                                                (path[2].P1?.Y ?? 0) -
+                                                                (path[0].P1?.Y ?? 0), 2)) *
                                                         Math.Sqrt(
                                                             Math.Pow(
-                                                                (path[1].P1.X ?? 0) -
-                                                                (path[0].P1.X ?? 0), 2) +
+                                                                (path[1].P1?.X ?? 0) -
+                                                                (path[0].P1?.X ?? 0), 2) +
                                                             Math.Pow(
-                                                                (path[1].P1.Y ?? 0) -
-                                                                (path[0].P1.Y ?? 0), 2))), 6)) *
+                                                                (path[1].P1?.Y ?? 0) -
+                                                                (path[0].P1?.Y ?? 0), 2))), 6)) *
                                   (180 / Math.PI),
                         Vertex = path[0].P1,
                         P1 = path[2].P1,
                         P2 = path[1].P1,
                         SideA = new Thing
                         {
-                            Height = Math.Abs((path[2].P1.Y ?? 0) - (path[0].P1.Y ?? 0)),
+                            Height = Math.Abs((path[2].P1?.Y ?? 0) - (path[0].P1?.Y ?? 0)),
                             Length = Math.Sqrt(
-                                Math.Pow((path[2].P1.X ?? 0) - (path[0].P1.X ?? 0), 2) +
-                                Math.Pow((path[2].P1.Y ?? 0) - (path[0].P1.Y ?? 0), 2)),
-                            Slope = Math.Abs((path[2].P1.X ?? 0) - (path[0].P1.X ?? 0)) <=
+                                Math.Pow((path[2].P1?.X ?? 0) - (path[0].P1?.X ?? 0), 2) +
+                                Math.Pow((path[2].P1?.Y ?? 0) - (path[0].P1?.Y ?? 0), 2)),
+                            Slope = Math.Abs((path[2].P1?.X ?? 0) - (path[0].P1?.X ?? 0)) <=
                                     0.001
                                 ? "None"
-                                : (1.0 * ((path[0].P1.Y ?? 0) - (path[2].P1.Y ?? 0))) /
-                                  (1.0 * ((path[0].P1.X ?? 0) - (path[2].P1.X ?? 0))),
+                                : (1.0 * ((path[0].P1?.Y ?? 0) - (path[2].P1?.Y ?? 0))) /
+                                  (1.0 * ((path[0].P1?.X ?? 0) - (path[2].P1?.X ?? 0))),
                             Type = "Line Segment",
                             P1 = path[2].P1,
                             P2 = path[0].P1,
@@ -362,16 +362,16 @@ public static class Classifier
                         SideB = new Thing
                         {
                             Length = Math.Sqrt(
-                                Math.Pow((path[1].P1.X ?? 0) - (path[0].P1.X ?? 0), 2) +
-                                Math.Pow((path[1].P1.Y ?? 0) - (path[0].P1.Y ?? 0), 2)),
+                                Math.Pow((path[1].P1?.X ?? 0) - (path[0].P1?.X ?? 0), 2) +
+                                Math.Pow((path[1].P1?.Y ?? 0) - (path[0].P1?.Y ?? 0), 2)),
                             P1 = path[1].P1,
-                            Height = Math.Abs((path[1].P1.Y ?? 0) - (path[0].P1.Y ?? 0)),
+                            Height = Math.Abs((path[1].P1?.Y ?? 0) - (path[0].P1?.Y ?? 0)),
                             P2 = path[0].P1,
-                            Slope = Math.Abs((path[1].P1.X ?? 0) - (path[0].P1.X ?? 0)) <=
+                            Slope = Math.Abs((path[1].P1?.X ?? 0) - (path[0].P1?.X ?? 0)) <=
                                     0.001
                                 ? "None"
-                                : (1.0 * ((path[0].P1.Y ?? 0) - (path[1].P1.Y ?? 0))) /
-                                  (1.0 * ((path[0].P1.X ?? 0) - (path[1].P1.X ?? 0))),
+                                : (1.0 * ((path[0].P1?.Y ?? 0) - (path[1].P1?.Y ?? 0))) /
+                                  (1.0 * ((path[0].P1?.X ?? 0) - (path[1].P1?.X ?? 0))),
                             Representation = $"{path[1].P1} -> {path[0].P1}",
                             Type = "Line Segment",
                         },
@@ -385,40 +385,40 @@ public static class Classifier
                 if (i - 2 >= 0 && i - 2 < points.Length)
                     students.Add(Math.Acos(Math.Round((Math.Pow(Math.Sqrt(
                                                               Math.Pow(
-                                                                  (points[i - 2].X ?? 0) -
-                                                                  (points[i - 1].X ?? 0), 2) +
+                                                                  (points[i - 2]?.X ?? 0) -
+                                                                  (points[i - 1]?.X ?? 0), 2) +
                                                               Math.Pow(
-                                                                  (points[i - 2].Y ?? 0) -
-                                                                  (points[i - 1].Y ?? 0), 2)), 2) +
+                                                                  (points[i - 2]?.Y ?? 0) -
+                                                                  (points[i - 1]?.Y ?? 0), 2)), 2) +
                                                           Math.Pow(Math.Sqrt(
                                                                   Math.Pow(
-                                                                      (points[i].X ?? 0) -
-                                                                      (points[i - 1].X ?? 0), 2) +
+                                                                      (points[i]?.X ?? 0) -
+                                                                      (points[i - 1]?.X ?? 0), 2) +
                                                                   Math.Pow(
-                                                                      (points[i].Y ?? 0) -
-                                                                      (points[i - 1].Y ?? 0), 2)),
+                                                                      (points[i]?.Y ?? 0) -
+                                                                      (points[i - 1]?.Y ?? 0), 2)),
                                                               2) - Math.Pow(
                                                               Math.Sqrt(
                                                                   Math.Pow(
-                                                                      (points[i - 2].X ?? 0) -
-                                                                      (points[i].X ?? 0), 2) +
+                                                                      (points[i - 2]?.X ?? 0) -
+                                                                      (points[i]?.X ?? 0), 2) +
                                                                   Math.Pow(
-                                                                      (points[i - 2].Y ?? 0) -
-                                                                      (points[i].Y ?? 0), 2)), 2)) /
+                                                                      (points[i - 2]?.Y ?? 0) -
+                                                                      (points[i]?.Y ?? 0), 2)), 2)) /
                                                       (2 * Math.Sqrt(
                                                            Math.Pow(
-                                                               (points[i - 2].X ?? 0) -
-                                                               (points[i - 1].X ?? 0), 2) +
+                                                               (points[i - 2]?.X ?? 0) -
+                                                               (points[i - 1]?.X ?? 0), 2) +
                                                            Math.Pow(
-                                                               (points[i - 2].Y ?? 0) -
-                                                               (points[i - 1].Y ?? 0), 2)) *
+                                                               (points[i - 2]?.Y ?? 0) -
+                                                               (points[i - 1]?.Y ?? 0), 2)) *
                                                        Math.Sqrt(
                                                            Math.Pow(
-                                                               (points[i].X ?? 0) -
-                                                               (points[i - 1].X ?? 0), 2) +
+                                                               (points[i]?.X ?? 0) -
+                                                               (points[i - 1]?.X ?? 0), 2) +
                                                            Math.Pow(
-                                                               (points[i].Y ?? 0) -
-                                                               (points[i - 1].Y ?? 0), 2))), 6)) *
+                                                               (points[i]?.Y ?? 0) -
+                                                               (points[i - 1]?.Y ?? 0), 2))), 6)) *
                                  (180 / Math.PI));
             }
 
@@ -433,7 +433,7 @@ public static class Classifier
                     if (laggard.GetType() != prefect.GetType()) ret1 = false;
                     else
                     {
-                        ret1 = Math.Abs((prefect.X ?? 0) - (laggard.X ?? 0)) <= 0.001 && Math.Abs((prefect.Y ?? 0) - (laggard.Y ?? 0)) <= 0.001;
+                        ret1 = Math.Abs((prefect?.X ?? 0) - (laggard?.X ?? 0)) <= 0.001 && Math.Abs((prefect?.Y ?? 0) - (laggard?.Y ?? 0)) <= 0.001;
                     }
                 }
             }
@@ -484,10 +484,10 @@ public static class Classifier
                 dumbledor.Length = length;
                 dumbledor.Type = "Other";
                 dumbledor.Representation = "Other";
-                dumbledor.IsClosed = Math.Abs((first.X ?? 0) - (last.X ?? 0)) <= 0.001 &&
-                                     Math.Abs((first.Y ?? 0) - (last.Y ?? 0)) <= 0.001;
-                dumbledor.IsOpen = !(Math.Abs((first.X ?? 0) - (last.X ?? 0)) <= 0.001) ||
-                                   !(Math.Abs((first.Y ?? 0) - (last.Y ?? 0)) <= 0.001);
+                dumbledor.IsClosed = Math.Abs((first?.X ?? 0) - (last?.X ?? 0)) <= 0.001 &&
+                                     Math.Abs((first?.Y ?? 0) - (last?.Y ?? 0)) <= 0.001;
+                dumbledor.IsOpen = !(Math.Abs((first?.X ?? 0) - (last?.X ?? 0)) <= 0.001) ||
+                                   !(Math.Abs((first?.Y ?? 0) - (last?.Y ?? 0)) <= 0.001);
             }
 
             dumbledor.GiveSpeach();
