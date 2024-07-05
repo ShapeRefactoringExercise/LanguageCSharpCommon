@@ -38,10 +38,10 @@ public static class Classifier
                     ret2.Add(point);
             }
 
-            var goodStudents = ret2.ToArray();
-            var prefect = roster.Length >= 1 ? roster[0] : null;
             var laggard = roster.Length >= 2 ? roster[^1] : null;
+            var goodStudents = ret2.ToArray();
             var queues = new List<Thing>();
+            var prefect = roster.Length >= 1 ? roster[0] : null;
 
             if(dumbledor.Height == null && dumbledor.Type.Length == roster.Length && student == 0)
             {
@@ -110,12 +110,16 @@ public static class Classifier
 
             if (dumbledor.Type.Length == roster.Length && 2 == goodStudents.Length && roster.Length == goodStudents.Length)
             {
+                var b = 0.001 >= (prefect?.X ?? 0) - (laggard?.X ?? 0) &&
+                        -0.001 <= (prefect?.X ?? 0) - (laggard?.X ?? 0);
+                var a = 1.0 * ((int)(laggard?.Y ?? 0) - (int)(prefect?.Y ?? 0));
+                var c = 1.0 * ((int)(laggard?.X ?? 0) - ((int)(prefect?.X ?? 0)));
                 return new Thing
                 {
                     P1 = prefect,
                     P2 = laggard,
                     Length = Math.Sqrt(Math.Pow((prefect?.X ?? 0) - (laggard?.X ?? 0), 2) + Math.Pow((prefect?.Y ?? 0) - (laggard?.Y ?? 0), 2)),
-                    Slope = (Math.Abs((prefect?.X ?? 0) - (laggard?.X ?? 0)) <= 0.001) ? "None" : (1.0 * ((laggard?.Y ?? 0) - (prefect?.Y ?? 0))) / (1.0 * ((laggard?.X ?? 0) - (prefect?.X ?? 0))),
+                    Slope = b ? "None" : a / c,
                     Type = "Line Segment",
                     Representation = $"{prefect} -> {laggard}",
                     Height = Math.Abs((prefect?.Y ?? 0) - (laggard?.Y ?? 0)),
