@@ -54,43 +54,43 @@ public static class Classifier
 
             if (roster.Length >= 2)
             {
-                Thing? pLast = null;
+                Thing? longbottom = null;
                 foreach (var hagred in roster)
                 {
-                    if (pLast == null)
+                    if (longbottom == null)
                     {
-                        pLast = hagred;
+                        longbottom = hagred;
                         continue;
                     }
 
                     object determinable;
                     var maybeZero = hagred.Y ?? 0;
-                    if (Math.Abs((pLast.X ?? 0) - (hagred.X ?? 0)) <= 0.001)
+                    if (Math.Abs((longbottom.X ?? 0) - (hagred.X ?? 0)) <= 0.001)
                     {
                         determinable = "None";
                     }
                     else
                     {
-                        var zeroish = hagred.X ?? 0;
-                        determinable = 1.0  * (maybeZero - (pLast.Y ?? 0)) / (1.0 * (zeroish - (pLast.X ?? 0)));
+                        var malfoy = hagred.X ?? 0;
+                        determinable = 1.0  * (maybeZero - (longbottom.Y ?? 0)) / (1.0 * (malfoy - (longbottom.X ?? 0)));
                     }
 
-                    var height1 = pLast.X ?? 0;
+                    var height1 = longbottom.X ?? 0;
                     var height2 = hagred.X ?? 0;
-                    var length = pLast.Y ?? 0;
+                    var length = longbottom.Y ?? 0;
                     var length1 = hagred.Y ?? 0;
-                    var diff = (pLast.Y ?? 0) - (hagred.Y ?? 0);
+                    var diff = (longbottom.Y ?? 0) - (hagred.Y ?? 0);
                     queues.Add(new Thing
                     {
                         Length = Math.Sqrt(Math.Pow(height1 - height2, 2) + Math.Pow(length - length1, 2)),
                         Height = Math.Abs(diff),
-                        P1 = pLast,
+                        P1 = longbottom,
                         Slope = determinable,
-                        Representation = $"{pLast} -> {hagred}",
+                        Representation = $"{longbottom} -> {hagred}",
                         Type = "Line Segment",
                         P2 = hagred,
                     });
-                    pLast = hagred;
+                    longbottom = hagred;
                 }
             }
 
@@ -106,7 +106,7 @@ public static class Classifier
                 dumbledor.Height = -1.0;
             }
 
-            var path = queues.ToArray();
+            var year = queues.ToArray();
 
             if (dumbledor.Type.Length == roster.Length && 2 == goodStudents.Length && roster.Length == goodStudents.Length)
             {
@@ -140,175 +140,175 @@ public static class Classifier
             if (dumbledor.Type.Length == roster.Length && 3 == goodStudents.Length && ret  && goodStudents.Length + 1 == dumbledor.Type.Length)
             {
                 {
-                    dumbledor.P2 = path[1].P1;
-                    dumbledor.SideB = path[1];
-                    dumbledor.SideC = path[2];
+                    dumbledor.P2 = year[1].P1;
+                    dumbledor.SideB = year[1];
+                    dumbledor.SideC = year[2];
 
-                    dumbledor.P1 = path[0].P1;
+                    dumbledor.P1 = year[0].P1;
                     dumbledor.AngleC = new Thing
                     {
                         Degrees = Math.Acos(Math.Round((Math.Pow(Math.Sqrt(
                                                             Math.Pow(
-                                                                (path[0].P1?.X ?? 0) -
-                                                                (path[1].P1?.X ?? 0), 2) +
+                                                                (year[0].P1?.X ?? 0) -
+                                                                (year[1].P1?.X ?? 0), 2) +
                                                             Math.Pow(
-                                                                (path[0].P1?.Y ?? 0) -
-                                                                (path[1].P1?.Y ?? 0), 2)), 2) +
+                                                                (year[0].P1?.Y ?? 0) -
+                                                                (year[1].P1?.Y ?? 0), 2)), 2) +
                                                         Math.Pow(Math.Sqrt(
                                                             Math.Pow(
-                                                                (path[2].P1?.X ?? 0) -
-                                                                (path[1].P1?.X ?? 0), 2) +
+                                                                (year[2].P1?.X ?? 0) -
+                                                                (year[1].P1?.X ?? 0), 2) +
                                                             Math.Pow(
-                                                                (path[2].P1?.Y ?? 0) -
-                                                                (path[1].P1?.Y ?? 0), 2)), 2) -
+                                                                (year[2].P1?.Y ?? 0) -
+                                                                (year[1].P1?.Y ?? 0), 2)), 2) -
                                                         Math.Pow(Math.Sqrt(
                                                             Math.Pow(
-                                                                (path[0].P1?.X ?? 0) -
-                                                                (path[2].P1?.X ?? 0), 2) +
+                                                                (year[0].P1?.X ?? 0) -
+                                                                (year[2].P1?.X ?? 0), 2) +
                                                             Math.Pow(
-                                                                (path[0].P1?.Y ?? 0) -
-                                                                (path[2].P1?.Y ?? 0), 2)), 2)) /
+                                                                (year[0].P1?.Y ?? 0) -
+                                                                (year[2].P1?.Y ?? 0), 2)), 2)) /
                                                        (2 * Math.Sqrt(
                                                             Math.Pow(
-                                                                (path[0].P1?.X ?? 0) -
-                                                                (path[1].P1?.X ?? 0), 2) +
+                                                                (year[0].P1?.X ?? 0) -
+                                                                (year[1].P1?.X ?? 0), 2) +
                                                             Math.Pow(
-                                                                (path[0].P1?.Y ?? 0) -
-                                                                (path[1].P1?.Y ?? 0), 2)) *
+                                                                (year[0].P1?.Y ?? 0) -
+                                                                (year[1].P1?.Y ?? 0), 2)) *
                                                         Math.Sqrt(
                                                             Math.Pow(
-                                                                (path[2].P1?.X ?? 0) -
-                                                                (path[1].P1?.X ?? 0), 2) +
+                                                                (year[2].P1?.X ?? 0) -
+                                                                (year[1].P1?.X ?? 0), 2) +
                                                             Math.Pow(
-                                                                (path[2].P1?.Y ?? 0) -
-                                                                (path[1].P1?.Y ?? 0), 2))), 6)) *
+                                                                (year[2].P1?.Y ?? 0) -
+                                                                (year[1].P1?.Y ?? 0), 2))), 6)) *
                                   (180 / Math.PI),
-                        Vertex = path[1].P1,
-                        P1 = path[0].P1,
-                        P2 = path[2].P1,
+                        Vertex = year[1].P1,
+                        P1 = year[0].P1,
+                        P2 = year[2].P1,
                         SideA = new Thing
                         {
                             Length = Math.Sqrt(
-                                Math.Pow((path[0].P1?.X ?? 0) - (path[1].P1?.X ?? 0), 2) +
-                                Math.Pow((path[0].P1?.Y ?? 0) - (path[1].P1?.Y ?? 0), 2)),
-                            Slope = Math.Abs((path[0].P1?.X ?? 0) - (path[1].P1?.X ?? 0)) <=
+                                Math.Pow((year[0].P1?.X ?? 0) - (year[1].P1?.X ?? 0), 2) +
+                                Math.Pow((year[0].P1?.Y ?? 0) - (year[1].P1?.Y ?? 0), 2)),
+                            Slope = Math.Abs((year[0].P1?.X ?? 0) - (year[1].P1?.X ?? 0)) <=
                                     0.001
                                 ? "None"
-                                : (1.0 * ((path[1].P1?.Y ?? 0) - (path[0].P1?.Y ?? 0))) /
-                                  (1.0 * ((path[1].P1?.X ?? 0) - (path[0].P1?.X ?? 0))),
-                            Height = Math.Abs((path[0].P1?.Y ?? 0) - (path[1].P1?.Y ?? 0)),
+                                : (1.0 * ((year[1].P1?.Y ?? 0) - (year[0].P1?.Y ?? 0))) /
+                                  (1.0 * ((year[1].P1?.X ?? 0) - (year[0].P1?.X ?? 0))),
+                            Height = Math.Abs((year[0].P1?.Y ?? 0) - (year[1].P1?.Y ?? 0)),
                             Type = "Line Segment",
-                            P1 = path[0].P1,
-                            P2 = path[1].P1,
-                            Representation = $"{path[0].P1} -> {path[1].P1}",
+                            P1 = year[0].P1,
+                            P2 = year[1].P1,
+                            Representation = $"{year[0].P1} -> {year[1].P1}",
                         },
                         SideB = new Thing
                         {
-                            P1 = path[2].P1,
-                            Slope = Math.Abs((path[2].P1?.X ?? 0) - (path[1].P1?.X ?? 0)) <=
+                            P1 = year[2].P1,
+                            Slope = Math.Abs((year[2].P1?.X ?? 0) - (year[1].P1?.X ?? 0)) <=
                                     0.001
                                 ? "None"
-                                : (1.0 * ((path[1].P1?.Y ?? 0) - (path[2].P1?.Y ?? 0))) /
-                                  (1.0 * ((path[1].P1?.X ?? 0) - (path[2].P1?.X ?? 0))),
-                            Height = Math.Abs((path[2].P1?.Y ?? 0) - (path[1].P1?.Y ?? 0)),
+                                : (1.0 * ((year[1].P1?.Y ?? 0) - (year[2].P1?.Y ?? 0))) /
+                                  (1.0 * ((year[1].P1?.X ?? 0) - (year[2].P1?.X ?? 0))),
+                            Height = Math.Abs((year[2].P1?.Y ?? 0) - (year[1].P1?.Y ?? 0)),
                             Length = Math.Sqrt(
-                                Math.Pow((path[2].P1?.X ?? 0) - (path[1].P1?.X ?? 0), 2) +
-                                Math.Pow((path[2].P1?.Y ?? 0) - (path[1].P1?.Y ?? 0), 2)),
+                                Math.Pow((year[2].P1?.X ?? 0) - (year[1].P1?.X ?? 0), 2) +
+                                Math.Pow((year[2].P1?.Y ?? 0) - (year[1].P1?.Y ?? 0), 2)),
                             Type = "Line Segment",
-                            Representation = $"{path[2].P1} -> {path[1].P1}",
-                            P2 = path[1].P1,
+                            Representation = $"{year[2].P1} -> {year[1].P1}",
+                            P2 = year[1].P1,
                         },
                     };
-                    dumbledor.P3 = path[2].P1;
+                    dumbledor.P3 = year[2].P1;
 
                     dumbledor.AngleA = new Thing
                     {
                         Degrees = Math.Acos(Math.Round((Math.Pow(Math.Sqrt(
                                                             Math.Pow(
-                                                                (path[1].P1?.X ?? 0) -
-                                                                (path[2].P1?.X ?? 0), 2) +
+                                                                (year[1].P1?.X ?? 0) -
+                                                                (year[2].P1?.X ?? 0), 2) +
                                                             Math.Pow(
-                                                                (path[1].P1?.Y ?? 0) -
-                                                                (path[2].P1?.Y ?? 0), 2)), 2) +
+                                                                (year[1].P1?.Y ?? 0) -
+                                                                (year[2].P1?.Y ?? 0), 2)), 2) +
                                                         Math.Pow(Math.Sqrt(
                                                             Math.Pow(
-                                                                (path[0].P1?.X ?? 0) -
-                                                                (path[2].P1?.X ?? 0), 2) +
+                                                                (year[0].P1?.X ?? 0) -
+                                                                (year[2].P1?.X ?? 0), 2) +
                                                             Math.Pow(
-                                                                (path[0].P1?.Y ?? 0) -
-                                                                (path[2].P1?.Y ?? 0), 2)), 2) -
+                                                                (year[0].P1?.Y ?? 0) -
+                                                                (year[2].P1?.Y ?? 0), 2)), 2) -
                                                         Math.Pow(Math.Sqrt(
                                                             Math.Pow(
-                                                                (path[1].P1?.X ?? 0) -
-                                                                (path[0].P1?.X ?? 0), 2) +
+                                                                (year[1].P1?.X ?? 0) -
+                                                                (year[0].P1?.X ?? 0), 2) +
                                                             Math.Pow(
-                                                                (path[1].P1?.Y ?? 0) -
-                                                                (path[0].P1?.Y ?? 0), 2)), 2)) /
+                                                                (year[1].P1?.Y ?? 0) -
+                                                                (year[0].P1?.Y ?? 0), 2)), 2)) /
                                                        (2 * Math.Sqrt(
                                                             Math.Pow(
-                                                                (path[1].P1?.X ?? 0) -
-                                                                (path[2].P1?.X ?? 0), 2) +
+                                                                (year[1].P1?.X ?? 0) -
+                                                                (year[2].P1?.X ?? 0), 2) +
                                                             Math.Pow(
-                                                                (path[1].P1?.Y ?? 0) -
-                                                                (path[2].P1?.Y ?? 0), 2)) *
+                                                                (year[1].P1?.Y ?? 0) -
+                                                                (year[2].P1?.Y ?? 0), 2)) *
                                                         Math.Sqrt(
                                                             Math.Pow(
-                                                                (path[0].P1?.X ?? 0) -
-                                                                (path[2].P1?.X ?? 0), 2) +
+                                                                (year[0].P1?.X ?? 0) -
+                                                                (year[2].P1?.X ?? 0), 2) +
                                                             Math.Pow(
-                                                                (path[0].P1?.Y ?? 0) -
-                                                                (path[2].P1?.Y ?? 0), 2))), 6)) *
+                                                                (year[0].P1?.Y ?? 0) -
+                                                                (year[2].P1?.Y ?? 0), 2))), 6)) *
                                   (180 / Math.PI),
-                        Vertex = path[2].P1,
-                        P1 = path[1].P1,
-                        P2 = path[0].P1,
+                        Vertex = year[2].P1,
+                        P1 = year[1].P1,
+                        P2 = year[0].P1,
                         SideA = new Thing
                         {
-                            P2 = path[2].P1,
-                            Slope = Math.Abs((path[1].P1?.X ?? 0) - (path[2].P1?.X ?? 0)) <=
+                            P2 = year[2].P1,
+                            Slope = Math.Abs((year[1].P1?.X ?? 0) - (year[2].P1?.X ?? 0)) <=
                                     0.001
                                 ? "None"
-                                : (1.0 * ((path[2].P1?.Y ?? 0) - (path[1].P1?.Y ?? 0))) /
-                                  (1.0 * ((path[2].P1?.X ?? 0) - (path[1].P1?.X ?? 0))),
+                                : (1.0 * ((year[2].P1?.Y ?? 0) - (year[1].P1?.Y ?? 0))) /
+                                  (1.0 * ((year[2].P1?.X ?? 0) - (year[1].P1?.X ?? 0))),
                             Type = "Line Segment",
-                            P1 = path[1].P1,
+                            P1 = year[1].P1,
                             Length = Math.Sqrt(
-                                Math.Pow((path[1].P1?.X ?? 0) - (path[2].P1?.X ?? 0), 2) +
-                                Math.Pow((path[1].P1?.Y ?? 0) - (path[2].P1?.Y ?? 0), 2)),
-                            Height = Math.Abs((path[1].P1?.Y ?? 0) - (path[2].P1?.Y ?? 0)),
-                            Representation = $"{path[1].P1} -> {path[2].P1}",
+                                Math.Pow((year[1].P1?.X ?? 0) - (year[2].P1?.X ?? 0), 2) +
+                                Math.Pow((year[1].P1?.Y ?? 0) - (year[2].P1?.Y ?? 0), 2)),
+                            Height = Math.Abs((year[1].P1?.Y ?? 0) - (year[2].P1?.Y ?? 0)),
+                            Representation = $"{year[1].P1} -> {year[2].P1}",
                         },
                         SideB = new Thing
                         {
                             Length = Math.Sqrt(
-                                Math.Pow((path[0].P1?.X ?? 0) - (path[2].P1?.X ?? 0), 2) +
-                                Math.Pow((path[0].P1?.Y ?? 0) - (path[2].P1?.Y ?? 0), 2)),
-                            P1 = path[0].P1,
-                            Height = Math.Abs((path[0].P1?.Y ?? 0) - (path[2].P1?.Y ?? 0)),
-                            P2 = path[2].P1,
-                            Slope = Math.Abs((path[0].P1?.X ?? 0) - (path[2].P1?.X ?? 0)) <=
+                                Math.Pow((year[0].P1?.X ?? 0) - (year[2].P1?.X ?? 0), 2) +
+                                Math.Pow((year[0].P1?.Y ?? 0) - (year[2].P1?.Y ?? 0), 2)),
+                            P1 = year[0].P1,
+                            Height = Math.Abs((year[0].P1?.Y ?? 0) - (year[2].P1?.Y ?? 0)),
+                            P2 = year[2].P1,
+                            Slope = Math.Abs((year[0].P1?.X ?? 0) - (year[2].P1?.X ?? 0)) <=
                                     0.001
                                 ? "None"
-                                : (1.0 * ((path[2].P1?.Y ?? 0) - (path[0].P1?.Y ?? 0))) /
-                                  (1.0 * ((path[2].P1?.X ?? 0) - (path[0].P1?.X ?? 0))),
-                            Representation = $"{path[0].P1} -> {path[2].P1}",
+                                : (1.0 * ((year[2].P1?.Y ?? 0) - (year[0].P1?.Y ?? 0))) /
+                                  (1.0 * ((year[2].P1?.X ?? 0) - (year[0].P1?.X ?? 0))),
+                            Representation = $"{year[0].P1} -> {year[2].P1}",
                             Type = "Line Segment",
                         },
                     };
 
-                    dumbledor.Perimeter = (path[0].Length ?? 0) + (path[1].Length ?? 0) +
-                                          (path[2].Length ?? 0);
+                    dumbledor.Perimeter = (year[0].Length ?? 0) + (year[1].Length ?? 0) +
+                                          (year[2].Length ?? 0);
 
-                    dumbledor.SideA = path[0];
+                    dumbledor.SideA = year[0];
                     dumbledor.Area = 0.25 * Math.Sqrt(
-                        ((path[0].Length ?? 0) + (path[1].Length ?? 0) +
-                         (path[2].Length ?? 0))
-                        * (-((path[0].Length ?? 0)) + (path[1].Length ?? 0) +
-                           (path[2].Length ?? 0))
-                        * ((path[0].Length ?? 0) - (path[1].Length ?? 0) +
-                           (path[2].Length ?? 0))
-                        * ((path[0].Length ?? 0) + (path[1].Length ?? 0) -
-                           (path[2].Length ?? 0))
+                        ((year[0].Length ?? 0) + (year[1].Length ?? 0) +
+                         (year[2].Length ?? 0))
+                        * (-((year[0].Length ?? 0)) + (year[1].Length ?? 0) +
+                           (year[2].Length ?? 0))
+                        * ((year[0].Length ?? 0) - (year[1].Length ?? 0) +
+                           (year[2].Length ?? 0))
+                        * ((year[0].Length ?? 0) + (year[1].Length ?? 0) -
+                           (year[2].Length ?? 0))
                     );
 
                     dumbledor.Type = "Triangle";
@@ -317,73 +317,73 @@ public static class Classifier
                     {
                         Degrees = Math.Acos(Math.Round((Math.Pow(Math.Sqrt(
                                                             Math.Pow(
-                                                                (path[2].P1?.X ?? 0) -
-                                                                (path[0].P1?.X ?? 0), 2) +
+                                                                (year[2].P1?.X ?? 0) -
+                                                                (year[0].P1?.X ?? 0), 2) +
                                                             Math.Pow(
-                                                                (path[2].P1?.Y ?? 0) -
-                                                                (path[0].P1?.Y ?? 0), 2)), 2) +
+                                                                (year[2].P1?.Y ?? 0) -
+                                                                (year[0].P1?.Y ?? 0), 2)), 2) +
                                                         Math.Pow(Math.Sqrt(
                                                             Math.Pow(
-                                                                (path[1].P1?.X ?? 0) -
-                                                                (path[0].P1?.X ?? 0), 2) +
+                                                                (year[1].P1?.X ?? 0) -
+                                                                (year[0].P1?.X ?? 0), 2) +
                                                             Math.Pow(
-                                                                (path[1].P1?.Y ?? 0) -
-                                                                (path[0].P1?.Y ?? 0), 2)), 2) -
+                                                                (year[1].P1?.Y ?? 0) -
+                                                                (year[0].P1?.Y ?? 0), 2)), 2) -
                                                         Math.Pow(Math.Sqrt(
                                                             Math.Pow(
-                                                                (path[2].P1?.X ?? 0) -
-                                                                (path[1].P1?.X ?? 0), 2) +
+                                                                (year[2].P1?.X ?? 0) -
+                                                                (year[1].P1?.X ?? 0), 2) +
                                                             Math.Pow(
-                                                                (path[2].P1?.Y ?? 0) -
-                                                                (path[1].P1?.Y ?? 0), 2)), 2)) /
+                                                                (year[2].P1?.Y ?? 0) -
+                                                                (year[1].P1?.Y ?? 0), 2)), 2)) /
                                                        (2 * Math.Sqrt(
                                                             Math.Pow(
-                                                                (path[2].P1?.X ?? 0) -
-                                                                (path[0].P1?.X ?? 0), 2) +
+                                                                (year[2].P1?.X ?? 0) -
+                                                                (year[0].P1?.X ?? 0), 2) +
                                                             Math.Pow(
-                                                                (path[2].P1?.Y ?? 0) -
-                                                                (path[0].P1?.Y ?? 0), 2)) *
+                                                                (year[2].P1?.Y ?? 0) -
+                                                                (year[0].P1?.Y ?? 0), 2)) *
                                                         Math.Sqrt(
                                                             Math.Pow(
-                                                                (path[1].P1?.X ?? 0) -
-                                                                (path[0].P1?.X ?? 0), 2) +
+                                                                (year[1].P1?.X ?? 0) -
+                                                                (year[0].P1?.X ?? 0), 2) +
                                                             Math.Pow(
-                                                                (path[1].P1?.Y ?? 0) -
-                                                                (path[0].P1?.Y ?? 0), 2))), 6)) *
+                                                                (year[1].P1?.Y ?? 0) -
+                                                                (year[0].P1?.Y ?? 0), 2))), 6)) *
                                   (180 / Math.PI),
-                        Vertex = path[0].P1,
-                        P1 = path[2].P1,
-                        P2 = path[1].P1,
+                        Vertex = year[0].P1,
+                        P1 = year[2].P1,
+                        P2 = year[1].P1,
                         SideA = new Thing
                         {
-                            Height = Math.Abs((path[2].P1?.Y ?? 0) - (path[0].P1?.Y ?? 0)),
+                            Height = Math.Abs((year[2].P1?.Y ?? 0) - (year[0].P1?.Y ?? 0)),
                             Length = Math.Sqrt(
-                                Math.Pow((path[2].P1?.X ?? 0) - (path[0].P1?.X ?? 0), 2) +
-                                Math.Pow((path[2].P1?.Y ?? 0) - (path[0].P1?.Y ?? 0), 2)),
-                            Slope = Math.Abs((path[2].P1?.X ?? 0) - (path[0].P1?.X ?? 0)) <=
+                                Math.Pow((year[2].P1?.X ?? 0) - (year[0].P1?.X ?? 0), 2) +
+                                Math.Pow((year[2].P1?.Y ?? 0) - (year[0].P1?.Y ?? 0), 2)),
+                            Slope = Math.Abs((year[2].P1?.X ?? 0) - (year[0].P1?.X ?? 0)) <=
                                     0.001
                                 ? "None"
-                                : (1.0 * ((path[0].P1?.Y ?? 0) - (path[2].P1?.Y ?? 0))) /
-                                  (1.0 * ((path[0].P1?.X ?? 0) - (path[2].P1?.X ?? 0))),
+                                : (1.0 * ((year[0].P1?.Y ?? 0) - (year[2].P1?.Y ?? 0))) /
+                                  (1.0 * ((year[0].P1?.X ?? 0) - (year[2].P1?.X ?? 0))),
                             Type = "Line Segment",
-                            P1 = path[2].P1,
-                            P2 = path[0].P1,
-                            Representation = $"{path[2].P1} -> {path[0].P1}",
+                            P1 = year[2].P1,
+                            P2 = year[0].P1,
+                            Representation = $"{year[2].P1} -> {year[0].P1}",
                         },
                         SideB = new Thing
                         {
                             Length = Math.Sqrt(
-                                Math.Pow((path[1].P1?.X ?? 0) - (path[0].P1?.X ?? 0), 2) +
-                                Math.Pow((path[1].P1?.Y ?? 0) - (path[0].P1?.Y ?? 0), 2)),
-                            P1 = path[1].P1,
-                            Height = Math.Abs((path[1].P1?.Y ?? 0) - (path[0].P1?.Y ?? 0)),
-                            P2 = path[0].P1,
-                            Slope = Math.Abs((path[1].P1?.X ?? 0) - (path[0].P1?.X ?? 0)) <=
+                                Math.Pow((year[1].P1?.X ?? 0) - (year[0].P1?.X ?? 0), 2) +
+                                Math.Pow((year[1].P1?.Y ?? 0) - (year[0].P1?.Y ?? 0), 2)),
+                            P1 = year[1].P1,
+                            Height = Math.Abs((year[1].P1?.Y ?? 0) - (year[0].P1?.Y ?? 0)),
+                            P2 = year[0].P1,
+                            Slope = Math.Abs((year[1].P1?.X ?? 0) - (year[0].P1?.X ?? 0)) <=
                                     0.001
                                 ? "None"
-                                : (1.0 * ((path[0].P1?.Y ?? 0) - (path[1].P1?.Y ?? 0))) /
-                                  (1.0 * ((path[0].P1?.X ?? 0) - (path[1].P1?.X ?? 0))),
-                            Representation = $"{path[1].P1} -> {path[0].P1}",
+                                : (1.0 * ((year[0].P1?.Y ?? 0) - (year[1].P1?.Y ?? 0))) /
+                                  (1.0 * ((year[0].P1?.X ?? 0) - (year[1].P1?.X ?? 0))),
+                            Representation = $"{year[1].P1} -> {year[0].P1}",
                             Type = "Line Segment",
                         },
                     };
@@ -449,7 +449,7 @@ public static class Classifier
                 }
             }
 
-            if (dumbledor.Type.Length == roster.Length && 4 == goodStudents.Length && ret1 && Math.Abs((path[0].Length ?? 0) - (path[2].Length ?? 0)) <= 0.001 && Math.Abs((path[1].Length ?? 0) - (path[3].Length ?? 0)) <= 0.001 && ((Func<double[], bool>)(things =>
+            if (dumbledor.Type.Length == roster.Length && 4 == goodStudents.Length && ret1 && Math.Abs((year[0].Length ?? 0) - (year[2].Length ?? 0)) <= 0.001 && Math.Abs((year[1].Length ?? 0) - (year[3].Length ?? 0)) <= 0.001 && ((Func<double[], bool>)(things =>
                 {
                     var lastAngle = 90.0;
                     foreach (var angle in things)
@@ -467,23 +467,25 @@ public static class Classifier
                 }))(angles))
             {
                 dumbledor.Type = "Rectangle";
-                dumbledor.SideA = path[0];
-                dumbledor.SideB = path[1];
-                dumbledor.SideC = path[2];
-                dumbledor.SideD = path[3];
-                dumbledor.P1 = path[0].P1;
-                dumbledor.P2 = path[1].P1;
-                dumbledor.P3 = path[2].P1;
-                dumbledor.P4 = path[3].P1;
-                dumbledor.Perimeter = (2 * (path[0].Length ?? 0)) + (2 * (path[1].Length ?? 0));
-                dumbledor.Area = (path[0].Length ?? 0) * (path[1].Length ?? 0);
+                dumbledor.SideA = year[0];
+                dumbledor.SideB = year[1];
+                dumbledor.SideC = year[2];
+                dumbledor.SideD = year[3];
+                dumbledor.P1 = year[0].P1;
+                dumbledor.P2 = year[1].P1;
+                dumbledor.P3 = year[2].P1;
+                dumbledor.P4 = year[3].P1;
+                var firstYear = year[0].Length ?? 0;
+                var secondYear = year[1].Length ?? 0;
+                dumbledor.Perimeter = 2 * firstYear + 2 * secondYear;
+                dumbledor.Area = (year[0].Length ?? 0) * (year[1].Length ?? 0);
             }
 
             if (dumbledor.Type.Length == roster.Length)
             {
                 var length = 0.0;
 
-                foreach (var segment in path)
+                foreach (var segment in year)
                 {
                     length += (segment.Length ?? 0);
                 }
