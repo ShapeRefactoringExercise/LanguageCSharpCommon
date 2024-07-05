@@ -318,11 +318,7 @@ public static class Classifier
                         SideA = new Thing
                         {
                             P2 = year[2].P1,
-                            Slope = Math.Abs((year[1].P1?.X ?? 0) - (year[2].P1?.X ?? 0)) <=
-                                    0.001
-                                ? "None"
-                                : 1.0 * ((year[2].P1?.Y ?? 0) - (year[1].P1?.Y ?? 0)) /
-                                  (1.0 * ((year[2].P1?.X ?? 0) - (year[1].P1?.X ?? 0))),
+                            Slope = ((year[1].P1?.X ?? 0) - (year[2].P1?.X ?? 0) < 0 ? -1 * ((year[1].P1?.X ?? 0) - (year[2].P1?.X ?? 0)) : (year[1].P1?.X ?? 0) - (year[2].P1?.X ?? 0)) <= 0.001 ? "None" : 1.0 * ((year[2].P1?.Y ?? 0) - (year[1].P1?.Y ?? 0)) / (1.0 * ((year[2].P1?.X ?? 0) - (year[1].P1?.X ?? 0))),
                             Type = "Line Segment",
                             P1 = year[1].P1,
                             Length = Math.Sqrt(
