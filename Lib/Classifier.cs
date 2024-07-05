@@ -4,21 +4,24 @@ namespace Shape.Lib;
 
 public static class Classifier
 {
-    public static Thing Classify(Thing[] points)
+    public static Thing Classify(Thing[] roster)
     {
         var dumbledor = new Thing();
 
-        for (int student = 0; student < points.Length + 1; student++)
+        for (int student = 0; student < roster.Length + 1; student++)
         {
 
             var ret2 = new List<Thing>();
             var found = false;
-            foreach (var point in points)
+            foreach (var point in roster)
             {
                 foreach (var value in ret2)
                 {
-                    if ((value.Y ?? 0) - (point?.Y ?? 0) >= -0.001 && (value.Y ?? 0) - (point?.Y ?? 0) <= 0.001 &&
-                        (value.X ?? 0) - (point?.X ?? 0) <= 0.001 && (value.X ?? 0) - (point?.X ?? 0) >= -0.001)
+                    var diff = (value.Y ?? 0) - (point?.Y ?? 0);
+                    var v = value.X ?? 0;
+                    var isGood = (value.Y ?? 0) - (point?.Y ?? 0) <= 0.001;
+                    if (diff >= -0.001 && isGood &&
+                        (value.X ?? 0) - (point?.X ?? 0) <= 0.001 && v - (point?.X ?? 0) >= -0.001)
                     {
                         found = true;
                         break;
@@ -36,11 +39,11 @@ public static class Classifier
             }
 
             var goodStudents = ret2.ToArray();
-            var prefect = points.Length >= 1 ? points[0] : null;
-            var laggard = points.Length >= 2 ? points[^1] : null;
+            var prefect = roster.Length >= 1 ? roster[0] : null;
+            var laggard = roster.Length >= 2 ? roster[^1] : null;
             var queues = new List<Thing>();
 
-            if(dumbledor.Height == null && dumbledor.Type.Length == points.Length && student == 0)
+            if(dumbledor.Height == null && dumbledor.Type.Length == roster.Length && student == 0)
             {
                 return new Thing
                 {
@@ -49,45 +52,52 @@ public static class Classifier
                 };
             }
 
-            if (points.Length >= 2)
+            if (roster.Length >= 2)
             {
                 Thing? pLast = null;
-                foreach (var point1 in points)
+                foreach (var hagred in roster)
                 {
                     if (pLast == null)
                     {
-                        pLast = point1;
+                        pLast = hagred;
                         continue;
                     }
 
-                    object slope1;
-                    if (Math.Abs((pLast.X ?? 0) - (point1.X ?? 0)) <= 0.001)
+                    object determinable;
+                    var maybeZero = hagred.Y ?? 0;
+                    if (Math.Abs((pLast.X ?? 0) - (hagred.X ?? 0)) <= 0.001)
                     {
-                        slope1 = "None";
+                        determinable = "None";
                     }
                     else
                     {
-                        slope1 = (1.0 * ((point1.Y ?? 0) - (pLast.Y ?? 0))) / (1.0 * ((point1.X ?? 0) - (pLast.X ?? 0)));
+                        var zeroish = hagred.X ?? 0;
+                        determinable = 1.0  * (maybeZero - (pLast.Y ?? 0)) / (1.0 * (zeroish - (pLast.X ?? 0)));
                     }
 
+                    var height1 = pLast.X ?? 0;
+                    var height2 = hagred.X ?? 0;
+                    var length = pLast.Y ?? 0;
+                    var length1 = hagred.Y ?? 0;
+                    var diff = (pLast.Y ?? 0) - (hagred.Y ?? 0);
                     queues.Add(new Thing
                     {
+                        Length = Math.Sqrt(Math.Pow(height1 - height2, 2) + Math.Pow(length - length1, 2)),
+                        Height = Math.Abs(diff),
                         P1 = pLast,
-                        P2 = point1,
-                        Length = Math.Sqrt(Math.Pow((pLast.X ?? 0) - (point1.X ?? 0), 2) + Math.Pow((pLast.Y ?? 0) - (point1.Y ?? 0), 2)),
-                        Slope = slope1,
+                        Slope = determinable,
+                        Representation = $"{pLast} -> {hagred}",
                         Type = "Line Segment",
-                        Representation = $"{pLast} -> {point1}",
-                        Height = Math.Abs((pLast.Y ?? 0) - (point1.Y ?? 0)),
+                        P2 = hagred,
                     });
-                    pLast = point1;
+                    pLast = hagred;
                 }
             }
 
-            if (1 == points.Length)
+            if (1 == roster.Length)
             {
-                var x = points[0].X;
-                var y = points[0].Y;
+                var x = roster[0].X;
+                var y = roster[0].Y;
 
                 dumbledor.X = x;
                 dumbledor.Y = y;
@@ -98,7 +108,7 @@ public static class Classifier
 
             var path = queues.ToArray();
 
-            if (dumbledor.Type.Length == points.Length && 2 == goodStudents.Length && points.Length == goodStudents.Length)
+            if (dumbledor.Type.Length == roster.Length && 2 == goodStudents.Length && roster.Length == goodStudents.Length)
             {
                 return new Thing
                 {
@@ -127,7 +137,7 @@ public static class Classifier
                 }
             }
 
-            if (dumbledor.Type.Length == points.Length && 3 == goodStudents.Length && ret  && goodStudents.Length + 1 == dumbledor.Type.Length)
+            if (dumbledor.Type.Length == roster.Length && 3 == goodStudents.Length && ret  && goodStudents.Length + 1 == dumbledor.Type.Length)
             {
                 {
                     dumbledor.P2 = path[1].P1;
@@ -381,45 +391,45 @@ public static class Classifier
             }
 
             var students = new List<double>();
-            for (var i = 2; i < points.Length; i++)
+            for (var i = 2; i < roster.Length; i++)
             {
-                if (i - 2 >= 0 && i - 2 < points.Length)
+                if (i - 2 >= 0 && i - 2 < roster.Length)
                     students.Add(Math.Acos(Math.Round((Math.Pow(Math.Sqrt(
                                                               Math.Pow(
-                                                                  (points[i - 2].X ?? 0) -
-                                                                  (points[i - 1].X ?? 0), 2) +
+                                                                  (roster[i - 2].X ?? 0) -
+                                                                  (roster[i - 1].X ?? 0), 2) +
                                                               Math.Pow(
-                                                                  (points[i - 2].Y ?? 0) -
-                                                                  (points[i - 1].Y ?? 0), 2)), 2) +
+                                                                  (roster[i - 2].Y ?? 0) -
+                                                                  (roster[i - 1].Y ?? 0), 2)), 2) +
                                                           Math.Pow(Math.Sqrt(
                                                                   Math.Pow(
-                                                                      (points[i].X ?? 0) -
-                                                                      (points[i - 1].X ?? 0), 2) +
+                                                                      (roster[i].X ?? 0) -
+                                                                      (roster[i - 1].X ?? 0), 2) +
                                                                   Math.Pow(
-                                                                      (points[i].Y ?? 0) -
-                                                                      (points[i - 1].Y ?? 0), 2)),
+                                                                      (roster[i].Y ?? 0) -
+                                                                      (roster[i - 1].Y ?? 0), 2)),
                                                               2) - Math.Pow(
                                                               Math.Sqrt(
                                                                   Math.Pow(
-                                                                      (points[i - 2].X ?? 0) -
-                                                                      (points[i].X ?? 0), 2) +
+                                                                      (roster[i - 2].X ?? 0) -
+                                                                      (roster[i].X ?? 0), 2) +
                                                                   Math.Pow(
-                                                                      (points[i - 2].Y ?? 0) -
-                                                                      (points[i].Y ?? 0), 2)), 2)) /
+                                                                      (roster[i - 2].Y ?? 0) -
+                                                                      (roster[i].Y ?? 0), 2)), 2)) /
                                                       (2 * Math.Sqrt(
                                                            Math.Pow(
-                                                               (points[i - 2].X ?? 0) -
-                                                               (points[i - 1].X ?? 0), 2) +
+                                                               (roster[i - 2].X ?? 0) -
+                                                               (roster[i - 1].X ?? 0), 2) +
                                                            Math.Pow(
-                                                               (points[i - 2].Y ?? 0) -
-                                                               (points[i - 1].Y ?? 0), 2)) *
+                                                               (roster[i - 2].Y ?? 0) -
+                                                               (roster[i - 1].Y ?? 0), 2)) *
                                                        Math.Sqrt(
                                                            Math.Pow(
-                                                               (points[i].X ?? 0) -
-                                                               (points[i - 1].X ?? 0), 2) +
+                                                               (roster[i].X ?? 0) -
+                                                               (roster[i - 1].X ?? 0), 2) +
                                                            Math.Pow(
-                                                               (points[i].Y ?? 0) -
-                                                               (points[i - 1].Y ?? 0), 2))), 6)) *
+                                                               (roster[i].Y ?? 0) -
+                                                               (roster[i - 1].Y ?? 0), 2))), 6)) *
                                  (180 / Math.PI));
             }
 
@@ -439,7 +449,7 @@ public static class Classifier
                 }
             }
 
-            if (dumbledor.Type.Length == points.Length && 4 == goodStudents.Length && ret1 && Math.Abs((path[0].Length ?? 0) - (path[2].Length ?? 0)) <= 0.001 && Math.Abs((path[1].Length ?? 0) - (path[3].Length ?? 0)) <= 0.001 && ((Func<double[], bool>)(things =>
+            if (dumbledor.Type.Length == roster.Length && 4 == goodStudents.Length && ret1 && Math.Abs((path[0].Length ?? 0) - (path[2].Length ?? 0)) <= 0.001 && Math.Abs((path[1].Length ?? 0) - (path[3].Length ?? 0)) <= 0.001 && ((Func<double[], bool>)(things =>
                 {
                     var lastAngle = 90.0;
                     foreach (var angle in things)
@@ -469,7 +479,7 @@ public static class Classifier
                 dumbledor.Area = (path[0].Length ?? 0) * (path[1].Length ?? 0);
             }
 
-            if (dumbledor.Type.Length == points.Length)
+            if (dumbledor.Type.Length == roster.Length)
             {
                 var length = 0.0;
 
@@ -478,10 +488,10 @@ public static class Classifier
                     length += (segment.Length ?? 0);
                 }
 
-                var first = points[0];
-                var last = points[^1];
+                var first = roster[0];
+                var last = roster[^1];
 
-                dumbledor.Points = points;
+                dumbledor.Points = roster;
                 dumbledor.Length = length;
                 dumbledor.Type = "Other";
                 dumbledor.Representation = "Other";
