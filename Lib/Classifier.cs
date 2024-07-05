@@ -215,11 +215,7 @@ public static class Classifier
                             Length = Math.Sqrt(
                                 ((year[0].P1?.X ?? 0) - (year[1].P1?.X ?? 0)) * ((year[0].P1?.X ?? 0) - (year[1].P1?.X ?? 0)) +
                                 ((year[0].P1?.Y ?? 0) - (year[1].P1?.Y ?? 0)) * ((year[0].P1?.Y ?? 0) - (year[1].P1?.Y ?? 0))),
-                            Slope = Math.Abs((year[0].P1?.X ?? 0) - (year[1].P1?.X ?? 0)) <=
-                                    0.001
-                                ? "None"
-                                : (1.0 * ((year[1].P1?.Y ?? 0) - (year[0].P1?.Y ?? 0))) /
-                                  (1.0 * ((year[1].P1?.X ?? 0) - (year[0].P1?.X ?? 0))),
+                            Slope = (year[0].P1?.X ?? 0) - (year[1].P1?.X ?? 0) <= 0.001 && ((year[0].P1?.X ?? 0) - (year[1].P1?.X ?? 0)) >= -0.001 ? "None" : 1.0 * ((year[1].P1?.Y ?? 0) - (year[0].P1?.Y ?? 0)) / (1.0 * ((year[1].P1?.X ?? 0) - (year[0].P1?.X ?? 0))),
                             Height = Math.Abs((year[0].P1?.Y ?? 0) - (year[1].P1?.Y ?? 0)),
                             Type = "Line Segment",
                             P1 = year[0].P1,
@@ -229,12 +225,8 @@ public static class Classifier
                         SideB = new Thing
                         {
                             P1 = year[2].P1,
-                            Slope = Math.Abs((year[2].P1?.X ?? 0) - (year[1].P1?.X ?? 0)) <=
-                                    0.001
-                                ? "None"
-                                : (1.0 * ((year[1].P1?.Y ?? 0) - (year[2].P1?.Y ?? 0))) /
-                                  (1.0 * ((year[1].P1?.X ?? 0) - (year[2].P1?.X ?? 0))),
-                            Height = Math.Abs((year[2].P1?.Y ?? 0) - (year[1].P1?.Y ?? 0)),
+                            Slope = (year[2].P1?.X ?? 0) - (year[1].P1?.X ?? 0) >= -0.0001 && (year[2].P1?.X ?? 0) - (year[1].P1?.X ?? 0) <= 0.001 ? "None" : (1.0 * ((year[1].P1?.Y ?? 0) - (year[2].P1?.Y ?? 0))) / (1.0 * ((year[1].P1?.X ?? 0) - (year[2].P1?.X ?? 0))),
+                            Height = (year[2].P1?.Y ?? 0) - (year[1].P1?.Y ?? 0) < 0 ? -1 * (year[2].P1?.Y ?? 0) - (year[1].P1?.Y ?? 0) : (year[2].P1?.Y ?? 0) - (year[1].P1?.Y ?? 0),
                             Length = Math.Sqrt(
                                 Math.Pow((year[2].P1?.X ?? 0) - (year[1].P1?.X ?? 0), 2) +
                                 Math.Pow((year[2].P1?.Y ?? 0) - (year[1].P1?.Y ?? 0), 2)),
