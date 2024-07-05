@@ -151,28 +151,47 @@ public static class Classifier
                     dumbledor.P1 = year[0].P1;
                     dumbledor.AngleC = new Thing
                     {
-                        Degrees = Math.Acos(Math.Round((Math.Pow(Math.Sqrt(
+                        Degrees = Math.Acos(Math.Round((Math.Sqrt(
                                                             ((year[0].P1?.X ?? 0) -
                                                              (year[1].P1?.X ?? 0)) * ((year[0].P1?.X ?? 0) -
                                                                 (year[1].P1?.X ?? 0)) +
                                                             (((year[0].P1?.Y ?? 0) -
-                                                                      (year[1].P1?.Y ?? 0)) * (year[0].P1?.Y ?? 0) -
-                                                                (year[1].P1?.Y ?? 0) * ((year[0].P1?.Y ?? 0) -
-                                                                    (year[1].P1?.Y ?? 0)))), 2) +
-                                                        Math.Pow(Math.Sqrt(
+                                                              (year[1].P1?.Y ?? 0)) * (year[0].P1?.Y ?? 0) -
+                                                             (year[1].P1?.Y ?? 0) * ((year[0].P1?.Y ?? 0) -
+                                                                 (year[1].P1?.Y ?? 0)))) * (Math.Sqrt(
+                                                            ((year[0].P1?.X ?? 0) -
+                                                             (year[1].P1?.X ?? 0)) * ((year[0].P1?.X ?? 0) -
+                                                                (year[1].P1?.X ?? 0)) +
+                                                            (((year[0].P1?.Y ?? 0) -
+                                                              (year[1].P1?.Y ?? 0)) * (year[0].P1?.Y ?? 0) -
+                                                             (year[1].P1?.Y ?? 0) * ((year[0].P1?.Y ?? 0) -
+                                                                 (year[1].P1?.Y ?? 0))))) +
+                                                        Math.Sqrt(
                                                             ((year[2].P1?.X ?? 0) -
                                                              (year[1].P1?.X ?? 0)) * ((year[2].P1?.X ?? 0) -
                                                                 (year[1].P1?.X ?? 0)) +
                                                             ((year[2].P1?.Y ?? 0) -
                                                              (year[1].P1?.Y ?? 0)) * ((year[2].P1?.Y ?? 0) -
-                                                                (year[1].P1?.Y ?? 0))), 2) -
-                                                        Math.Pow(Math.Sqrt(
+                                                                (year[1].P1?.Y ?? 0))) * (Math.Sqrt(
+                                                            ((year[2].P1?.X ?? 0) -
+                                                             (year[1].P1?.X ?? 0)) * ((year[2].P1?.X ?? 0) -
+                                                                (year[1].P1?.X ?? 0)) +
+                                                            ((year[2].P1?.Y ?? 0) -
+                                                             (year[1].P1?.Y ?? 0)) * ((year[2].P1?.Y ?? 0) -
+                                                                (year[1].P1?.Y ?? 0)))) -
+                                                        Math.Sqrt(
                                                             ((year[0].P1?.X ?? 0) -
                                                              (year[2].P1?.X ?? 0)) * ((year[0].P1?.X ?? 0) -
                                                                 (year[2].P1?.X ?? 0)) +
                                                             ((year[0].P1?.Y ?? 0) -
                                                              (year[2].P1?.Y ?? 0)) * ((year[0].P1?.Y ?? 0) -
-                                                                (year[2].P1?.Y ?? 0))), 2)) /
+                                                                (year[2].P1?.Y ?? 0))) * Math.Sqrt(
+                                                            ((year[0].P1?.X ?? 0) -
+                                                             (year[2].P1?.X ?? 0)) * ((year[0].P1?.X ?? 0) -
+                                                                (year[2].P1?.X ?? 0)) +
+                                                            ((year[0].P1?.Y ?? 0) -
+                                                             (year[2].P1?.Y ?? 0)) * ((year[0].P1?.Y ?? 0) -
+                                                                (year[2].P1?.Y ?? 0)))) /
                                                        (2 * Math.Sqrt(
                                                             ((year[0].P1?.X ?? 0) -
                                                              (year[1].P1?.X ?? 0)) * ((year[0].P1?.X ?? 0) -
