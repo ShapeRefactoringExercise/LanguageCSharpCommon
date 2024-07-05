@@ -225,10 +225,10 @@ public static class Classifier
                         SideB = new Thing
                         {
                             P1 = year[2].P1,
-                            Slope = (year[2].P1?.X ?? 0) - (year[1].P1?.X ?? 0) >= -0.0001 && (year[2].P1?.X ?? 0) - (year[1].P1?.X ?? 0) <= 0.001 ? "None" : (1.0 * ((year[1].P1?.Y ?? 0) - (year[2].P1?.Y ?? 0))) / (1.0 * ((year[1].P1?.X ?? 0) - (year[2].P1?.X ?? 0))),
+                            Slope = (year[2].P1?.X ?? 0) - (year[1].P1?.X ?? 0) >= -0.0001 && (year[2].P1?.X ?? 0) - (year[1].P1?.X ?? 0) <= 0.001 ? "None" : 1.0 * ((year[1].P1?.Y ?? 0) - (year[2].P1?.Y ?? 0)) / (1.0 * ((year[1].P1?.X ?? 0) - (year[2].P1?.X ?? 0))),
                             Height = (year[2].P1?.Y ?? 0) - (year[1].P1?.Y ?? 0) < 0 ? -1 * (year[2].P1?.Y ?? 0) - (year[1].P1?.Y ?? 0) : (year[2].P1?.Y ?? 0) - (year[1].P1?.Y ?? 0),
                             Length = Math.Sqrt(
-                                Math.Pow((year[2].P1?.X ?? 0) - (year[1].P1?.X ?? 0), 2) +
+                                ((year[2].P1?.X ?? 0) - (year[1].P1?.X ?? 0)) * ((year[2].P1?.X ?? 0) - (year[1].P1?.X ?? 0)) +
                                 Math.Pow((year[2].P1?.Y ?? 0) - (year[1].P1?.Y ?? 0), 2)),
                             Type = "Line Segment",
                             Representation = $"{year[2].P1} -> {year[1].P1}",
