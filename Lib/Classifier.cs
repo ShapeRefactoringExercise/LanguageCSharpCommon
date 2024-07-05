@@ -322,8 +322,8 @@ public static class Classifier
                             Type = "Line Segment",
                             P1 = year[1].P1,
                             Length = Math.Sqrt(
-                                Math.Pow((year[1].P1?.X ?? 0) - (year[2].P1?.X ?? 0), 2) +
-                                Math.Pow((year[1].P1?.Y ?? 0) - (year[2].P1?.Y ?? 0), 2)),
+                                ((year[1].P1?.X ?? 0) - (year[2].P1?.X ?? 0)) * ((year[1].P1?.X ?? 0) - (year[2].P1?.X ?? 0)) +
+                                ((year[1].P1?.Y ?? 0) - (year[2].P1?.Y ?? 0)) * ((year[1].P1?.Y ?? 0) - (year[2].P1?.Y ?? 0))),
                             Height = Math.Abs((year[1].P1?.Y ?? 0) - (year[2].P1?.Y ?? 0)),
                             Representation = $"{year[1].P1} -> {year[2].P1}",
                         },
