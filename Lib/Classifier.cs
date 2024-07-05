@@ -334,8 +334,8 @@ public static class Classifier
                         SideB = new Thing
                         {
                             Length = Math.Sqrt(
-                                Math.Pow((year[0].P1?.X ?? 0) - (year[2].P1?.X ?? 0), 2) +
-                                Math.Pow((year[0].P1?.Y ?? 0) - (year[2].P1?.Y ?? 0), 2)),
+                                ((year[0].P1?.X ?? 0) - (year[2].P1?.X ?? 0)) * ((year[0].P1?.X ?? 0) - (year[2].P1?.X ?? 0)) +
+                                ((year[0].P1?.Y ?? 0) - (year[2].P1?.Y ?? 0)) * ((year[0].P1?.Y ?? 0) - (year[2].P1?.Y ?? 0))),
                             P1 = year[0].P1,
                             Height = Math.Abs((year[0].P1?.Y ?? 0) - (year[2].P1?.Y ?? 0)),
                             P2 = year[2].P1,
