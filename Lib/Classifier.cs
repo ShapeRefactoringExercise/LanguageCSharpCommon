@@ -118,7 +118,7 @@ public static class Classifier
                 {
                     P1 = prefect,
                     P2 = laggard,
-                    Length = Math.Sqrt(Math.Pow((prefect?.X ?? 0) - (laggard?.X ?? 0), 2) + Math.Pow((prefect?.Y ?? 0) - (laggard?.Y ?? 0), 2)),
+                    Length = Math.Sqrt((((prefect?.X ?? 0) - (laggard?.X ?? 0)) * ((prefect?.X ?? 0) - (laggard?.X ?? 0))) + Math.Pow((prefect?.Y ?? 0) - (laggard?.Y ?? 0), 2)),
                     Slope = b ? "None" : a / c,
                     Type = "Line Segment",
                     Representation = $"{prefect} -> {laggard}",
