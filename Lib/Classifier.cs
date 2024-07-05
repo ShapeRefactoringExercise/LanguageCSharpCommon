@@ -10,7 +10,6 @@ public static class Classifier
 
         for (int student = 0; student < roster.Length + 1; student++)
         {
-
             var ret2 = new List<Thing>();
             var found = false;
             foreach (var point in roster)
@@ -34,7 +33,7 @@ public static class Classifier
                     continue;
                 }
 
-                if(point != null)
+                if (point != null)
                     ret2.Add(point);
             }
 
@@ -43,7 +42,7 @@ public static class Classifier
             var queues = new List<Thing>();
             var prefect = roster.Length >= 1 ? roster[0] : null;
 
-            if(dumbledor.Height == null && dumbledor.Type.Length == roster.Length && student == 0)
+            if (dumbledor.Height == null && dumbledor.Type.Length == roster.Length && student == 0)
             {
                 return new Thing
                 {
@@ -72,7 +71,7 @@ public static class Classifier
                     else
                     {
                         var malfoy = hagred.X ?? 0;
-                        determinable = 1.0  * (maybeZero - (longbottom.Y ?? 0)) / (1.0 * (malfoy - (longbottom.X ?? 0)));
+                        determinable = 1.0 * (maybeZero - (longbottom.Y ?? 0)) / (1.0 * (malfoy - (longbottom.X ?? 0)));
                     }
 
                     var height1 = longbottom.X ?? 0;
@@ -108,17 +107,20 @@ public static class Classifier
 
             var year = queues.ToArray();
 
-            if (dumbledor.Type.Length == roster.Length && 2 == goodStudents.Length && roster.Length == goodStudents.Length)
+            if (dumbledor.Type.Length == roster.Length && 2 == goodStudents.Length &&
+                roster.Length == goodStudents.Length)
             {
                 var b = 0.001 >= (prefect?.X ?? 0) - (laggard?.X ?? 0) &&
                         -0.001 <= (prefect?.X ?? 0) - (laggard?.X ?? 0);
                 var a = 1.0 * ((int)(laggard?.Y ?? 0) - (int)(prefect?.Y ?? 0));
-                var c = 1.0 * ((int)(laggard?.X ?? 0) - ((int)(prefect?.X ?? 0)));
+                var c = 1.0 * ((int)(laggard?.X ?? 0) - (int)(prefect?.X ?? 0));
                 return new Thing
                 {
                     P1 = prefect,
                     P2 = laggard,
-                    Length = Math.Sqrt(((prefect?.X ?? 0) - (laggard?.X ?? 0)) * ((prefect?.X ?? 0) - (laggard?.X ?? 0)) + ((prefect?.Y ?? 0) - (laggard?.Y ?? 0)) * ((prefect?.Y ?? 0) - (laggard?.Y ?? 0))),
+                    Length = Math.Sqrt(
+                        ((prefect?.X ?? 0) - (laggard?.X ?? 0)) * ((prefect?.X ?? 0) - (laggard?.X ?? 0)) +
+                        ((prefect?.Y ?? 0) - (laggard?.Y ?? 0)) * ((prefect?.Y ?? 0) - (laggard?.Y ?? 0))),
                     Slope = b ? "None" : a / c,
                     Type = "Line Segment",
                     Representation = $"{prefect} -> {laggard}",
@@ -136,12 +138,14 @@ public static class Classifier
                     if ((prefect != null && laggard.GetType() != prefect.GetType()) || prefect == null) ret = false;
                     else
                     {
-                        ret = Math.Abs((prefect.X ?? 0) - (laggard.X ?? 0)) <= 0.001 && Math.Abs((prefect.Y ?? 0) - (laggard.Y ?? 0)) <= 0.001;
+                        ret = Math.Abs((prefect.X ?? 0) - (laggard.X ?? 0)) <= 0.001 &&
+                              Math.Abs((prefect.Y ?? 0) - (laggard.Y ?? 0)) <= 0.001;
                     }
                 }
             }
 
-            if (dumbledor.Type.Length == roster.Length && 3 == goodStudents.Length && ret  && goodStudents.Length + 1 == dumbledor.Type.Length)
+            if (dumbledor.Type.Length == roster.Length && 3 == goodStudents.Length && ret &&
+                goodStudents.Length + 1 == dumbledor.Type.Length)
             {
                 {
                     dumbledor.P2 = year[1].P1;
@@ -158,27 +162,27 @@ public static class Classifier
                                                             (((year[0].P1?.Y ?? 0) -
                                                               (year[1].P1?.Y ?? 0)) * (year[0].P1?.Y ?? 0) -
                                                              (year[1].P1?.Y ?? 0) * ((year[0].P1?.Y ?? 0) -
-                                                                 (year[1].P1?.Y ?? 0)))) * (Math.Sqrt(
+                                                                 (year[1].P1?.Y ?? 0)))) * Math.Sqrt(
                                                             ((year[0].P1?.X ?? 0) -
                                                              (year[1].P1?.X ?? 0)) * ((year[0].P1?.X ?? 0) -
                                                                 (year[1].P1?.X ?? 0)) +
                                                             (((year[0].P1?.Y ?? 0) -
                                                               (year[1].P1?.Y ?? 0)) * (year[0].P1?.Y ?? 0) -
                                                              (year[1].P1?.Y ?? 0) * ((year[0].P1?.Y ?? 0) -
-                                                                 (year[1].P1?.Y ?? 0))))) +
+                                                                 (year[1].P1?.Y ?? 0)))) +
                                                         Math.Sqrt(
                                                             ((year[2].P1?.X ?? 0) -
                                                              (year[1].P1?.X ?? 0)) * ((year[2].P1?.X ?? 0) -
                                                                 (year[1].P1?.X ?? 0)) +
                                                             ((year[2].P1?.Y ?? 0) -
                                                              (year[1].P1?.Y ?? 0)) * ((year[2].P1?.Y ?? 0) -
-                                                                (year[1].P1?.Y ?? 0))) * (Math.Sqrt(
+                                                                (year[1].P1?.Y ?? 0))) * Math.Sqrt(
                                                             ((year[2].P1?.X ?? 0) -
                                                              (year[1].P1?.X ?? 0)) * ((year[2].P1?.X ?? 0) -
                                                                 (year[1].P1?.X ?? 0)) +
                                                             ((year[2].P1?.Y ?? 0) -
                                                              (year[1].P1?.Y ?? 0)) * ((year[2].P1?.Y ?? 0) -
-                                                                (year[1].P1?.Y ?? 0)))) -
+                                                                (year[1].P1?.Y ?? 0))) -
                                                         Math.Sqrt(
                                                             ((year[0].P1?.X ?? 0) -
                                                              (year[2].P1?.X ?? 0)) * ((year[0].P1?.X ?? 0) -
@@ -213,9 +217,15 @@ public static class Classifier
                         SideA = new Thing
                         {
                             Length = Math.Sqrt(
-                                ((year[0].P1?.X ?? 0) - (year[1].P1?.X ?? 0)) * ((year[0].P1?.X ?? 0) - (year[1].P1?.X ?? 0)) +
-                                ((year[0].P1?.Y ?? 0) - (year[1].P1?.Y ?? 0)) * ((year[0].P1?.Y ?? 0) - (year[1].P1?.Y ?? 0))),
-                            Slope = (year[0].P1?.X ?? 0) - (year[1].P1?.X ?? 0) <= 0.001 && ((year[0].P1?.X ?? 0) - (year[1].P1?.X ?? 0)) >= -0.001 ? "None" : 1.0 * ((year[1].P1?.Y ?? 0) - (year[0].P1?.Y ?? 0)) / (1.0 * ((year[1].P1?.X ?? 0) - (year[0].P1?.X ?? 0))),
+                                ((year[0].P1?.X ?? 0) - (year[1].P1?.X ?? 0)) *
+                                ((year[0].P1?.X ?? 0) - (year[1].P1?.X ?? 0)) +
+                                ((year[0].P1?.Y ?? 0) - (year[1].P1?.Y ?? 0)) *
+                                ((year[0].P1?.Y ?? 0) - (year[1].P1?.Y ?? 0))),
+                            Slope = (year[0].P1?.X ?? 0) - (year[1].P1?.X ?? 0) <= 0.001 &&
+                                    (year[0].P1?.X ?? 0) - (year[1].P1?.X ?? 0) >= -0.001
+                                ? "None"
+                                : 1.0 * ((year[1].P1?.Y ?? 0) - (year[0].P1?.Y ?? 0)) /
+                                  (1.0 * ((year[1].P1?.X ?? 0) - (year[0].P1?.X ?? 0))),
                             Height = Math.Abs((year[0].P1?.Y ?? 0) - (year[1].P1?.Y ?? 0)),
                             Type = "Line Segment",
                             P1 = year[0].P1,
@@ -225,11 +235,20 @@ public static class Classifier
                         SideB = new Thing
                         {
                             P1 = year[2].P1,
-                            Slope = (year[2].P1?.X ?? 0) - (year[1].P1?.X ?? 0) >= -0.0001 && (year[2].P1?.X ?? 0) - (year[1].P1?.X ?? 0) <= 0.001 ? "None" : 1.0 * ((year[1].P1?.Y ?? 0) - (year[2].P1?.Y ?? 0)) / (1.0 * ((year[1].P1?.X ?? 0) - (year[2].P1?.X ?? 0))),
-                            Height = (year[2].P1?.Y ?? 0) - (year[1].P1?.Y ?? 0) < 0 ? -1 * (year[2].P1?.Y ?? 0) - (year[1].P1?.Y ?? 0) : (year[2].P1?.Y ?? 0) - (year[1].P1?.Y ?? 0),
+                            Slope =
+                                (year[2].P1?.X ?? 0) - (year[1].P1?.X ?? 0) >= -0.0001 &&
+                                (year[2].P1?.X ?? 0) - (year[1].P1?.X ?? 0) <= 0.001
+                                    ? "None"
+                                    : 1.0 * ((year[1].P1?.Y ?? 0) - (year[2].P1?.Y ?? 0)) /
+                                      (1.0 * ((year[1].P1?.X ?? 0) - (year[2].P1?.X ?? 0))),
+                            Height = (year[2].P1?.Y ?? 0) - (year[1].P1?.Y ?? 0) < 0
+                                ? -1 * (year[2].P1?.Y ?? 0) - (year[1].P1?.Y ?? 0)
+                                : (year[2].P1?.Y ?? 0) - (year[1].P1?.Y ?? 0),
                             Length = Math.Sqrt(
-                                ((year[2].P1?.X ?? 0) - (year[1].P1?.X ?? 0)) * ((year[2].P1?.X ?? 0) - (year[1].P1?.X ?? 0)) +
-                                ((year[2].P1?.Y ?? 0) - (year[1].P1?.Y ?? 0)) * ((year[2].P1?.Y ?? 0) - (year[1].P1?.Y ?? 0))),
+                                ((year[2].P1?.X ?? 0) - (year[1].P1?.X ?? 0)) *
+                                ((year[2].P1?.X ?? 0) - (year[1].P1?.X ?? 0)) +
+                                ((year[2].P1?.Y ?? 0) - (year[1].P1?.Y ?? 0)) *
+                                ((year[2].P1?.Y ?? 0) - (year[1].P1?.Y ?? 0))),
                             Type = "Line Segment",
                             Representation = $"{year[2].P1} -> {year[1].P1}",
                             P2 = year[1].P1,
@@ -239,27 +258,45 @@ public static class Classifier
 
                     dumbledor.AngleA = new Thing
                     {
-                        Degrees = Math.Acos(Math.Round((Math.Pow(Math.Sqrt(
+                        Degrees = Math.Acos(Math.Round((Math.Sqrt(
                                                             ((year[1].P1?.X ?? 0) -
                                                              (year[2].P1?.X ?? 0)) * ((year[1].P1?.X ?? 0) -
                                                                 (year[2].P1?.X ?? 0)) +
                                                             ((year[1].P1?.Y ?? 0) -
                                                              (year[2].P1?.Y ?? 0)) * ((year[1].P1?.Y ?? 0) -
-                                                                (year[2].P1?.Y ?? 0))), 2) +
-                                                        Math.Pow(Math.Sqrt(
+                                                                (year[2].P1?.Y ?? 0))) * Math.Sqrt(
+                                                            ((year[1].P1?.X ?? 0) -
+                                                             (year[2].P1?.X ?? 0)) * ((year[1].P1?.X ?? 0) -
+                                                                (year[2].P1?.X ?? 0)) +
+                                                            ((year[1].P1?.Y ?? 0) -
+                                                             (year[2].P1?.Y ?? 0)) * ((year[1].P1?.Y ?? 0) -
+                                                                (year[2].P1?.Y ?? 0))) +
+                                                        Math.Sqrt(
                                                             ((year[0].P1?.X ?? 0) -
                                                              (year[2].P1?.X ?? 0)) * ((year[0].P1?.X ?? 0) -
                                                                 (year[2].P1?.X ?? 0)) +
                                                             ((year[0].P1?.Y ?? 0) -
                                                              (year[2].P1?.Y ?? 0)) * ((year[0].P1?.Y ?? 0) -
-                                                                (year[2].P1?.Y ?? 0))), 2) -
-                                                        Math.Pow(Math.Sqrt(
+                                                                (year[2].P1?.Y ?? 0))) * Math.Sqrt(
+                                                            ((year[0].P1?.X ?? 0) -
+                                                             (year[2].P1?.X ?? 0)) * ((year[0].P1?.X ?? 0) -
+                                                                (year[2].P1?.X ?? 0)) +
+                                                            ((year[0].P1?.Y ?? 0) -
+                                                             (year[2].P1?.Y ?? 0)) * ((year[0].P1?.Y ?? 0) -
+                                                                (year[2].P1?.Y ?? 0))) -
+                                                        Math.Sqrt(
                                                             ((year[1].P1?.X ?? 0) -
                                                              (year[0].P1?.X ?? 0)) * ((year[1].P1?.X ?? 0) -
                                                                 (year[0].P1?.X ?? 0)) +
                                                             ((year[1].P1?.Y ?? 0) -
                                                              (year[0].P1?.Y ?? 0)) * ((year[1].P1?.Y ?? 0) -
-                                                                (year[0].P1?.Y ?? 0))), 2)) /
+                                                                (year[0].P1?.Y ?? 0))) * Math.Sqrt(
+                                                            ((year[1].P1?.X ?? 0) -
+                                                             (year[0].P1?.X ?? 0)) * ((year[1].P1?.X ?? 0) -
+                                                                (year[0].P1?.X ?? 0)) +
+                                                            ((year[1].P1?.Y ?? 0) -
+                                                             (year[0].P1?.Y ?? 0)) * ((year[1].P1?.Y ?? 0) -
+                                                                (year[0].P1?.Y ?? 0)))) /
                                                        (2 * Math.Sqrt(
                                                             ((year[1].P1?.X ?? 0) -
                                                              (year[2].P1?.X ?? 0)) * ((year[1].P1?.X ?? 0) -
@@ -284,7 +321,7 @@ public static class Classifier
                             Slope = Math.Abs((year[1].P1?.X ?? 0) - (year[2].P1?.X ?? 0)) <=
                                     0.001
                                 ? "None"
-                                : (1.0 * ((year[2].P1?.Y ?? 0) - (year[1].P1?.Y ?? 0))) /
+                                : 1.0 * ((year[2].P1?.Y ?? 0) - (year[1].P1?.Y ?? 0)) /
                                   (1.0 * ((year[2].P1?.X ?? 0) - (year[1].P1?.X ?? 0))),
                             Type = "Line Segment",
                             P1 = year[1].P1,
@@ -305,7 +342,7 @@ public static class Classifier
                             Slope = Math.Abs((year[0].P1?.X ?? 0) - (year[2].P1?.X ?? 0)) <=
                                     0.001
                                 ? "None"
-                                : (1.0 * ((year[2].P1?.Y ?? 0) - (year[0].P1?.Y ?? 0))) /
+                                : 1.0 * ((year[2].P1?.Y ?? 0) - (year[0].P1?.Y ?? 0)) /
                                   (1.0 * ((year[2].P1?.X ?? 0) - (year[0].P1?.X ?? 0))),
                             Representation = $"{year[0].P1} -> {year[2].P1}",
                             Type = "Line Segment",
@@ -319,7 +356,7 @@ public static class Classifier
                     dumbledor.Area = 0.25 * Math.Sqrt(
                         ((year[0].Length ?? 0) + (year[1].Length ?? 0) +
                          (year[2].Length ?? 0))
-                        * (-((year[0].Length ?? 0)) + (year[1].Length ?? 0) +
+                        * (-(year[0].Length ?? 0) + (year[1].Length ?? 0) +
                            (year[2].Length ?? 0))
                         * ((year[0].Length ?? 0) - (year[1].Length ?? 0) +
                            (year[2].Length ?? 0))
@@ -379,7 +416,7 @@ public static class Classifier
                             Slope = Math.Abs((year[2].P1?.X ?? 0) - (year[0].P1?.X ?? 0)) <=
                                     0.001
                                 ? "None"
-                                : (1.0 * ((year[0].P1?.Y ?? 0) - (year[2].P1?.Y ?? 0))) /
+                                : 1.0 * ((year[0].P1?.Y ?? 0) - (year[2].P1?.Y ?? 0)) /
                                   (1.0 * ((year[0].P1?.X ?? 0) - (year[2].P1?.X ?? 0))),
                             Type = "Line Segment",
                             P1 = year[2].P1,
@@ -397,7 +434,7 @@ public static class Classifier
                             Slope = Math.Abs((year[1].P1?.X ?? 0) - (year[0].P1?.X ?? 0)) <=
                                     0.001
                                 ? "None"
-                                : (1.0 * ((year[0].P1?.Y ?? 0) - (year[1].P1?.Y ?? 0))) /
+                                : 1.0 * ((year[0].P1?.Y ?? 0) - (year[1].P1?.Y ?? 0)) /
                                   (1.0 * ((year[0].P1?.X ?? 0) - (year[1].P1?.X ?? 0))),
                             Representation = $"{year[1].P1} -> {year[0].P1}",
                             Type = "Line Segment",
@@ -460,12 +497,15 @@ public static class Classifier
                     if (prefect == null || laggard.GetType() != prefect.GetType()) ret1 = false;
                     else
                     {
-                        ret1 = Math.Abs((prefect.X ?? 0) - (laggard.X ?? 0)) <= 0.001 && Math.Abs((prefect.Y ?? 0) - (laggard.Y ?? 0)) <= 0.001;
+                        ret1 = Math.Abs((prefect.X ?? 0) - (laggard.X ?? 0)) <= 0.001 &&
+                               Math.Abs((prefect.Y ?? 0) - (laggard.Y ?? 0)) <= 0.001;
                     }
                 }
             }
 
-            if (dumbledor.Type.Length == roster.Length && 4 == goodStudents.Length && ret1 && Math.Abs((year[0].Length ?? 0) - (year[2].Length ?? 0)) <= 0.001 && Math.Abs((year[1].Length ?? 0) - (year[3].Length ?? 0)) <= 0.001 && ((Func<double[], bool>)(things =>
+            if (dumbledor.Type.Length == roster.Length && 4 == goodStudents.Length && ret1 &&
+                Math.Abs((year[0].Length ?? 0) - (year[2].Length ?? 0)) <= 0.001 &&
+                Math.Abs((year[1].Length ?? 0) - (year[3].Length ?? 0)) <= 0.001 && ((Func<double[], bool>)(things =>
                 {
                     var lastAngle = 90.0;
                     foreach (var angle in things)
@@ -503,7 +543,7 @@ public static class Classifier
 
                 foreach (var segment in year)
                 {
-                    length += (segment.Length ?? 0);
+                    length += segment.Length ?? 0;
                 }
 
                 var first = roster[0];
