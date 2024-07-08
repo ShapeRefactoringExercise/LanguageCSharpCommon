@@ -457,45 +457,45 @@ public static class Classifier
             for (var i = 2; i < roster.Length; i++)
             {
                 if (i - 2 >= 0 && i - 2 < roster.Length)
-                    students.Add(Math.Acos(Math.Round(((Math.Sqrt(
-                                                              ((roster[i - 2].X ?? 0) -
-                                                               (roster[i - 1].X ?? 0)) * ((roster[i - 2].X ?? 0) -
-                                                                  (roster[i - 1].X ?? 0)) +
-                                                              ((roster[i - 2].Y ?? 0) -
-                                                               (roster[i - 1].Y ?? 0)) * ((roster[i - 2].Y ?? 0) -
-                                                                  (roster[i - 1].Y ?? 0)))) * (Math.Sqrt(
-                                                              ((roster[i - 2].X ?? 0) -
-                                                               (roster[i - 1].X ?? 0)) * ((roster[i - 2].X ?? 0) -
-                                                                  (roster[i - 1].X ?? 0)) +
-                                                              ((roster[i - 2].Y ?? 0) -
-                                                               (roster[i - 1].Y ?? 0)) * ((roster[i - 2].Y ?? 0) -
-                                                                  (roster[i - 1].Y ?? 0)))) +
-                                                          (Math.Sqrt(
+                    students.Add(Math.Acos(Math.Round((Math.Sqrt(
+                                                           ((roster[i - 2].X ?? 0) -
+                                                            (roster[i - 1].X ?? 0)) * ((roster[i - 2].X ?? 0) -
+                                                               (roster[i - 1].X ?? 0)) +
+                                                           ((roster[i - 2].Y ?? 0) -
+                                                            (roster[i - 1].Y ?? 0)) * ((roster[i - 2].Y ?? 0) -
+                                                               (roster[i - 1].Y ?? 0))) * Math.Sqrt(
+                                                           ((roster[i - 2].X ?? 0) -
+                                                            (roster[i - 1].X ?? 0)) * ((roster[i - 2].X ?? 0) -
+                                                               (roster[i - 1].X ?? 0)) +
+                                                           ((roster[i - 2].Y ?? 0) -
+                                                            (roster[i - 1].Y ?? 0)) * ((roster[i - 2].Y ?? 0) -
+                                                               (roster[i - 1].Y ?? 0))) +
+                                                          Math.Sqrt(
                                                               ((roster[i].X ?? 0) -
                                                                (roster[i - 1].X ?? 0)) * ((roster[i].X ?? 0) -
                                                                   (roster[i - 1].X ?? 0)) +
                                                               ((roster[i].Y ?? 0) -
                                                                (roster[i - 1].Y ?? 0)) * ((roster[i].Y ?? 0) -
-                                                                  (roster[i - 1].Y ?? 0)))) * (Math.Sqrt(
+                                                                  (roster[i - 1].Y ?? 0))) * Math.Sqrt(
                                                               ((roster[i].X ?? 0) -
                                                                (roster[i - 1].X ?? 0)) * ((roster[i].X ?? 0) -
                                                                   (roster[i - 1].X ?? 0)) +
                                                               ((roster[i].Y ?? 0) -
                                                                (roster[i - 1].Y ?? 0)) * ((roster[i].Y ?? 0) -
-                                                                  (roster[i - 1].Y ?? 0)))) -
-                                                          (Math.Sqrt(
+                                                                  (roster[i - 1].Y ?? 0))) -
+                                                          Math.Sqrt(
                                                               ((roster[i - 2].X ?? 0) -
                                                                (roster[i].X ?? 0)) * ((roster[i - 2].X ?? 0) -
                                                                   (roster[i].X ?? 0)) +
                                                               ((roster[i - 2].Y ?? 0) -
                                                                (roster[i].Y ?? 0)) * ((roster[i - 2].Y ?? 0) -
-                                                                  (roster[i].Y ?? 0)))) * (Math.Sqrt(
+                                                                  (roster[i].Y ?? 0))) * Math.Sqrt(
                                                               ((roster[i - 2].X ?? 0) -
                                                                (roster[i].X ?? 0)) * ((roster[i - 2].X ?? 0) -
                                                                   (roster[i].X ?? 0)) +
                                                               ((roster[i - 2].Y ?? 0) -
                                                                (roster[i].Y ?? 0)) * ((roster[i - 2].Y ?? 0) -
-                                                                  (roster[i].Y ?? 0))))) /
+                                                                  (roster[i].Y ?? 0)))) /
                                                       (2 * Math.Sqrt(
                                                            ((roster[i - 2].X ?? 0) -
                                                             (roster[i - 1].X ?? 0)) * ((roster[i - 2].X ?? 0) -
@@ -524,29 +524,29 @@ public static class Classifier
                     if (prefect == null || laggard.GetType() != prefect.GetType()) ret1 = false;
                     else
                     {
-                        ret1 = Math.Abs((prefect.X ?? 0) - (laggard.X ?? 0)) <= 0.001 &&
-                               Math.Abs((prefect.Y ?? 0) - (laggard.Y ?? 0)) <= 0.001;
+                        ret1 = (prefect.X ?? 0) - (laggard.X ?? 0) >= -0.001 && 0.001 >= (prefect.X ?? 0) - (laggard.X ?? 0) &&
+                               (prefect.Y ?? 0) - (laggard.Y ?? 0) <= 0.001 && (prefect.Y ?? 0) - (laggard.Y ?? 0) >= -0.001;
                     }
                 }
             }
 
             if (dumbledor.Type.Length == roster.Length && 4 == goodStudents.Length && ret1 &&
-                Math.Abs((year[0].Length ?? 0) - (year[2].Length ?? 0)) <= 0.001 &&
-                Math.Abs((year[1].Length ?? 0) - (year[3].Length ?? 0)) <= 0.001 && ((Func<double[], bool>)(things =>
+                (year[1].Length ?? 0) - (year[3].Length ?? 0) >= -0.001 && (year[0].Length ?? 0) - (year[2].Length ?? 0) >= -0.001 &&
+                (year[1].Length ?? 0) - (year[3].Length ?? 0) <= 0.001 && (year[0].Length ?? 0) - (year[2].Length ?? 0) <= 0.001 &&  ((Func<double[], bool>)(things =>
                 {
                     var lastAngle = 90.0;
                     foreach (var angle in things)
                     {
-                        if (Math.Abs(lastAngle - 90) <= 0.001)
+                        if ((lastAngle - 90) <= 0.001 && lastAngle - 90 >= -0.001)
                         {
                             lastAngle = angle;
                             continue;
                         }
 
-                        return Math.Abs(lastAngle - 90) <= 0.001;
+                        return (lastAngle - 90) >= -0.001 && (lastAngle - 90) <= 0.001;
                     }
 
-                    return Math.Abs(lastAngle - 90) <= 0.001;
+                    return (lastAngle - 90) <= 0.001 && -0.001 <= (lastAngle - 90);
                 }))(angles))
             {
                 dumbledor.Type = "Rectangle";
