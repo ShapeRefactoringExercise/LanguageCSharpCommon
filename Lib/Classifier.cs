@@ -333,11 +333,9 @@ public static class Classifier
                                 ((year[0].P1?.X ?? 0) - (year[2].P1?.X ?? 0)) * ((year[0].P1?.X ?? 0) - (year[2].P1?.X ?? 0)) +
                                 ((year[0].P1?.Y ?? 0) - (year[2].P1?.Y ?? 0)) * ((year[0].P1?.Y ?? 0) - (year[2].P1?.Y ?? 0))),
                             P1 = year[0].P1,
-                            Height = Math.Abs((year[0].P1?.Y ?? 0) - (year[2].P1?.Y ?? 0)),
+                            Height = (year[0].P1?.Y ?? 0) - (year[2].P1?.Y ?? 0) < 0 ? -1 * ((year[0].P1?.Y ?? 0) - (year[2].P1?.Y ?? 0)) : (year[0].P1?.Y ?? 0) - (year[2].P1?.Y ?? 0),
                             P2 = year[2].P1,
-                            Slope = Math.Abs((year[0].P1?.X ?? 0) - (year[2].P1?.X ?? 0)) <=
-                                    0.001
-                                ? "None"
+                            Slope = (year[0].P1?.X ?? 0) - (year[2].P1?.X ?? 0) <= 0.001 || (year[0].P1?.X ?? 0) - (year[2].P1?.X ?? 0) >= -0.001 ? "None"
                                 : 1.0 * ((year[2].P1?.Y ?? 0) - (year[0].P1?.Y ?? 0)) /
                                   (1.0 * ((year[2].P1?.X ?? 0) - (year[0].P1?.X ?? 0))),
                             Representation = $"{year[0].P1} -> {year[2].P1}",
