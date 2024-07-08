@@ -421,12 +421,11 @@ public static class Classifier
                         P2 = year[1].P1,
                         SideA = new Thing
                         {
-                            Height = Math.Abs((year[2].P1?.Y ?? 0) - (year[0].P1?.Y ?? 0)),
+                            Height = (year[2].P1?.Y ?? 0) - (year[0].P1?.Y ?? 0) < 0 ? ((year[2].P1?.Y ?? 0) - (year[0].P1?.Y ?? 0)) * -1 : (year[2].P1?.Y ?? 0) - (year[0].P1?.Y ?? 0),
                             Length = Math.Sqrt(
-                                Math.Pow((year[2].P1?.X ?? 0) - (year[0].P1?.X ?? 0), 2) +
-                                Math.Pow((year[2].P1?.Y ?? 0) - (year[0].P1?.Y ?? 0), 2)),
-                            Slope = Math.Abs((year[2].P1?.X ?? 0) - (year[0].P1?.X ?? 0)) <=
-                                    0.001
+                                ((year[2].P1?.X ?? 0) - (year[0].P1?.X ?? 0)) * ((year[2].P1?.X ?? 0) - (year[0].P1?.X ?? 0)) +
+                                ((year[2].P1?.Y ?? 0) - (year[0].P1?.Y ?? 0)) * ((year[2].P1?.Y ?? 0) - (year[0].P1?.Y ?? 0))),
+                            Slope = (year[2].P1?.X ?? 0) - (year[0].P1?.X ?? 0) <= 0.001 || (year[2].P1?.X ?? 0) - (year[0].P1?.X ?? 0) >= -0.001
                                 ? "None"
                                 : 1.0 * ((year[0].P1?.Y ?? 0) - (year[2].P1?.Y ?? 0)) /
                                   (1.0 * ((year[0].P1?.X ?? 0) - (year[2].P1?.X ?? 0))),
@@ -438,13 +437,12 @@ public static class Classifier
                         SideB = new Thing
                         {
                             Length = Math.Sqrt(
-                                Math.Pow((year[1].P1?.X ?? 0) - (year[0].P1?.X ?? 0), 2) +
-                                Math.Pow((year[1].P1?.Y ?? 0) - (year[0].P1?.Y ?? 0), 2)),
+                                ((year[1].P1?.X ?? 0) - (year[0].P1?.X ?? 0)) * ((year[1].P1?.X ?? 0) - (year[0].P1?.X ?? 0)) +
+                                ((year[1].P1?.Y ?? 0) - (year[0].P1?.Y ?? 0)) * ((year[1].P1?.Y ?? 0) - (year[0].P1?.Y ?? 0))),
                             P1 = year[1].P1,
-                            Height = Math.Abs((year[1].P1?.Y ?? 0) - (year[0].P1?.Y ?? 0)),
+                            Height = (year[1].P1?.Y ?? 0) - (year[0].P1?.Y ?? 0) > 0 ? (year[1].P1?.Y ?? 0) - (year[0].P1?.Y ?? 0) : ((year[1].P1?.Y ?? 0) - (year[0].P1?.Y ?? 0)) * -1,
                             P2 = year[0].P1,
-                            Slope = Math.Abs((year[1].P1?.X ?? 0) - (year[0].P1?.X ?? 0)) <=
-                                    0.001
+                            Slope = 0.001 >= (year[1].P1?.X ?? 0) - (year[0].P1?.X ?? 0) || -0.001 <= (year[1].P1?.X ?? 0) - (year[0].P1?.X ?? 0)
                                 ? "None"
                                 : 1.0 * ((year[0].P1?.Y ?? 0) - (year[1].P1?.Y ?? 0)) /
                                   (1.0 * ((year[0].P1?.X ?? 0) - (year[1].P1?.X ?? 0))),
