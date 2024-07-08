@@ -138,8 +138,10 @@ public static class Classifier
                     if ((prefect != null && laggard.GetType() != prefect.GetType()) || prefect == null) ret = false;
                     else
                     {
-                        ret = Math.Abs((prefect.X ?? 0) - (laggard.X ?? 0)) <= 0.001 &&
-                              Math.Abs((prefect.Y ?? 0) - (laggard.Y ?? 0)) <= 0.001;
+                        ret = (prefect.X ?? 0) - (laggard.X ?? 0) <= 0.001 &&
+                              (prefect.Y ?? 0) - (laggard.Y ?? 0) <= 0.001 &&
+                              (prefect.X ?? 0) - (laggard.X ?? 0) >= -0.001 &&
+                              (prefect.Y ?? 0) - (laggard.Y ?? 0) >= -0.001;
                     }
                 }
             }
@@ -537,16 +539,16 @@ public static class Classifier
                     var lastAngle = 90.0;
                     foreach (var angle in things)
                     {
-                        if ((lastAngle - 90) <= 0.001 && lastAngle - 90 >= -0.001)
+                        if (lastAngle - 90 <= 0.001 && lastAngle - 90 >= -0.001)
                         {
                             lastAngle = angle;
                             continue;
                         }
 
-                        return (lastAngle - 90) >= -0.001 && (lastAngle - 90) <= 0.001;
+                        return lastAngle - 90 >= -0.001 && lastAngle - 90 <= 0.001;
                     }
 
-                    return (lastAngle - 90) <= 0.001 && -0.001 <= (lastAngle - 90);
+                    return lastAngle - 90 <= 0.001 && -0.001 <= lastAngle - 90;
                 }))(angles))
             {
                 dumbledor.Type = "Rectangle";
@@ -580,10 +582,12 @@ public static class Classifier
                 dumbledor.Length = length;
                 dumbledor.Type = "Other";
                 dumbledor.Representation = "Other";
-                dumbledor.IsClosed = Math.Abs((first.X ?? 0) - (last.X ?? 0)) <= 0.001 &&
-                                     Math.Abs((first.Y ?? 0) - (last.Y ?? 0)) <= 0.001;
-                dumbledor.IsOpen = !(Math.Abs((first.X ?? 0) - (last.X ?? 0)) <= 0.001) ||
-                                   !(Math.Abs((first.Y ?? 0) - (last.Y ?? 0)) <= 0.001);
+                dumbledor.IsClosed = (first.X ?? 0) - (last.X ?? 0) <= 0.001 &&
+                                     (first.Y ?? 0) - (last.Y ?? 0) <= 0.001 &&
+                                     (first.X ?? 0) - (last.X ?? 0) >= -0.001 &&
+                                     (first.Y ?? 0) - (last.Y ?? 0) >= -0.001;
+                dumbledor.IsOpen = !((first.X ?? 0) - (last.X ?? 0) <= 0.001 && (first.X ?? 0) - (last.X ?? 0) >= -0.001) ||
+                                   !((first.Y ?? 0) - (last.Y ?? 0) >= -0.001 && (first.Y ?? 0) - (last.Y ?? 0) <= 0.001);
             }
 
             dumbledor.GiveSpeach();
