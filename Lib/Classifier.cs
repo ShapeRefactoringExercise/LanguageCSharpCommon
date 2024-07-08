@@ -457,42 +457,59 @@ public static class Classifier
             for (var i = 2; i < roster.Length; i++)
             {
                 if (i - 2 >= 0 && i - 2 < roster.Length)
-                    students.Add(Math.Acos(Math.Round((Math.Pow(Math.Sqrt(
-                                                              Math.Pow(
-                                                                  (roster[i - 2].X ?? 0) -
-                                                                  (roster[i - 1].X ?? 0), 2) +
-                                                              Math.Pow(
-                                                                  (roster[i - 2].Y ?? 0) -
-                                                                  (roster[i - 1].Y ?? 0), 2)), 2) +
-                                                          Math.Pow(Math.Sqrt(
-                                                                  Math.Pow(
-                                                                      (roster[i].X ?? 0) -
-                                                                      (roster[i - 1].X ?? 0), 2) +
-                                                                  Math.Pow(
-                                                                      (roster[i].Y ?? 0) -
-                                                                      (roster[i - 1].Y ?? 0), 2)),
-                                                              2) - Math.Pow(
-                                                              Math.Sqrt(
-                                                                  Math.Pow(
-                                                                      (roster[i - 2].X ?? 0) -
-                                                                      (roster[i].X ?? 0), 2) +
-                                                                  Math.Pow(
-                                                                      (roster[i - 2].Y ?? 0) -
-                                                                      (roster[i].Y ?? 0), 2)), 2)) /
+                    students.Add(Math.Acos(Math.Round(((Math.Sqrt(
+                                                              ((roster[i - 2].X ?? 0) -
+                                                               (roster[i - 1].X ?? 0)) * ((roster[i - 2].X ?? 0) -
+                                                                  (roster[i - 1].X ?? 0)) +
+                                                              ((roster[i - 2].Y ?? 0) -
+                                                               (roster[i - 1].Y ?? 0)) * ((roster[i - 2].Y ?? 0) -
+                                                                  (roster[i - 1].Y ?? 0)))) * (Math.Sqrt(
+                                                              ((roster[i - 2].X ?? 0) -
+                                                               (roster[i - 1].X ?? 0)) * ((roster[i - 2].X ?? 0) -
+                                                                  (roster[i - 1].X ?? 0)) +
+                                                              ((roster[i - 2].Y ?? 0) -
+                                                               (roster[i - 1].Y ?? 0)) * ((roster[i - 2].Y ?? 0) -
+                                                                  (roster[i - 1].Y ?? 0)))) +
+                                                          (Math.Sqrt(
+                                                              ((roster[i].X ?? 0) -
+                                                               (roster[i - 1].X ?? 0)) * ((roster[i].X ?? 0) -
+                                                                  (roster[i - 1].X ?? 0)) +
+                                                              ((roster[i].Y ?? 0) -
+                                                               (roster[i - 1].Y ?? 0)) * ((roster[i].Y ?? 0) -
+                                                                  (roster[i - 1].Y ?? 0)))) * (Math.Sqrt(
+                                                              ((roster[i].X ?? 0) -
+                                                               (roster[i - 1].X ?? 0)) * ((roster[i].X ?? 0) -
+                                                                  (roster[i - 1].X ?? 0)) +
+                                                              ((roster[i].Y ?? 0) -
+                                                               (roster[i - 1].Y ?? 0)) * ((roster[i].Y ?? 0) -
+                                                                  (roster[i - 1].Y ?? 0)))) -
+                                                          (Math.Sqrt(
+                                                              ((roster[i - 2].X ?? 0) -
+                                                               (roster[i].X ?? 0)) * ((roster[i - 2].X ?? 0) -
+                                                                  (roster[i].X ?? 0)) +
+                                                              ((roster[i - 2].Y ?? 0) -
+                                                               (roster[i].Y ?? 0)) * ((roster[i - 2].Y ?? 0) -
+                                                                  (roster[i].Y ?? 0)))) * (Math.Sqrt(
+                                                              ((roster[i - 2].X ?? 0) -
+                                                               (roster[i].X ?? 0)) * ((roster[i - 2].X ?? 0) -
+                                                                  (roster[i].X ?? 0)) +
+                                                              ((roster[i - 2].Y ?? 0) -
+                                                               (roster[i].Y ?? 0)) * ((roster[i - 2].Y ?? 0) -
+                                                                  (roster[i].Y ?? 0))))) /
                                                       (2 * Math.Sqrt(
-                                                           Math.Pow(
-                                                               (roster[i - 2].X ?? 0) -
-                                                               (roster[i - 1].X ?? 0), 2) +
-                                                           Math.Pow(
-                                                               (roster[i - 2].Y ?? 0) -
-                                                               (roster[i - 1].Y ?? 0), 2)) *
+                                                           ((roster[i - 2].X ?? 0) -
+                                                            (roster[i - 1].X ?? 0)) * ((roster[i - 2].X ?? 0) -
+                                                               (roster[i - 1].X ?? 0)) +
+                                                           ((roster[i - 2].Y ?? 0) -
+                                                            (roster[i - 1].Y ?? 0)) * ((roster[i - 2].Y ?? 0) -
+                                                               (roster[i - 1].Y ?? 0))) *
                                                        Math.Sqrt(
-                                                           Math.Pow(
-                                                               (roster[i].X ?? 0) -
-                                                               (roster[i - 1].X ?? 0), 2) +
-                                                           Math.Pow(
-                                                               (roster[i].Y ?? 0) -
-                                                               (roster[i - 1].Y ?? 0), 2))), 6)) *
+                                                           ((roster[i].X ?? 0) -
+                                                            (roster[i - 1].X ?? 0)) * ((roster[i].X ?? 0) -
+                                                               (roster[i - 1].X ?? 0)) +
+                                                           ((roster[i].Y ?? 0) -
+                                                            (roster[i - 1].Y ?? 0)) * ((roster[i].Y ?? 0) -
+                                                               (roster[i - 1].Y ?? 0)))), 6)) *
                                  (180 / Math.PI));
             }
 
