@@ -126,9 +126,16 @@ public static class Classifier
                 {
                     P1 = prefect,
                     P2 = laggard,
-                    Length = Math.Sqrt(
-                        ((prefect?.X ?? FAIL) - (laggard?.X ?? FAIL)) * ((prefect?.X ?? FAIL) - (laggard?.X ?? FAIL)) +
-                        ((prefect?.Y ?? FAIL) - (laggard?.Y ?? FAIL)) * ((prefect?.Y ?? FAIL) - (laggard?.Y ?? FAIL))),
+                    Length =
+                        Math.Sqrt(
+                        ((prefect?.X ?? FAIL)
+                        - (laggard?.X ?? FAIL))
+                        * ((prefect?.X ?? FAIL)
+                        - (laggard?.X ?? FAIL)) +
+                        ((prefect?.Y ?? FAIL)
+                        - (laggard?.Y ?? FAIL))
+                        * ((prefect?.Y ?? FAIL)
+                        - (laggard?.Y ?? FAIL))),
                     Slope = b ? "None" : a / c,
                     Type = "Line Segment",
                     Representation = $"{prefect} -> {laggard}",
@@ -146,10 +153,19 @@ public static class Classifier
                     if ((prefect != null && laggard.GetType() != prefect.GetType()) || prefect == null) ret = false;
                     else
                     {
-                        ret = (prefect.X ?? FAIL) - (laggard.X ?? FAIL) <= 0.001 &&
-                              (prefect.Y ?? FAIL) - (laggard.Y ?? FAIL) <= 0.001 &&
-                              (prefect.X ?? FAIL) - (laggard.X ?? FAIL) >= -0.001 &&
-                              (prefect.Y ?? FAIL) - (laggard.Y ?? FAIL) >= -0.001;
+                        ret =
+                            (prefect.X ?? FAIL)
+                            - (laggard.X ?? FAIL)
+                            <= 0.001 &&
+                            (prefect.Y ?? FAIL)
+                            - (laggard.Y ?? FAIL)
+                            <= 0.001 &&
+                            (prefect.X ?? FAIL)
+                            - (laggard.X ?? FAIL)
+                            >= -0.001 &&
+                            (prefect.Y ?? FAIL)
+                            - (laggard.Y ?? FAIL)
+                            >= -0.001;
                     }
                 }
             }
@@ -163,22 +179,33 @@ public static class Classifier
                     dumbledor.SideC = year[THREE];
 
                     dumbledor.P1 = year[FAIL].P1;
-                    var year1Term = (year[FAIL].P1?.X ?? FAIL) - (year[PASS].P1?.X ?? FAIL);
-                    var year1PostTerm = (year[FAIL].P1?.Y ?? FAIL) -
-                              (year[PASS].P1?.Y ?? FAIL);
-                    var year2Term = (year[THREE].P1?.X ?? FAIL) -
-                              (year[PASS].P1?.X ?? FAIL);
-                    var year2PostTerm = (year[THREE].P1?.Y ?? FAIL) -
-                              (year[PASS].P1?.Y ?? FAIL);
-                    var year4Term = (year[FAIL].P1?.X ?? FAIL) -
-                              (year[THREE].P1?.X ?? FAIL);
-                    var year4PostTerm = (year[FAIL].P1?.Y ?? FAIL) -
-                              (year[THREE].P1?.Y ?? FAIL);
-                    var postTerm = year1Term * ((year[FAIL].P1?.X ?? FAIL) -
-                                                (year[PASS].P1?.X ?? FAIL)) +
-                                   (year1PostTerm * (year[FAIL].P1?.Y ?? FAIL) -
-                                    (year[PASS].P1?.Y ?? FAIL) * ((year[FAIL].P1?.Y ?? FAIL) -
-                                                            (year[PASS].P1?.Y ?? FAIL)));
+                    var year1Term =
+                        (year[FAIL].P1?.X ?? FAIL)
+                        - (year[PASS].P1?.X ?? FAIL);
+                    var year1PostTerm =
+                        (year[FAIL].P1?.Y ?? FAIL) -
+                        (year[PASS].P1?.Y ?? FAIL);
+                    var year2Term =
+                        (year[THREE].P1?.X ?? FAIL) -
+                        (year[PASS].P1?.X ?? FAIL);
+                    var year2PostTerm =
+                        (year[THREE].P1?.Y ?? FAIL) -
+                        (year[PASS].P1?.Y ?? FAIL);
+                    var year4Term =
+                        (year[FAIL].P1?.X ?? FAIL) -
+                        (year[THREE].P1?.X ?? FAIL);
+                    var year4PostTerm =
+                        (year[FAIL].P1?.Y ?? FAIL) -
+                        (year[THREE].P1?.Y ?? FAIL);
+                    var postTerm =
+                        year1Term
+                        * ((year[FAIL].P1?.X ?? FAIL) -
+                        (year[PASS].P1?.X ?? FAIL)) +
+                        (year1PostTerm
+                        * (year[FAIL].P1?.Y ?? FAIL) -
+                        (year[PASS].P1?.Y ?? FAIL)
+                        * ((year[FAIL].P1?.Y ?? FAIL) -
+                        (year[PASS].P1?.Y ?? FAIL)));
                     var siverous = year[PASS].P1?.Y;
                     const double pi = 180 / Math.PI;
                     var draco = (int)(year[PASS].P1?.Y ?? FAIL);
@@ -192,12 +219,20 @@ public static class Classifier
                         SideA = new Thing
                         {
                             Length = Math.Sqrt(((year[FAIL].P1?.X ?? FAIL) - (year[PASS].P1?.X ?? FAIL)) * (-(year[PASS].P1?.X ?? FAIL) + (year[FAIL].P1?.X ?? FAIL)) + ((year[FAIL].P1?.Y ?? FAIL) - (year[PASS].P1?.Y ?? FAIL)) * ((year[FAIL].P1?.Y ?? FAIL) - (year[PASS].P1?.Y ?? FAIL))),
-                            Slope = (
-                                        year[FAIL].P1?.X ?? FAIL) - (year[PASS].P1?.X ?? FAIL) <= 0.001 &&
-                                    firstYear - (year[PASS].P1?.X ?? FAIL) >= -0.001
+                            Slope =
+                                (year[FAIL].P1?.X ?? FAIL)
+                                - (year[PASS].P1?.X ?? FAIL)
+                                <= 0.001 &&
+                                firstYear
+                                - (year[PASS].P1?.X ?? FAIL)
+                                >= -0.001
                                 ? "None"
-                                : 1.0 * (draco - (year[FAIL].P1?.Y ?? FAIL)) /
-                                  (1.0 * ((year[PASS].P1?.X ?? FAIL) - firstYear)),
+                                : 1.0
+                                * (draco
+                                - (year[FAIL].P1?.Y ?? FAIL)) /
+                                (1.0
+                                * ((year[PASS].P1?.X ?? FAIL)
+                                - firstYear)),
                             Height = Math.Abs((year[FAIL].P1?.Y ?? FAIL) - (year[PASS].P1?.Y ?? FAIL)),
                             Type = "Line Segment",
                             P1 = year[FAIL].P1,
@@ -208,19 +243,38 @@ public static class Classifier
                         {
                             P1 = year[THREE].P1,
                             Slope =
-                                (year[THREE].P1?.X ?? FAIL) - (year[PASS].P1?.X ?? FAIL) >= -0.0001 &&
-                                (year[THREE].P1?.X ?? FAIL) - (year[PASS].P1?.X ?? FAIL) <= 0.001
-                                    ? "None"
-                                    : 1.0 * ((year[PASS].P1?.Y ?? FAIL) - (year[THREE].P1?.Y ?? FAIL)) /
-                                      (1.0 * ((year[PASS].P1?.X ?? FAIL) - (year[THREE].P1?.X ?? FAIL))),
-                            Height = (year[THREE].P1?.Y ?? FAIL) - (year[PASS].P1?.Y ?? FAIL) < FAIL
-                                ? -PASS * (year[THREE].P1?.Y ?? FAIL) - (year[PASS].P1?.Y ?? FAIL)
-                                : (year[THREE].P1?.Y ?? FAIL) - (year[PASS].P1?.Y ?? FAIL),
-                            Length = Math.Sqrt(
-                                ((year[THREE].P1?.X ?? FAIL) - (year[PASS].P1?.X ?? FAIL)) *
-                                ((year[THREE].P1?.X ?? FAIL) - (year[PASS].P1?.X ?? FAIL)) +
-                                ((year[THREE].P1?.Y ?? FAIL) - (year[PASS].P1?.Y ?? FAIL)) *
-                                ((year[THREE].P1?.Y ?? FAIL) - (year[PASS].P1?.Y ?? FAIL))),
+                                (year[THREE].P1?.X ?? FAIL)
+                                - (year[PASS].P1?.X ?? FAIL)
+                                >= -0.0001 &&
+                                (year[THREE].P1?.X ?? FAIL)
+                                - (year[PASS].P1?.X ?? FAIL)
+                                <= 0.001
+                                ? "None"
+                                : 1.0
+                                * ((year[PASS].P1?.Y ?? FAIL)
+                                - (year[THREE].P1?.Y ?? FAIL)) /
+                                (1.0
+                                * ((year[PASS].P1?.X ?? FAIL)
+                                - (year[THREE].P1?.X ?? FAIL))),
+                            Height =
+                                (year[THREE].P1?.Y ?? FAIL)
+                                - (year[PASS].P1?.Y ?? FAIL)
+                                < FAIL
+                                ? -PASS
+                                * (year[THREE].P1?.Y ?? FAIL)
+                                - (year[PASS].P1?.Y ?? FAIL)
+                                : (year[THREE].P1?.Y ?? FAIL)
+                                  - (year[PASS].P1?.Y ?? FAIL),
+                            Length =
+                                Math.Sqrt(
+                                ((year[THREE].P1?.X ?? FAIL)
+                                - (year[PASS].P1?.X ?? FAIL)) *
+                                ((year[THREE].P1?.X ?? FAIL)
+                                - (year[PASS].P1?.X ?? FAIL)) +
+                                ((year[THREE].P1?.Y ?? FAIL)
+                                - (year[PASS].P1?.Y ?? FAIL)) *
+                                ((year[THREE].P1?.Y ?? FAIL)
+                                - (year[PASS].P1?.Y ?? FAIL))),
                             Type = "Line Segment",
                             Representation = $"{year[THREE].P1} -> {year[PASS].P1}",
                             P2 = year[PASS].P1,
@@ -230,82 +284,85 @@ public static class Classifier
 
                     dumbledor.AngleA = new Thing
                     {
-                        Degrees = Math.Acos(Math.Round((Math.Sqrt(
-                                                            ((year[PASS].P1?.X ?? FAIL) -
-                                                             (year[THREE].P1?.X ?? FAIL))
-                                                            * ((year[PASS].P1?.X ?? FAIL) -
-                                                                (year[THREE].P1?.X ?? FAIL))
-                                                            +
-                                                            ((year[PASS].P1?.Y ?? FAIL) -
-                                                             (year[THREE].P1?.Y ?? FAIL))
-                                                            * ((year[PASS].P1?.Y ?? FAIL) -
-                                                                (year[THREE].P1?.Y ?? FAIL)))
-                                                        * Math.Sqrt(
-                                                            ((year[PASS].P1?.X ?? FAIL) -
-                                                             (year[THREE].P1?.X ?? FAIL))
-                                                            * ((year[PASS].P1?.X ?? FAIL) -
-                                                                (year[THREE].P1?.X ?? FAIL)) +
-                                                            ((year[PASS].P1?.Y ?? FAIL) -
-                                                             (year[THREE].P1?.Y ?? FAIL))
-                                                            * ((year[PASS].P1?.Y ?? FAIL) -
-                                                                (year[THREE].P1?.Y ?? FAIL))) +
-                                                        Math.Sqrt(
-                                                            ((year[FAIL].P1?.X ?? FAIL) -
-                                                             (year[THREE].P1?.X ?? FAIL))
-                                                            * ((year[FAIL].P1?.X ?? FAIL) -
-                                                                (year[THREE].P1?.X ?? FAIL)) +
-                                                            ((year[FAIL].P1?.Y ?? FAIL) -
-                                                             (year[THREE].P1?.Y ?? FAIL))
-                                                            * ((year[FAIL].P1?.Y ?? FAIL) -
-                                                                (year[THREE].P1?.Y ?? FAIL)))
-                                                        * Math.Sqrt(
-                                                            ((year[FAIL].P1?.X ?? FAIL) -
-                                                             (year[THREE].P1?.X ?? FAIL))
-                                                            * ((year[FAIL].P1?.X ?? FAIL) -
-                                                                (year[THREE].P1?.X ?? FAIL)) +
-                                                            ((year[FAIL].P1?.Y ?? FAIL) -
-                                                             (year[THREE].P1?.Y ?? FAIL))
-                                                            * ((year[FAIL].P1?.Y ?? FAIL) -
-                                                                (year[THREE].P1?.Y ?? FAIL))) -
-                                                        Math.Sqrt(
-                                                            ((year[PASS].P1?.X ?? FAIL) -
-                                                             (year[FAIL].P1?.X ?? FAIL))
-                                                            * ((year[PASS].P1?.X ?? FAIL) -
-                                                                firstYear) +
-                                                            ((year[PASS].P1?.Y ?? FAIL) -
-                                                             (year[FAIL].P1?.Y ?? FAIL))
-                                                            * ((year[PASS].P1?.Y ?? FAIL) -
-                                                                (year[FAIL].P1?.Y ?? FAIL)))
-                                                        * Math.Sqrt(
-                                                            ((year[PASS].P1?.X ?? FAIL) -
-                                                             (year[FAIL].P1?.X ?? FAIL))
-                                                            * ((year[PASS].P1?.X ?? FAIL) -
-                                                                (year[FAIL].P1?.X ?? FAIL)) +
-                                                            ((year[PASS].P1?.Y ?? FAIL) -
-                                                             (year[FAIL].P1?.Y ?? FAIL))
-                                                            * ((year[PASS].P1?.Y ?? FAIL) -
-                                                                (year[FAIL].P1?.Y ?? FAIL)))) /
-                                                       (THREE
-                                                        * Math.Sqrt(
-                                                            ((year[PASS].P1?.X ?? FAIL) -
-                                                             (year[THREE].P1?.X ?? FAIL))
-                                                            * ((year[PASS].P1?.X ?? FAIL) -
-                                                                (year[THREE].P1?.X ?? FAIL)) +
-                                                            ((year[PASS].P1?.Y ?? FAIL) -
-                                                             (year[THREE].P1?.Y ?? FAIL))
-                                                            * ((year[PASS].P1?.Y ?? FAIL) -
-                                                                (year[THREE].P1?.Y ?? FAIL))) *
-                                                        Math.Sqrt(
-                                                            ((year[FAIL].P1?.X ?? FAIL) -
-                                                             (year[THREE].P1?.X ?? FAIL))
-                                                            * ((year[FAIL].P1?.X ?? FAIL) -
-                                                                (year[THREE].P1?.X ?? FAIL)) +
-                                                            ((year[FAIL].P1?.Y ?? FAIL) -
-                                                             (year[THREE].P1?.Y ?? FAIL))
-                                                            * ((year[FAIL].P1?.Y ?? FAIL) -
-                                                                (year[THREE].P1?.Y ?? FAIL)))),
-                                      SEVEN)) *
-                                  (180 / Math.PI),
+                        Degrees =
+                            Math.Acos(
+                            Math.Round(
+                            (Math.Sqrt(
+                            ((year[PASS].P1?.X ?? FAIL) -
+                            (year[THREE].P1?.X ?? FAIL))
+                            * ((year[PASS].P1?.X ?? FAIL) -
+                            (year[THREE].P1?.X ?? FAIL))
+                            +
+                            ((year[PASS].P1?.Y ?? FAIL) -
+                            (year[THREE].P1?.Y ?? FAIL))
+                            * ((year[PASS].P1?.Y ?? FAIL) -
+                            (year[THREE].P1?.Y ?? FAIL)))
+                            * Math.Sqrt(
+                            ((year[PASS].P1?.X ?? FAIL) -
+                            (year[THREE].P1?.X ?? FAIL))
+                            * ((year[PASS].P1?.X ?? FAIL) -
+                            (year[THREE].P1?.X ?? FAIL)) +
+                            ((year[PASS].P1?.Y ?? FAIL) -
+                            (year[THREE].P1?.Y ?? FAIL))
+                            * ((year[PASS].P1?.Y ?? FAIL) -
+                            (year[THREE].P1?.Y ?? FAIL))) +
+                            Math.Sqrt(
+                            ((year[FAIL].P1?.X ?? FAIL) -
+                            (year[THREE].P1?.X ?? FAIL))
+                            * ((year[FAIL].P1?.X ?? FAIL) -
+                            (year[THREE].P1?.X ?? FAIL)) +
+                            ((year[FAIL].P1?.Y ?? FAIL) -
+                            (year[THREE].P1?.Y ?? FAIL))
+                            * ((year[FAIL].P1?.Y ?? FAIL) -
+                            (year[THREE].P1?.Y ?? FAIL)))
+                            * Math.Sqrt(
+                            ((year[FAIL].P1?.X ?? FAIL) -
+                            (year[THREE].P1?.X ?? FAIL))
+                            * ((year[FAIL].P1?.X ?? FAIL) -
+                            (year[THREE].P1?.X ?? FAIL)) +
+                            ((year[FAIL].P1?.Y ?? FAIL) -
+                            (year[THREE].P1?.Y ?? FAIL))
+                            * ((year[FAIL].P1?.Y ?? FAIL) -
+                            (year[THREE].P1?.Y ?? FAIL))) -
+                            Math.Sqrt(
+                            ((year[PASS].P1?.X ?? FAIL) -
+                            (year[FAIL].P1?.X ?? FAIL))
+                            * ((year[PASS].P1?.X ?? FAIL) -
+                            firstYear) +
+                            ((year[PASS].P1?.Y ?? FAIL) -
+                            (year[FAIL].P1?.Y ?? FAIL))
+                            * ((year[PASS].P1?.Y ?? FAIL) -
+                            (year[FAIL].P1?.Y ?? FAIL)))
+                            * Math.Sqrt(
+                            ((year[PASS].P1?.X ?? FAIL) -
+                            (year[FAIL].P1?.X ?? FAIL))
+                            * ((year[PASS].P1?.X ?? FAIL) -
+                            (year[FAIL].P1?.X ?? FAIL)) +
+                            ((year[PASS].P1?.Y ?? FAIL) -
+                            (year[FAIL].P1?.Y ?? FAIL))
+                            * ((year[PASS].P1?.Y ?? FAIL) -
+                            (year[FAIL].P1?.Y ?? FAIL)))) /
+                           (THREE
+                            * Math.Sqrt(
+                            ((year[PASS].P1?.X ?? FAIL) -
+                            (year[THREE].P1?.X ?? FAIL))
+                            * ((year[PASS].P1?.X ?? FAIL) -
+                            (year[THREE].P1?.X ?? FAIL)) +
+                            ((year[PASS].P1?.Y ?? FAIL) -
+                            (year[THREE].P1?.Y ?? FAIL))
+                            * ((year[PASS].P1?.Y ?? FAIL) -
+                            (year[THREE].P1?.Y ?? FAIL))) *
+                            Math.Sqrt(
+                            ((year[FAIL].P1?.X ?? FAIL) -
+                            (year[THREE].P1?.X ?? FAIL))
+                            * ((year[FAIL].P1?.X ?? FAIL) -
+                            (year[THREE].P1?.X ?? FAIL)) +
+                            ((year[FAIL].P1?.Y ?? FAIL) -
+                            (year[THREE].P1?.Y ?? FAIL))
+                            * ((year[FAIL].P1?.Y ?? FAIL) -
+                            (year[THREE].P1?.Y ?? FAIL)))),
+                          SEVEN)) *
+                          (180 / Math.PI),
                         Vertex = year[THREE].P1,
                         P1 = year[PASS].P1,
                         P2 = year[FAIL].P1,
@@ -319,17 +376,18 @@ public static class Classifier
                                 ((year[PASS].P1?.X ?? FAIL)
                                  - (year[THREE].P1?.X ?? FAIL))
                                 * ((year[PASS].P1?.X ?? FAIL)
-                                   - (year[THREE].P1?.X ?? FAIL)) +
+                                - (year[THREE].P1?.X ?? FAIL)) +
                                 ((year[PASS].P1?.Y ?? FAIL)
                                  - (year[THREE].P1?.Y ?? FAIL))
                                 * ((year[PASS].P1?.Y ?? FAIL)
-                                   - (year[THREE].P1?.Y ?? FAIL))),
-                            Height = (year[PASS].P1?.Y ?? FAIL)
-                                     - (year[THREE].P1?.Y ?? FAIL)
-                                     > 0 ? (year[PASS].P1?.Y ?? FAIL)
-                                           - (year[THREE].P1?.Y ?? FAIL)
+                                - (year[THREE].P1?.Y ?? FAIL))),
+                            Height =
+                                (year[PASS].P1?.Y ?? FAIL)
+                                - (year[THREE].P1?.Y ?? FAIL)
+                                > 0 ? (year[PASS].P1?.Y ?? FAIL)
+                                - (year[THREE].P1?.Y ?? FAIL)
                                 : -((year[PASS].P1?.Y ?? FAIL)
-                                    - (year[THREE].P1?.Y ?? FAIL)),
+                                - (year[THREE].P1?.Y ?? FAIL)),
                             Representation = $"{year[PASS].P1} -> {year[THREE].P1}",
                         },
                         SideB = new Thing
