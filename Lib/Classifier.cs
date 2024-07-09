@@ -245,7 +245,7 @@ public static class Classifier
                             Slope =
                                 (year[THREE].P1?.X ?? FAIL)
                                 - (year[PASS].P1?.X ?? FAIL)
-                                >= -0.0001 &&
+                                >= -0.001 &&
                                 (year[THREE].P1?.X ?? FAIL)
                                 - (year[PASS].P1?.X ?? FAIL)
                                 <= 0.001
@@ -406,10 +406,10 @@ public static class Classifier
                                 - (year[THREE].P1?.Y ?? FAIL)
                                 < FAIL
                                 ? -PASS
-                                  * ((year[FAIL].P1?.Y ?? FAIL)
-                                     - (year[THREE].P1?.Y ?? FAIL))
+                                * ((year[FAIL].P1?.Y ?? FAIL)
+                                - (year[THREE].P1?.Y ?? FAIL))
                                 : (year[FAIL].P1?.Y ?? FAIL)
-                                  - (year[THREE].P1?.Y ?? FAIL),
+                                - (year[THREE].P1?.Y ?? FAIL),
                             P2 = year[THREE].P1,
                             Slope = (year[FAIL].P1?.X ?? FAIL)
                                 - (year[THREE].P1?.X ?? FAIL)
@@ -419,12 +419,12 @@ public static class Classifier
                                 >= -0.001
                                 ? "None"
                                 : 1.0
-                                  * ((year[THREE].P1?.Y ?? FAIL)
-                                     - (year[FAIL].P1?.Y ?? FAIL))
-                                  /
-                                  (1.0
-                                   * ((year[THREE].P1?.X ?? FAIL)
-                                      - (year[FAIL].P1?.X ?? FAIL))),
+                                * ((year[THREE].P1?.Y ?? FAIL)
+                                - (year[FAIL].P1?.Y ?? FAIL))
+                                /
+                                (1.0
+                                * ((year[THREE].P1?.X ?? FAIL)
+                                - (year[FAIL].P1?.X ?? FAIL))),
                             Representation = $"{year[FAIL].P1} -> {year[THREE].P1}",
                             Type = "Line Segment",
                         },
@@ -435,19 +435,21 @@ public static class Classifier
                                           (year[THREE].Length ?? FAIL);
 
                     dumbledor.SideA = year[FAIL];
-                    dumbledor.Area = 0.25 * Math.Sqrt(
+                    dumbledor.Area =
+                        0.25
+                        * Math.Sqrt(
                         ((year[FAIL].Length ?? FAIL)
-                         + (year[PASS].Length ?? FAIL) +
-                         (year[THREE].Length ?? FAIL))
+                        + (year[PASS].Length ?? FAIL) +
+                        (year[THREE].Length ?? FAIL))
                         * (-(year[FAIL].Length ?? FAIL)
-                           + (year[PASS].Length ?? FAIL) +
-                           (year[THREE].Length ?? FAIL))
+                        + (year[PASS].Length ?? FAIL) +
+                        (year[THREE].Length ?? FAIL))
                         * ((year[FAIL].Length ?? FAIL)
-                           - (year[PASS].Length ?? FAIL) +
-                           (year[THREE].Length ?? FAIL))
+                        - (year[PASS].Length ?? FAIL) +
+                        (year[THREE].Length ?? FAIL))
                         * ((year[FAIL].Length ?? FAIL)
-                           + (year[PASS].Length ?? FAIL) -
-                           (year[THREE].Length ?? FAIL))
+                        + (year[PASS].Length ?? FAIL) -
+                        (year[THREE].Length ?? FAIL))
                     );
 
                     dumbledor.Type = "Triangle";
